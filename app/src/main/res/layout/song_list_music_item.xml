@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/id"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+    <TextView
+        android:id="@+id/position"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:text="1"/>
+    <TextView
+        android:id="@+id/music_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:layout_marginLeft="5dp"
+        android:text="她说"
+        android:layout_toRightOf="@+id/position"/>
+    <TextView
+        android:id="@+id/music_singer_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:layout_marginLeft="5dp"
+        android:textSize="12dp"
+        android:layout_marginTop="30dp"
+        android:text="林俊杰-她说"
+        android:layout_toRightOf="@+id/position"/>
+
+    <ImageView
+        android:id="@+id/pt_tag"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/play3"
+        android:layout_marginLeft="250dp"
+        android:layout_toRightOf="@+id/position"
+        android:layout_marginTop="10dp"/>
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/detail"
+        android:layout_marginLeft="290dp"
+        android:layout_toRightOf="@+id/position"
+        android:layout_marginTop="10dp"/>
+
+</RelativeLayout>

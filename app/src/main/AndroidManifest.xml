@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gxuwz.beethoven">
+    <!-- 开启网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 开启读取本地网络权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/beethoven"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".page.LocalMusicActivity"></activity>
+        <activity
+            android:name=".page.SongListActivity"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity android:name=".page.Test" />
+        <activity
+            android:name=".page.Index"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".service.MusicService" />
+    </application>
+
+</manifest>
