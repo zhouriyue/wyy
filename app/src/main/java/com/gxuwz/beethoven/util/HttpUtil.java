@@ -19,6 +19,8 @@ import java.net.URL;
 
 public class HttpUtil {
 
+    public static final String BASEURL = "https://www.zhou.website/wyy-0.0.1-SNAPSHOT/";
+
     public static void get(String httpUrl, Handler handler) {
         //子线程
         new Thread(new Runnable() {
@@ -68,7 +70,7 @@ public class HttpUtil {
 
     public static Bitmap getImage(String UrlPath) {
         Bitmap bm = null;
-        String urlpath = UrlPath;
+        String urlpath = BASEURL+UrlPath;
         // 2、获取Uri
         try {
             URL uri = new URL(urlpath);

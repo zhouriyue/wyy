@@ -5,4 +5,7 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="press">#EBEBEB</color>
+    <color name="black">#000</color>
+    <color name="white">#fff</color>
+    <color name="transparent">#0000</color>
 </resources>

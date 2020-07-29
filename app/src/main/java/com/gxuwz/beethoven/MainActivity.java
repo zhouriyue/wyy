@@ -1,7 +1,5 @@
 package com.gxuwz.beethoven;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
@@ -9,7 +7,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 
-import com.gxuwz.beethoven.page.Index;
+import com.gxuwz.beethoven.page.index.Index;
 
 public class MainActivity extends Activity {
 

@@ -111,6 +111,8 @@ public class SongList implements Serializable, Parcelable {
         parcel.writeString(songListMusic);
     }
 
+    public SongList() {
+    }
 
     public class Links{
         Href songListMusics;

@@ -1,4 +1,4 @@
-package com.gxuwz.beethoven;
+package com.gxuwz.beethoven.adapter.my;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,15 +15,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.SongList;
 import com.gxuwz.beethoven.model.entity.SysUser;
-import com.gxuwz.beethoven.page.Index;
-import com.gxuwz.beethoven.page.SongListActivity;
+import com.gxuwz.beethoven.page.index.myview.songlist.SongListActivity;
 import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.MergeImage;
 
-import org.w3c.dom.Text;
-
-import java.io.Serializable;
 import java.util.List;
 
 public class WaterFallAdapter extends RecyclerView.Adapter<WaterFallAdapter.WaterFallViewHolder>{
@@ -52,7 +50,7 @@ public class WaterFallAdapter extends RecyclerView.Adapter<WaterFallAdapter.Wate
         final Handler perPicViewHandle = new Handler() {
             public void handleMessage(android.os.Message msg) {
                 songListUrilB[position] = (Bitmap) msg.obj;
-                holder.iv.setImageBitmap(songListUrilB[position] );
+                holder.iv.setImageBitmap(MergeImage.rounded(songListUrilB[position],5));
             };
         };
         new Thread(){

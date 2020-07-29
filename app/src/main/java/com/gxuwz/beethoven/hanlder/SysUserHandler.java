@@ -15,6 +15,8 @@ import com.google.gson.reflect.TypeToken;
 import com.gxuwz.beethoven.model.entity.SongList;
 import com.gxuwz.beethoven.model.entity.SysUser;
 import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.MergeImage;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,37 +40,24 @@ public class SysUserHandler extends Handler {
             //获取子线程回传的数据
             Bundle bundle = msg.getData();
             String result = bundle.getString("result");
-
-
-
             //解析json
             try {
                 JSONObject all_json = new JSONObject(result);
-                /*Gson gson = new Gson();
-                Type listtype = new TypeToken<List<SysUser>>(){}.getType();
-                List<SysUser> SysUser = gson.fromJson(result,listtype);*/
                 String userName = all_json.optString("userName");
                 String perPic = all_json.optString("perPic");
                 songLists = all_json.getJSONObject("_links").getJSONObject("songLists").optString("href");
                 sysUser = new SysUser();
                 sysUser.setUserName(userName);
                 sysUser.setPerPic(perPic);
-                /*this.nickName = all_json.optString("nickName");
-                this.sex = all_json.optString("sex");
-                this.birthday = all_json.optString("birthday");
-                this.area = all_json.optInt("area");
-                this.isMember = all_json.optInt("isMember");
-                this.grade = all_json.optInt("grade");
-                this.menberId = all_json.optInt("menberId");
-                this.perPic = all_json.optString("perPic");
-                this.reallyId = all_json.optString("reallyId");*/
                 /**
                  * 视图
                  */
+                System.out.println(userNameView);
                 userNameView.setText(userName);
                 final Handler perPicViewHandle = new Handler() {
                     public void handleMessage(android.os.Message msg) {
                         usernameUrilB = (Bitmap) msg.obj;
+                        usernameUrilB = MergeImage.circleShow(usernameUrilB);
                         perPicView.setImageBitmap(usernameUrilB);
                         SongListHandler songListHandler = new SongListHandler();
                         songListHandler.setSongList(songList);

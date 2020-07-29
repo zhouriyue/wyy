@@ -2,17 +2,26 @@ package com.gxuwz.beethoven.hanlder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.gxuwz.beethoven.R;
+import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.Player;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
 public class MusicHandler extends Handler {
+
     int back;
     Player mPlayer;
     Context context;
@@ -30,12 +39,14 @@ public class MusicHandler extends Handler {
             try {
                 JSONObject all_json = new JSONObject(result);
                 String songUrl = all_json.optString("songUrl");
+                /**
+                 * 设置播放广播
+                 */
                 Intent intent = new Intent("CTL_ACTION");
-                intent.putExtra("controller",1);
-                intent.putExtra("songlisturl",songUrl);
+                intent.putExtra("controller",2);
+                intent.putExtra("songUrl", HttpUtil.BASEURL+songUrl);
                 intent.putExtra("position",position);
                 context.sendBroadcast(intent);
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }

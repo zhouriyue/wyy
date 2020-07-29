@@ -3,15 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".page.Index">
-
+    tools:context=".page.index.Index">
+    <ImageView
+        android:id="@+id/my_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"/>
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#fff"
         >
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0">
+            <ImageView
+                android:id="@+id/left_menu"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp" />
+        </LinearLayout>
         <TextView
             android:id="@+id/my"
             android:layout_width="match_parent"
@@ -19,45 +31,55 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:text="我的"
-            android:textColor="#616161"
-            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:textSize="16dp"
             android:background="@drawable/selector"/>
 
         <!--layout_weight这个属性为权重，让两个textview平分这个linearLayout-->
 
 
         <TextView
-            android:id="@+id/musicLayout"
+            android:id="@+id/find"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:text="音乐"
-            android:textColor="#616161"
-            android:textSize="20dp"
+            android:text="发现"
+            android:textColor="@color/white"
+            android:textSize="16dp"
             android:background="@drawable/selector"/>
 
         <TextView
-            android:id="@+id/yunc"
+            android:id="@+id/cloud"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:gravity="center"
             android:text="云村"
-            android:textColor="#616161"
-            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:textSize="16dp"
             android:background="@drawable/selector"/>
 
         <TextView
-            android:id="@+id/videoLayout"
+            android:id="@+id/video"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:gravity="center"
             android:text="视频"
-            android:textColor="#616161"
-            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:textSize="16dp"
             android:background="@drawable/selector"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0">
+            <ImageView
+                android:id="@+id/search"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="10dp" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -89,57 +111,51 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:background="#fff">
+        android:background="@drawable/underline">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
             android:layout_weight="1"
             android:orientation="vertical">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/zhouriyue"/>
+                android:id="@+id/play_song_list_url"
+                android:layout_width="48dp"
+                android:layout_height="48dp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_weight="30"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="5dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/title"/>
+                android:id="@+id/song_name"
+                android:text="她说"
+                android:textColor="#1B1B1B"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/author"/>
+                android:id="@+id/singer"
+                android:text="林俊杰"
+                android:textSize="10dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_weight="6">
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/last"
-                android:background="@drawable/last"
-                android:onClick="onClick"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="播放"
-                android:id="@+id/play"
-                android:background="@drawable/play"
-                android:onClick="onClick"/>
-            <ImageButton
-                android:id="@+id/next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/next"
-                android:onClick="onClick"/>
+            android:layout_alignParentRight="true">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/play_and_stop"
+                android:layout_margin="10dp"/>
+            <ImageView
+                android:id="@+id/list"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/play_list"/>
         </LinearLayout>
     </LinearLayout>
 

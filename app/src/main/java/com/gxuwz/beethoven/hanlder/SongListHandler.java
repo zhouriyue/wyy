@@ -11,18 +11,15 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.gxuwz.beethoven.WaterFallAdapter;
+import com.gxuwz.beethoven.adapter.my.WaterFallAdapter;
 import com.gxuwz.beethoven.model.entity.SongList;
 import com.gxuwz.beethoven.model.entity.SysUser;
-import com.gxuwz.beethoven.page.Index;
-import com.gxuwz.beethoven.util.HttpUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.concurrent.Future;
 
 public class SongListHandler extends Handler {
     RecyclerView songList = null;

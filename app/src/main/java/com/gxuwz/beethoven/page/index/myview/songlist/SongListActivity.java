@@ -1,9 +1,10 @@
-package com.gxuwz.beethoven.page;
+package com.gxuwz.beethoven.page.index.myview.songlist;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,17 +17,43 @@ import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.hanlder.SongListsMusicHandler;
 import com.gxuwz.beethoven.model.entity.SongList;
 import com.gxuwz.beethoven.model.entity.SysUser;
-import com.gxuwz.beethoven.service.MusicService;
+import com.gxuwz.beethoven.util.BlurUtil;
 import com.gxuwz.beethoven.util.HttpUtil;
-
-import java.io.Serializable;
+import com.gxuwz.beethoven.util.MergeImage;
 
 public class SongListActivity extends Activity {
 
+    /**
+     * 正在播放歌曲信息
+     */
+    SharedPreferences sharedPreferences;
+    /**
+     * 显示用户所有歌单
+     */
     RecyclerView songListMusic;
+    /**
+     * 歌单歌曲获取组件
+     */
     SongListsMusicHandler songListsMusicHandler;
-    TextView songListName,username;
-    ImageView perPic,songListUrl,toBack;
+    /**
+     * songListName: 歌单名
+     * username：用户名
+     * totalMusic：歌单歌曲数目
+     */
+    TextView songListName,username,totalMusic;
+    /**
+     * perPic: 个人头像
+     * songListUrl：歌单封面图片
+     * toBack：返回按钮
+     */
+    ImageView perPic,songListUrl,toBack,songListBg;
+    /**
+     * 歌单封面
+     */
+    public static Bitmap songListImage;
+    /**
+     * 广播识别标志
+     */
     public static final String CTL_ACTION = "CTL_ACTION";
     public static final String UPDATE_ACTION = "UPDATE_ACTION";
 
@@ -40,21 +67,29 @@ public class SongListActivity extends Activity {
         SysUser sysUser = (SysUser) bundle.getSerializable("sysUser");
         songListName = findViewById(R.id.song_list_name);
         username = findViewById(R.id.username);
+        totalMusic = findViewById(R.id.total_music);
         perPic = findViewById(R.id.per_pic);
         songListUrl = findViewById(R.id.song_list_url);
         toBack = findViewById(R.id.to_back);
+        /**
+         * 获取sharedPreferences对象
+         */
+        sharedPreferences = getSharedPreferences("data",MODE_PRIVATE);
+        /**
+         * 歌单背景
+         */
+        songListBg = findViewById(R.id.song_list_bg);
         toBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
-        songListName.setText(songList.getSongListId());
+        songListName.setText(songList.getSongListName());
         username.setText(sysUser.getUserName());
         final Handler perPicViewHandle = new Handler() {
             public void handleMessage(android.os.Message msg) {
-                perPic.setImageBitmap((Bitmap) msg.obj);
+                perPic.setImageBitmap(MergeImage.circleShow((Bitmap) msg.obj));
             };
         };
         new Thread(){
@@ -68,7 +103,9 @@ public class SongListActivity extends Activity {
         }.start();
         final Handler songListUrlHandle = new Handler() {
             public void handleMessage(android.os.Message msg) {
-                songListUrl.setImageBitmap((Bitmap) msg.obj);
+                songListImage = (Bitmap) msg.obj;
+                songListUrl.setImageBitmap(songListImage);
+                songListBg.setImageBitmap(BlurUtil.doBlur((Bitmap)msg.obj,3,50));
             };
         };
 
@@ -84,10 +121,10 @@ public class SongListActivity extends Activity {
         songListsMusicHandler = new SongListsMusicHandler();
         songListsMusicHandler.setContext(SongListActivity.this);
         songListsMusicHandler.setSongListMusic(findViewById(R.id.song_list_music));
+        songListsMusicHandler.setTotalMusic(totalMusic);
+        songListsMusicHandler.setSharedPreferences(sharedPreferences);
+        songListsMusicHandler.setSongList(songList);
         HttpUtil.get(songList.getSongListMusic(),songListsMusicHandler);
-
-        Intent music = new Intent(this, MusicService.class);
-        startService(music);
     }
 
 }
