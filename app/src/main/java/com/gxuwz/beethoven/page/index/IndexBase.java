@@ -1,7 +1,6 @@
 package com.gxuwz.beethoven.page.index;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -73,7 +72,6 @@ public class IndexBase extends Activity {
 
     public void init() {
         findByIdAndNew();
-
         //绑定适配器
         viewPager.setAdapter(mainMenuAdapter);
         //设置viewPager的初始界面为第一个界面
@@ -179,7 +177,7 @@ public class IndexBase extends Activity {
         FindView = inflater.inflate(R.layout.activity_find, null);
         CloudView = inflater.inflate(R.layout.activity_cloud, null);
         VideoView = inflater.inflate(R.layout.activity_video, null);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.viewPager);
         userNameView = MyView.findViewById(R.id.username);
         perPicView = MyView.findViewById(R.id.per_pic);
         songList = MyView.findViewById(R.id.rv3);
@@ -195,15 +193,17 @@ public class IndexBase extends Activity {
 
         sysUserHandler = new SysUserHandler();
         pageview =new ArrayList<View>();
+
         pageview.add(MyView);
         pageview.add(FindView);
         pageview.add(CloudView);
         pageview.add(VideoView);
+
         textViews = new TextView[pageview.size()];
-        textViews[0] = findViewById(R.id.my);
-        textViews[1] = findViewById(R.id.find);
-        textViews[2] = findViewById(R.id.cloud);
-        textViews[3] = findViewById(R.id.video);
+        textViews[0] = findViewById(R.id.my_menu);
+        textViews[1] = findViewById(R.id.find_menu);
+        textViews[2] = findViewById(R.id.cloud_menu);
+        textViews[3] = findViewById(R.id.video_menu);
         mainMenuTopClickListener = new MainMenuTopClickListener(viewPager,this);
         for(int i = 0;i < textViews.length;i++){
             textViews[i].setOnClickListener(mainMenuTopClickListener);

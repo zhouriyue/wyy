@@ -32,19 +32,19 @@ public class MainMenuTopClickListener implements View.OnClickListener {
         Intent indexBottomBar = new Intent();
         indexBottomBar.setAction(IndexBottomBarReceiver.ACTION);
         switch (view.getId()){
-            case R.id.my:
+            case R.id.my_menu:
                 //点击"我的“时切换到第一页
                 viewPager.setCurrentItem(0);
                 break;
-            case R.id.find:
+            case R.id.find_menu:
                 //点击“发现”时切换的第二页
                 viewPager.setCurrentItem(1);
                 break;
-            case R.id.cloud:
+            case R.id.cloud_menu:
                 //点击“云村”时切换的第二页
                 viewPager.setCurrentItem(2);
                 break;
-            case R.id.video:
+            case R.id.video_menu:
                 //点击“云村”时切换的第二页
                 viewPager.setCurrentItem(3);
                 break;
@@ -52,13 +52,16 @@ public class MainMenuTopClickListener implements View.OnClickListener {
                 if(Player.isPlayer) {
                     intent.putExtra(MusicService.CONTROLLER,MusicService.CONTROLLER_FLAT0);
                     indexBottomBar.putExtra(IndexBottomBarReceiver.CONTROLLER,IndexBottomBarReceiver.FLAT_STOP);
+                    context.sendBroadcast(intent);
+                    context.sendBroadcast(indexBottomBar);
                 } else {
                     intent.putExtra(MusicService.CONTROLLER,MusicService.CONTROLLER_FLAT1);
                     indexBottomBar.putExtra(IndexBottomBarReceiver.CONTROLLER,IndexBottomBarReceiver.FLAT_PLAY);
+                    context.sendBroadcast(intent);
+                    context.sendBroadcast(indexBottomBar);
                 }
             };break;
         }
-        context.sendBroadcast(intent);
-        context.sendBroadcast(indexBottomBar);
+
     }
 }

@@ -38,7 +38,7 @@ public class MyViewInit {
         this.recentBroadcasts = recentBroadcasts;
         this.sharedPreferences = sharedPreferences;
         this.context = context;
-        MyView = myView;
+        this.MyView = myView;
         this.sysUserHandler = sysUserHandler;
     }
 

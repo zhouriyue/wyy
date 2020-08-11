@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/set_wind_bg"
+        android:layout_width="300dp"
+        android:layout_height="200dp">
+        <ImageView
+            android:id="@+id/hot_wind_diagonal"
+            android:layout_width="300dp"
+            android:layout_height="200dp" />
+        <LinearLayout
+            android:id="@+id/wind_big_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="云音乐飙升榜"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/arrow_right" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/wind_music_one_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/wind_big_title"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/wind_diagonal_one"
+                    android:layout_margin="6dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:id="@+id/position_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"
+                    android:layout_toRightOf="@+id/wind_diagonal_one"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/wind_songName_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/position_one"
+                    android:text="Angel Love"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"/>
+                <TextView
+                    android:id="@+id/singer_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_toRightOf="@+id/wind_songName_one"
+                    android:text="黄明昊"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="22dp"/>
+                <TextView
+                    android:id="@+id/status_one"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="新"
+                    android:textSize="16dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/wind_music_two_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/wind_music_one_box"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/wind_diagonal_two"
+                    android:layout_margin="6dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:id="@+id/position_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"
+                    android:layout_toRightOf="@+id/wind_diagonal_two"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/wind_songName_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/position_two"
+                    android:text="Angel Love"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"/>
+                <TextView
+                    android:id="@+id/singer_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_toRightOf="@+id/wind_songName_two"
+                    android:text="黄明昊"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="22dp"/>
+                <TextView
+                    android:id="@+id/status_two"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="新"
+                    android:textSize="16dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/wind_music_three_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/wind_music_two_box"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/wind_diagonal_three"
+                    android:layout_margin="6dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
+
+                <TextView
+                    android:id="@+id/position_three"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"
+                    android:layout_toRightOf="@+id/wind_diagonal_three"
+                    android:text="1"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/wind_songName_three"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/position_three"
+                    android:text="Angel Love"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"/>
+                <TextView
+                    android:id="@+id/singer_three"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_toRightOf="@+id/wind_songName_three"
+                    android:text="黄明昊"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="22dp"/>
+                <TextView
+                    android:id="@+id/status_three"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="新"
+                    android:textSize="16dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

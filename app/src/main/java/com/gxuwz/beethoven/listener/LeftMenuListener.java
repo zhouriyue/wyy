@@ -19,7 +19,4 @@ public class LeftMenuListener implements View.OnClickListener{
         mainMenuPopupWindow.showAtLocation(view);
     }
 
-
-
-
 }

@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -60,6 +61,57 @@ public class MergeImage {
     }
 
     /**
+     * 自定义圆角显示图片
+     * @param bitmap
+     * @return
+     */
+    public static Bitmap roundedCustom(Bitmap bitmap,int newWidth,int newHeight){
+        if(bitmap==null) return null;
+        bitmap = zoomImg(bitmap,newWidth,newHeight);
+        int roundPx = (int)(newWidth * 0.05);
+        bitmap = Bitmap.createScaledBitmap(bitmap,newWidth,newHeight,true);
+        Bitmap output = bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, newWidth,newHeight);
+        final RectF rectF = new RectF(rect);
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+        return output;
+    }
+
+    /**
+     * 圆角显示图片
+     * @param bitmap
+     * @return
+     */
+    public static Bitmap roundedCustom(Bitmap bitmap){
+        if(bitmap==null) return null;
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int roundPx = (int)(width * 0.05);
+        bitmap = Bitmap.createScaledBitmap(bitmap,width,height,true);
+        Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, width,height);
+        final RectF rectF = new RectF(rect);
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+        return output;
+    }
+
+    /**
      * 圆形显示图片
      * @param showBitmap
      * @return
@@ -79,7 +131,7 @@ public class MergeImage {
         Canvas canvas = new Canvas(bm);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         //这里需要先画出一个圆
-        canvas.drawCircle(w / 2, h / 2, w / 2 - 20, paint);
+        canvas.drawCircle(w / 2, h / 2, w / 2-30, paint);
         //圆画好之后将画笔重置一下
         paint.reset();
         //设置图像合成模式，该模式为只在源图像和目标图像相交的地方绘制源图像
@@ -116,5 +168,21 @@ public class MergeImage {
         paint.reset();
         canvas.drawBitmap(discBitmap, 0, 0, null);
         return bm;
+    }
+
+    // 等比缩放图片
+    public static Bitmap zoomImg(Bitmap bm, int newWidth ,int newHeight){
+        // 获得图片的宽高
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        // 计算缩放比例
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // 取得想要缩放的matrix参数
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        // 得到新的图片
+        Bitmap newbm = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
+        return newbm;
     }
 }

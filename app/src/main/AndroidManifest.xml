@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:largeHeap="true"
+        android:hardwareAccelerated="false"
+        >
         <activity android:name=".page.index.playview.ActivityPlayView"></activity>
         <activity
             android:name=".page.index.myview.localmusic.LocalMusicActivity"

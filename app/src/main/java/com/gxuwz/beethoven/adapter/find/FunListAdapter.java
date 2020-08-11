@@ -40,10 +40,8 @@ public class FunListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = layoutInflater.inflate(R.layout.activity_find_fun_list_item, null);
-        System.out.println(convertView);
         TextView tvCity = (TextView) convertView.findViewById(R.id.tv_city);
         CityItem city = list.get(position);
-
         tvCity.setText(city.getCityName());
         return convertView;
     }

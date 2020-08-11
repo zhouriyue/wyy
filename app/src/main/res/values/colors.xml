@@ -8,4 +8,9 @@
     <color name="black">#000</color>
     <color name="white">#fff</color>
     <color name="transparent">#0000</color>
+    <color name="wyy_red">#ff3c3d</color>
+    <color name="black_515151">#515151</color>
+    <color name="black_707070">#707070</color>
+    <color name="black_FFF0F0">#FFF0F0</color>
+    <color name="blue_4e7cb0">#4e7cb0</color>
 </resources>

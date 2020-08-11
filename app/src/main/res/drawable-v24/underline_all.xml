@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- 连框颜色值 -->
+    <item>
+        <selector>
+            <!-- 正常状态 -->
+            <item android:drawable="@drawable/btn_normal_radius_24dp" android:state_pressed="false"/>
+            <!-- 按下状态 -->
+            <item android:drawable="@drawable/btn_pressed_redius_24dp" android:state_pressed="true"/>
+        </selector>
+    </item>
+    <!-- 主体背景颜色值 -->
+    <item
+        android:top="1dp"
+        android:left="1px"
+        android:right="1px"
+        android:bottom="1px"> <!--设置只有底部有边框-->
+        <shape>
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+</layer-list>
