@@ -7,16 +7,19 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/beethoven"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        android:largeHeap="true"
-        android:hardwareAccelerated="false"
-        >
-        <activity android:name=".page.index.playview.ActivityPlayView"></activity>
+        android:usesCleartextTraffic="true">
+        <activity android:name=".page.index.myview.follow.FollowActivity"></activity>
+        <activity android:name=".page.index.myview.collect.CollectActivity" />
+        <activity android:name=".page.index.myview.radiostation.RadioStationActivity" />
+        <activity android:name=".page.index.myview.download.DownLoadActivity" />
+        <activity android:name=".page.index.playview.ActivityPlayView" />
         <activity
             android:name=".page.index.myview.localmusic.LocalMusicActivity"
             android:theme="@android:style/Theme.NoTitleBar" />

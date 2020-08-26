@@ -12,8 +12,8 @@ import android.widget.LinearLayout;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.find.ChoiceRoomAdapter;
-import com.gxuwz.beethoven.adapter.find.FunListAdapter;
-import com.gxuwz.beethoven.model.entity.Room;
+import com.gxuwz.beethoven.model.entity.find.Room;
+import com.gxuwz.beethoven.util.WindowPixels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,15 +39,17 @@ public class FindChoiceRoomInit {
     /**设置GirdView参数，绑定数据*/
     private void setGridView(LayoutInflater layoutInflater, WindowManager windowManager, Context context) {
         int size = roomList.size();
-        int width = 300;
-        int height = 350;
+        WindowPixels windowPixels = new WindowPixels(windowManager);
+        float density = windowPixels.getDensity();
+        int width = (int) (density*100);
+        int height = (int) (150*density);
         DisplayMetrics dm = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(dm);
         int gridviewWidth = (int) 20;
         int itemWidth = (int) width;
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                (size+1)*190, LinearLayout.LayoutParams.FILL_PARENT);
+                (int) (size*itemWidth+50*density), height);
 
         roomgridView.setLayoutParams(params); // 设置GirdView布局参数,横向布局的关键
         roomgridView.setColumnWidth(itemWidth); // 设置列表项宽

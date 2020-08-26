@@ -1,20 +1,16 @@
 package com.gxuwz.beethoven.adapter.find;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gxuwz.beethoven.R;
-import com.gxuwz.beethoven.model.entity.HotVane;
-import com.gxuwz.beethoven.model.entity.Music;
-import com.gxuwz.beethoven.model.entity.WindMusic;
-import com.gxuwz.beethoven.util.BlurUtil;
+import com.gxuwz.beethoven.model.entity.find.HotVane;
+import com.gxuwz.beethoven.model.entity.find.WindMusic;
 import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 
@@ -71,7 +67,7 @@ public class WindVaneAdapter extends BaseAdapter {
         HotVane hotVane = list.get(position);
         int index = 0;
         //风向标封面
-        hotWindDiagonal.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(hotVane.getDiagonal(),context)));
+        //hotWindDiagonal.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(hotVane.getDiagonal(),context)));
 
         List<WindMusic> windMusic = hotVane.getWindMusic();
         WindMusic windMusic1 = windMusic.get(index);
@@ -91,7 +87,7 @@ public class WindVaneAdapter extends BaseAdapter {
 
         windMusic = hotVane.getWindMusic();
         windMusic1 = windMusic.get(++index);
-        //windDiagonalThree.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(windMusic1.getMusic().getSongPicUrl(),context)));
+        windDiagonalThree.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(windMusic1.getMusic().getSongPicUrl(),context)));
         positionThree.setText(""+(index+1));
         windSongNameThree.setText(windMusic1.getMusic().getMusicName());
         singerThree.setText(windMusic1.getMusic().getSinger());

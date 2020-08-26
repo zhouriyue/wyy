@@ -34,7 +34,7 @@ public class LocalMusicAdapter extends RecyclerView.Adapter<LocalMusicAdapter.Lo
     @NonNull
     @Override
     public LocalMusicAdapter.LocalMusicViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new LocalMusicAdapter.LocalMusicViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_local_music_item, parent, false));
+        return new LocalMusicAdapter.LocalMusicViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_my_local_music_item, parent, false));
     }
 
     @Override

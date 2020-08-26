@@ -4,15 +4,14 @@
     android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="68dp">
         <ImageView
-            android:id="@+id/per_pic"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/youth"/>
+            android:id="@+id/dyn_per_pic"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="10dp"/>
         <LinearLayout
-            android:layout_toRightOf="@+id/per_pic"
+            android:layout_toRightOf="@+id/dyn_per_pic"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -21,12 +20,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="云音乐小秘书"
                     android:textSize="16dp"
                     android:textColor="@color/blue_4e7cb0"/>
                 <TextView
+                    android:id="@+id/dyn_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -34,6 +35,7 @@
                     android:text="分享歌曲:"/>
             </LinearLayout>
             <TextView
+                android:id="@+id/dyn_time"
                 android:layout_marginTop="5dp"
                 android:layout_gravity="left"
                 android:layout_width="wrap_content"
@@ -47,25 +49,133 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="100dp">
+        android:layout_marginLeft="68dp"
+        android:layout_marginRight="10dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/blue_4e7cb0"
-                android:text="#早安世界#"/>
-            <TextView
+                android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="一点小小的梦想也能长成参天大树,一点小小的梦想也能长成参天大树"/>
+                android:textColor="@color/black" />
         </LinearLayout>
-
         <ImageView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/diagonal"
+            android:layout_width="150dp"
+            android:layout_height="150dp"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="68dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape_e6e6e6">
+        <ImageView
+            android:id="@+id/music_diagonal"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_margin="5dp"
             android:background="@drawable/youth"/>
+        <LinearLayout
+            android:layout_toRightOf="@+id/music_diagonal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:textColor="#494949"
+                android:text="各自散下"/>
+            <TextView
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_707070"
+                android:textSize="12dp"
+                android:text="陈奇凡"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="68dp"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/transmit"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/transit"/>
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/transmit"
+                    android:text="20"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/message"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/icon_message"/>
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/message"
+                    android:text="20"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/give_like"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/give_like"/>
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/give_like"
+                    android:text="20"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/to_many"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/to_many_707070"/>
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

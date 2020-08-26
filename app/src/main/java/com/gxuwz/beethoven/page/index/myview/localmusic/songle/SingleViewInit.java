@@ -43,6 +43,6 @@ public class SingleViewInit {
     }
 
     public void findViewByIdAll(){
-        songListMusic = SingleView.findViewById(R.id.song_list_music);
+        songListMusic = SingleView.findViewById(R.id.single_rv);
     }
 }

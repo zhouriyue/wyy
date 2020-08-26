@@ -40,13 +40,13 @@
                 android:layout_height="25dp"
                 android:layout_marginLeft="230dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/search"/>
+                android:background="@drawable/icon_search"/>
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/list"/>
+                android:background="@drawable/icon_list"/>
         </LinearLayout>
 
         <LinearLayout
@@ -92,7 +92,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginLeft="5dp"
-                        android:background="@drawable/in"/>
+                        android:background="@drawable/icon_in"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -100,7 +100,7 @@
                     android:layout_height="25dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="80dp"
-                    android:layout_toRightOf="@id/song_list_url">
+                    android:layout_toRightOf="@+id/song_list_url">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -111,7 +111,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginLeft="5dp"
-                        android:background="@drawable/in"/>
+                        android:background="@drawable/icon_in"/>
                 </LinearLayout>
 
             </RelativeLayout>

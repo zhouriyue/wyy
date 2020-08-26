@@ -8,8 +8,8 @@ import android.widget.TextView;
 import androidx.viewpager.widget.ViewPager;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.my.localmusic.LocalMusicTopMenuAdapter;
-import com.gxuwz.beethoven.listener.localmusic.TopMenuOnClickListener;
-import com.gxuwz.beethoven.listener.localmusic.localMusicTopMenuChangeListener;
+import com.gxuwz.beethoven.listener.my.localmusic.TopMenuOnClickListener;
+import com.gxuwz.beethoven.listener.my.localmusic.localMusicTopMenuChangeListener;
 
 import java.util.ArrayList;
 
@@ -87,10 +87,10 @@ public class LocalMusicBase extends Activity {
     public void findByIdAll(){
         localMenu = findViewById(R.id.local_menu);
         toMany = findViewById(R.id.to_many);
-        SingleView = layoutInflater.inflate(R.layout.activity_local_music_single,null);
-        SingerView = layoutInflater.inflate(R.layout.activity_local_music_singer,null);
-        AlbumView = layoutInflater.inflate(R.layout.activity_local_music_album,null);
-        FileView = layoutInflater.inflate(R.layout.activity_local_music_file,null);
+        SingleView = layoutInflater.inflate(R.layout.activity_my_local_music_single,null);
+        SingerView = layoutInflater.inflate(R.layout.activity_my_local_music_singer,null);
+        AlbumView = layoutInflater.inflate(R.layout.activity_my_local_music_album,null);
+        FileView = layoutInflater.inflate(R.layout.activity_my_local_music_file,null);
 
     }
 }

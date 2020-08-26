@@ -49,7 +49,7 @@
             android:layout_height="25dp"
             android:layout_marginLeft="300dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/list"/>
+            android:background="@drawable/icon_list"/>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
@@ -108,7 +108,7 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/last_music" />
+            android:src="@drawable/icon_last_music" />
 
         <ImageView
             android:id="@+id/playing_play1"

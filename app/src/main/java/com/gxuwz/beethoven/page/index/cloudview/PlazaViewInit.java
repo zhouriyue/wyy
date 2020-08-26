@@ -41,12 +41,12 @@ public class PlazaViewInit {
 
     public void setData(){
         ImageWordMlog imageWordMlog = new ImageWordMlog();
-        imageWordMlog.setMusicDiagonal("mlog");
+        imageWordMlog.setMusicDiagonal("zhoushen1");
         imageWordMlog.setContent("张一山演技炸裂表演 终于找到出处了");
         mlogList.add(imageWordMlog);
 
         imageWordMlog = new ImageWordMlog();
-        imageWordMlog.setMusicDiagonal("mlog");
+        imageWordMlog.setMusicDiagonal("zhoushen");
         imageWordMlog.setContent("张一山演技炸裂表演 终于找到出处了");
         mlogList.add(imageWordMlog);
 

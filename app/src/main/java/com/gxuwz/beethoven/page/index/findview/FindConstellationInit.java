@@ -14,6 +14,7 @@ import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.find.RecommendLikeAdapter;
 import com.gxuwz.beethoven.adapter.find.RecommendedListItem;
 import com.gxuwz.beethoven.adapter.find.TelecastItem;
+import com.gxuwz.beethoven.util.WindowPixels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,17 +39,14 @@ public class FindConstellationInit {
     /**设置GirdView参数，绑定数据*/
     private void setGridView(LayoutInflater layoutInflater, WindowManager windowManager, Context context) {
         int size = constellationList.size();
-        int width = 900;
-        int length = 600;
-        DisplayMetrics dm = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getMetrics(dm);
-        float density = dm.density;
+        WindowPixels windowPixels = new WindowPixels(windowManager);
+        float density = windowPixels.getDensity();
+        int width = (int) (300*density);
+        int length = (int) (200*density);
         int gridviewWidth = 20;//水平间距
         int itemWidth = width;//列表项宽
-
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                (size)*width+width/2, length);
-
+                (int) ((size)*width+40*density), length);
         constellationGridView.setLayoutParams(params); // 设置GirdView布局参数,横向布局的关键
         constellationGridView.setColumnWidth(itemWidth); // 设置列表项宽
         constellationGridView.setHorizontalSpacing(gridviewWidth); // 设置列表项水平间距

@@ -4,6 +4,8 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
 public class WindowPixels {
+    public static float DENSITY;
+    public static float WIDTH;
     private int width;
     private int height;
     private float density;

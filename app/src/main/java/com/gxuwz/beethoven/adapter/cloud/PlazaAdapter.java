@@ -43,7 +43,7 @@ public class PlazaAdapter extends RecyclerView.Adapter<PlazaAdapter.PlazaHolder>
         windowPixels = new WindowPixels(windowManager);
         int screen[] = windowPixels.getScreen();
         itemWidth = (int) (((screen[0]-30)/2)*windowPixels.getDensity());
-        itmeHeight = (int) (230*windowPixels.getDensity());
+        itmeHeight = (int) (280*windowPixels.getDensity());
     }
 
     @NonNull
@@ -55,14 +55,13 @@ public class PlazaAdapter extends RecyclerView.Adapter<PlazaAdapter.PlazaHolder>
     @Override
     public void onBindViewHolder(@NonNull PlazaHolder holder, int position) {
         if(mlogList.get(position).getType().equals("ImageWordMlog")) {
-
             imageWordMlog = (ImageWordMlog) mlogList.get(position);
-            if(position/2==0) {
-                holder.relativeLayout.setMinimumHeight((int) (300*windowPixels.getDensity()));
+            if(position%2==0) {
+                holder.relativeLayout.setMinimumHeight((int) (350*windowPixels.getDensity()));
                 holder.diagonal.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(imageWordMlog.getMusicDiagonal(),context),itemWidth, (int) (itmeHeight)));
             } else {
-                holder.relativeLayout.setMinimumHeight((int) (300*windowPixels.getDensity()*0.8));
-                holder.diagonal.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(imageWordMlog.getMusicDiagonal(),context),itemWidth, (int) (itmeHeight*0.8)));
+                holder.relativeLayout.setMinimumHeight((int) (350*windowPixels.getDensity()*0.7));
+                holder.diagonal.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(imageWordMlog.getMusicDiagonal(),context),itemWidth, (int) (itmeHeight*0.7)));
             }
             holder.content.setText(imageWordMlog.getContent());
         } else {

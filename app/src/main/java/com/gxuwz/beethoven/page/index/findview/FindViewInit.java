@@ -13,7 +13,7 @@ public class FindViewInit {
     /**
      * 轮播图
      */
-    FindBannerInit findBannerInit;
+    BannerInit findBannerInit;
     /**
      * 每日菜单
      */
@@ -126,7 +126,7 @@ public class FindViewInit {
 
 
     public void findByIdAndNew(){
-        findBannerInit = new FindBannerInit(FindView);
+        findBannerInit = new BannerInit(FindView);
         findMenuGlideInit = new FindMenuGlideInit(FindView);
         findChoiceSongListInit = new FindChoiceSongListInit(FindView);
         findRecommendLikeInit = new FindRecommendLikeInit(FindView);

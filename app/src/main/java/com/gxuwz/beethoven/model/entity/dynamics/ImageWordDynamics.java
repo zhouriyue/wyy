@@ -1,11 +1,14 @@
 package com.gxuwz.beethoven.model.entity.dynamics;
 
+import com.gxuwz.beethoven.model.entity.Infomation;
+
 import java.util.List;
 
 /**
  * 图文动态
  */
-public class ImageWordDynamics {
+public class ImageWordDynamics extends Dynamics {
+
     /**
      * 动态
      */
@@ -26,6 +29,10 @@ public class ImageWordDynamics {
      * 好友
      */
     private String friend;
+    /**
+     * 封面
+     */
+    private String diagonal;
 
     public ImageWordDynamics() {
     }
@@ -68,5 +75,13 @@ public class ImageWordDynamics {
 
     public void setFriend(String friend) {
         this.friend = friend;
+    }
+
+    public String getDiagonal() {
+        return diagonal;
+    }
+
+    public void setDiagonal(String diagonal) {
+        this.diagonal = diagonal;
     }
 }

@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.find.CityItem;
 import com.gxuwz.beethoven.adapter.find.FunListAdapter;
+import com.gxuwz.beethoven.util.WindowPixels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,14 +38,13 @@ public class FindMenuGlideInit {
     /**设置GirdView参数，绑定数据*/
     private void setGridView(LayoutInflater layoutInflater,WindowManager windowManager,Context context) {
         int size = cityList.size();
-        int width = 190;
-        DisplayMetrics dm = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getMetrics(dm);
+        WindowPixels windowPixels = new WindowPixels(windowManager);
+        float density = windowPixels.getDensity();
+        int width = (int) (50*density);
         int gridviewWidth = (int) 20;
         int itemWidth = (int) width;
-
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                width*size+width/2, LinearLayout.LayoutParams.FILL_PARENT);
+                (int) (itemWidth*size+40*density), itemWidth);
 
         gridView.setLayoutParams(params); // 设置GirdView布局参数,横向布局的关键
         gridView.setColumnWidth(itemWidth); // 设置列表项宽
@@ -62,6 +62,25 @@ public class FindMenuGlideInit {
     private void setData() {
         cityList = new ArrayList<CityItem>();
         CityItem item = new CityItem();
+        item.setCityName("每日推荐");
+        cityList.add(item);
+        item = new CityItem();
+        item.setCityName("歌单");
+        cityList.add(item);
+        item = new CityItem();
+        item.setCityName("排行榜");
+        cityList.add(item);
+        item = new CityItem();
+        item.setCityName("电台");
+        cityList.add(item);
+        item = new CityItem();
+        item.setCityName("直播");
+        cityList.add(item);
+        item = new CityItem();
+        item.setCityName("火前留名");
+        cityList.add(item);
+
+        item = new CityItem();
         item.setCityName("每日推荐");
         cityList.add(item);
         item = new CityItem();

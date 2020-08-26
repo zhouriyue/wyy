@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gxuwz.beethoven.R;
-import com.gxuwz.beethoven.model.entity.CloudCircle;
+import com.gxuwz.beethoven.model.entity.find.CloudCircle;
 import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 
@@ -48,7 +48,7 @@ public class CloudCircleAdapter extends BaseAdapter {
         TextView cloudCircleTitle = convertView.findViewById(R.id.cloud_circle_title);
         TextView cloudCircleSubTitle = convertView.findViewById(R.id.cloud_circle_subtitle);
         CloudCircle cloudCircle = list.get(position);
-        choiceRoomDiagonal.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(cloudCircle.getCloudCircleDiagonal(),context)));
+        choiceRoomDiagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(cloudCircle.getCloudCircleDiagonal(),context),200,190));
         cloudPlayNumber.setText(cloudCircle.getPlayNumber()+"万");
         cloudCircleTitle.setText(cloudCircle.getTitle());
         cloudCircleSubTitle.setText(cloudCircle.getSubTitle());

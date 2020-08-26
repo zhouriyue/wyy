@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/black_515151">
 
     <RelativeLayout
         android:id="@+id/set_wind_bg"
         android:layout_width="300dp"
-        android:layout_height="200dp">
+        android:layout_height="210dp">
         <ImageView
             android:id="@+id/hot_wind_diagonal"
             android:layout_width="300dp"
-            android:layout_height="200dp" />
+            android:layout_height="210dp" />
         <LinearLayout
             android:id="@+id/wind_big_title"
             android:layout_width="match_parent"
@@ -99,6 +100,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/wind_music_one_box"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
             <RelativeLayout

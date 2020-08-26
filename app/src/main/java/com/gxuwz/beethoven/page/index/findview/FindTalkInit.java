@@ -15,6 +15,7 @@ import com.gxuwz.beethoven.adapter.find.LikeAfternoonAdapter;
 import com.gxuwz.beethoven.adapter.find.LikeAfternoonItem;
 import com.gxuwz.beethoven.adapter.find.TalkAdapter;
 import com.gxuwz.beethoven.adapter.find.TalkItem;
+import com.gxuwz.beethoven.util.WindowPixels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,15 +41,15 @@ public class FindTalkInit {
     /**设置GirdView参数，绑定数据*/
     private void setGridView(LayoutInflater layoutInflater, WindowManager windowManager, Context context) {
         int size = talkList.size();
-        int width = 300;
-        int length = 450;
-        DisplayMetrics dm = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getMetrics(dm);
+        WindowPixels windowPixels = new WindowPixels(windowManager);
+        float density = windowPixels.getDensity();
+        int width = (int) (100*density);
+        int height = (int) (180*density);
         int gridviewWidth = 20;//水平间距
         int itemWidth = width;//列表项宽
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                (size)*length+length/2, LinearLayout.LayoutParams.FILL_PARENT);
+                (int) (size*itemWidth+40*density), height);
 
         talkGridView.setLayoutParams(params); // 设置GirdView布局参数,横向布局的关键
         talkGridView.setColumnWidth(itemWidth); // 设置列表项宽

@@ -39,11 +39,11 @@ public class HttpUtil {
                         //获取服务器返回的内容，而且通过输入流的方式得到
                         InputStream in = conn.getInputStream();
                         //判断输入流有多少可以读的字节
-                        //int i = in.available();
+                        //int i = icon_in.available();
                         //定义字节数组接受回来的数据
                         //byte[] b = new byte[1000];
                         //将输入存入字节数组
-                        //in.read(b);
+                        //icon_in.read(b);
                         //先把字节数组转换成字符串
                         String result = IOUtils.toString(in);
                         //把子线程数据回传到主线程

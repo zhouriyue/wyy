@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gxuwz.beethoven.R;
-import com.gxuwz.beethoven.model.entity.Room;
+import com.gxuwz.beethoven.model.entity.find.Room;
 import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 

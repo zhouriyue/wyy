@@ -35,7 +35,7 @@ public class IndexBottomBarReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         int controller = intent.getIntExtra(CONTROLLER,-1);
         if(controller==0) {
-            playAndStop.setImageBitmap(HttpUtil.getRes("play1",context));
+            playAndStop.setImageBitmap(HttpUtil.getRes("icon_play1",context));
         } else {
             playAndStop.setImageBitmap(HttpUtil.getRes("stop_bar",context));
         }

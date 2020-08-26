@@ -3,14 +3,21 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-
     <color name="press">#EBEBEB</color>
     <color name="black">#000</color>
     <color name="white">#fff</color>
     <color name="transparent">#0000</color>
+    <color name="transparent_30">#4Dffffff</color>
     <color name="wyy_red">#ff3c3d</color>
     <color name="black_515151">#515151</color>
     <color name="black_707070">#707070</color>
-    <color name="black_FFF0F0">#FFF0F0</color>
+    <color name="black_trans_707070">#99555555</color>
+    <color name="black_FFF0F0">#FFF0F0F0</color>
+    <color name="black_E6E6E6">#FFF0F0F0</color>
+    <color name="black_A2">#A2A2A2</color>
     <color name="blue_4e7cb0">#4e7cb0</color>
+    <color name="black_bf">#bfbfbf</color>
+    <color name="black_2c">#2c2c2c</color>
+    <color name="red_33ag">#33FFA9A9</color>
+    <color name="pink">#d4237a</color>
 </resources>

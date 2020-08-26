@@ -31,6 +31,7 @@ import com.gxuwz.beethoven.util.BlurUtil;
 import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.Player;
+import com.gxuwz.beethoven.util.WindowPixels;
 
 import java.util.ArrayList;
 
@@ -100,7 +101,7 @@ public class IndexBase extends Activity {
         if(Player.isPlayer){
             playAndStop.setImageBitmap(HttpUtil.getRes("stop_bar",this));
         } else {
-            playAndStop.setImageBitmap(HttpUtil.getRes("play1",this));
+            playAndStop.setImageBitmap(HttpUtil.getRes("icon_play1",this));
         }
         /**
          * “我的”页面背景图片
@@ -209,5 +210,8 @@ public class IndexBase extends Activity {
             textViews[i].setOnClickListener(mainMenuTopClickListener);
         }
         mainMenuAdapter = new MainMenuAdapter(pageview);
+        WindowPixels windowPixels = new WindowPixels(windowManager);
+        WindowPixels.DENSITY = windowPixels.getDensity();
+        WindowPixels.WIDTH = windowPixels.getScreenWidth();
     }
 }
