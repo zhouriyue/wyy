@@ -56,7 +56,7 @@ public class TelecastViewInit {
         tagList.add("唱歌");
 
         for(int i = 0;i < tagList.size();i++) {
-            View itemView = LayoutInflater.from(context).inflate(R.layout.activity_video_subpage_telecast_item,null);
+            View itemView = LayoutInflater.from(context).inflate(R.layout.subpage_telecast_item,null);
             tagViewList.add(itemView);
         }
 

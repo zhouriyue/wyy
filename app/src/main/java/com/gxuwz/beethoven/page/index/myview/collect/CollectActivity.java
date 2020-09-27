@@ -24,7 +24,7 @@ import com.gxuwz.beethoven.page.index.myview.collect.yunvillage.YunVillageViewIn
 import com.gxuwz.beethoven.page.index.myview.localmusic.album.AlbumViewInit;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
 
 public class CollectActivity extends AppCompatActivity {
 
@@ -53,7 +53,7 @@ public class CollectActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.black));
         }
-        setContentView(R.layout.activity_my_collect);
+        setContentView(R.layout.collect);
         /**
          * 隐藏标题栏
          */
@@ -91,12 +91,12 @@ public class CollectActivity extends AppCompatActivity {
         toBackLin = findViewById(R.id.to_back_lin);
         layoutInflater = getLayoutInflater();
         sugPagers = new ArrayList<View>();
-        albumView = layoutInflater.inflate(R.layout.activity_my_collect_album,null);
-        singerView = layoutInflater.inflate(R.layout.activity_my_collect_singer,null);
-        anchorView = layoutInflater.inflate(R.layout.activity_my_collect_anchor,null);
-        videoView = layoutInflater.inflate(R.layout.activity_my_collect_video,null);
-        yunvillageView = layoutInflater.inflate(R.layout.activity_my_collect_yunvillage,null);
-        specialColumnView = layoutInflater.inflate(R.layout.activity_my_collect_specialcolumn,null);
+        albumView = layoutInflater.inflate(R.layout.collect_album,null);
+        singerView = layoutInflater.inflate(R.layout.collect_singer,null);
+        anchorView = layoutInflater.inflate(R.layout.collect_anchor,null);
+        videoView = layoutInflater.inflate(R.layout.collect_video,null);
+        yunvillageView = layoutInflater.inflate(R.layout.collect_yunvillage,null);
+        specialColumnView = layoutInflater.inflate(R.layout.collect_specialcolumn,null);
         sugPagers.add(albumView);
         sugPagers.add(singerView);
         sugPagers.add(anchorView);

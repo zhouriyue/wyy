@@ -6,6 +6,7 @@ import android.view.WindowManager;
 public class WindowPixels {
     public static float DENSITY;
     public static float WIDTH;
+    public static float HEIGHT;
     private int width;
     private int height;
     private float density;

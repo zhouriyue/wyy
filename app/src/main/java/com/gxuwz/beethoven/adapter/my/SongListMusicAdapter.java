@@ -13,12 +13,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
+import com.gxuwz.beethoven.dao.PlayListDao;
 import com.gxuwz.beethoven.hanlder.MusicHandler;
+import com.gxuwz.beethoven.model.entity.PlayList;
 import com.gxuwz.beethoven.model.entity.SongList;
 import com.gxuwz.beethoven.model.entity.SongListsMusic;
 import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
 import com.gxuwz.beethoven.service.MusicService;
+import com.gxuwz.beethoven.util.CacheUtil;
 import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.MyHelper;
 
 import java.util.List;
 
@@ -35,13 +39,15 @@ public class SongListMusicAdapter extends RecyclerView.Adapter<SongListMusicAdap
      * 歌单对象
      */
     SongList songList;
+    String songListUrl;
 
     public SongListMusicAdapter(Context context, List<SongListsMusic> songListsMusics,
-                                SharedPreferences sharedPreferences,SongList songList) {
+                                SharedPreferences sharedPreferences,SongList songList,String songListUrl) {
         this.context = context;
         this.songListsMusics = songListsMusics;
         this.sharedPreferences = sharedPreferences;
         this.songList = songList;
+        this.songListUrl = songListUrl;
     }
 
     @NonNull
@@ -65,22 +71,7 @@ public class SongListMusicAdapter extends RecyclerView.Adapter<SongListMusicAdap
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /**
-                 * 设置播放歌曲的歌名、歌手、歌曲
-                 */
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("songName",songListsMusics.get(position).getMusicName());
-                editor.putString("singer",songListsMusics.get(position).getSingerName());
-                editor.putString("musicUrl",songListsMusics.get(position).get_links().getMusic().getHref());
-                editor.putString("songListUrl",songList.getSongListUrl());
-                /**
-                 * playStatus==1表示播放
-                 * playStatus==0表示停止
-                 */
-                editor.putString("playStatus","1");
-                editor.commit();
-
-                MusicHandler musicHandler = new MusicHandler();
+                MusicHandler musicHandler = new MusicHandler(songListsMusic,sharedPreferences,songListUrl);
                 musicHandler.setContext(context);
                 if(MusicService.ptTagBack!=null) {
                     MusicService.ptTagBack.setImageBitmap(HttpUtil.getRes("play3",context));
@@ -92,7 +83,6 @@ public class SongListMusicAdapter extends RecyclerView.Adapter<SongListMusicAdap
                 MusicService.isRun = true;
                 HttpUtil.get(songListsMusics.get(position).get_links().getMusic().getHref(),musicHandler);
 
-                IndexBottomBarReceiver.sendBroadcast(IndexBottomBarReceiver.FLAT_PLAY,context);
             }
         });
     }
@@ -134,5 +124,9 @@ public class SongListMusicAdapter extends RecyclerView.Adapter<SongListMusicAdap
 
     public void setSharedPreferences(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
+    }
+
+    public SongListMusicAdapter(String songListUrl) {
+        this.songListUrl = songListUrl;
     }
 }

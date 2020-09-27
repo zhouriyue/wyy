@@ -53,6 +53,7 @@ public class FollowInit {
         dynamicsList = new ArrayList<Dynamics>();
         dynamicsRv.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL));
         setData();
+        dynamicsRv.setNestedScrollingEnabled(false);
         dynamicsRv.setAdapter(new DynamicsAdapter(context,dynamicsList));
         cloudCircle.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes("zhoushen",context)));
     }

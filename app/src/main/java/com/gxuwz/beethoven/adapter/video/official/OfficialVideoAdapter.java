@@ -35,7 +35,7 @@ public class OfficialVideoAdapter extends RecyclerView.Adapter<OfficialVideoAdap
     @NonNull
     @Override
     public OfficialVideoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new OfficialVideoViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_video_subpage_official_item,null));
+        return new OfficialVideoViewHolder(LayoutInflater.from(context).inflate(R.layout.subpage_official_item,null));
     }
 
     @Override

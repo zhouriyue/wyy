@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--精选mlog-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/forward_lin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp">
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="160dp"
+            android:background="@drawable/shape_10dp_black_f0">
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="120dp">
+                <ImageView
+                    android:id="@+id/diagonal"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="5dp">
+                    <TextView
+                        android:id="@+id/like_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="1670赞"
+                        android:textSize="10dp"/>
+                </LinearLayout>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/black_FFF0F0"
+                android:layout_alignParentBottom="true"
+                android:padding="5dp">
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textSize="12dp"
+                    android:textColor="@color/black_515151"
+                    android:text="#我的中学时代不就是他们吗，#我的中学时代不就是他们吗，"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

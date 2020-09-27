@@ -1,15 +1,19 @@
 package com.gxuwz.beethoven.page.index.myview.songlist;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +25,7 @@ import com.gxuwz.beethoven.util.BlurUtil;
 import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 
-public class SongListActivity extends Activity {
+public class SongListActivity extends AppCompatActivity {
 
     /**
      * 正在播放歌曲信息
@@ -60,7 +64,17 @@ public class SongListActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.black));
+        }
         setContentView(R.layout.activity_song_list);
+        /**
+         * 隐藏标题栏
+         * hide title box
+         */
+        getSupportActionBar().hide();
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         SongList songList = (SongList) bundle.getSerializable("songList");
@@ -108,7 +122,6 @@ public class SongListActivity extends Activity {
                 songListBg.setImageBitmap(BlurUtil.doBlur((Bitmap)msg.obj,3,50));
             };
         };
-
         new Thread(){
             @Override
             public void run() {
@@ -118,7 +131,7 @@ public class SongListActivity extends Activity {
                 songListUrlHandle.sendMessage(msg);
             }
         }.start();
-        songListsMusicHandler = new SongListsMusicHandler();
+        songListsMusicHandler = new SongListsMusicHandler(songList.getSongListUrl());
         songListsMusicHandler.setContext(SongListActivity.this);
         songListsMusicHandler.setSongListMusic(findViewById(R.id.song_list_music));
         songListsMusicHandler.setTotalMusic(totalMusic);

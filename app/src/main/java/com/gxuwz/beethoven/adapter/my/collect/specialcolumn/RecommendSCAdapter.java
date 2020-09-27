@@ -30,7 +30,7 @@ public class RecommendSCAdapter extends RecyclerView.Adapter<RecommendSCAdapter.
     @NonNull
     @Override
     public RecommendSCViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new RecommendSCViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_my_collect_specialcolumn_item,null));
+        return new RecommendSCViewHolder(LayoutInflater.from(context).inflate(R.layout.collect_specialcolumn_item,null));
     }
 
     @Override

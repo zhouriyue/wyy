@@ -31,7 +31,7 @@ public class VideoBoxAdapter extends RecyclerView.Adapter<VideoBoxAdapter.VideoB
     @NonNull
     @Override
     public VideoBoxViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new VideoBoxViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_video_subpage_viewbox_item,null));
+        return new VideoBoxViewHolder(LayoutInflater.from(context).inflate(R.layout.subpage_viewbox_item,null));
     }
 
     @Override

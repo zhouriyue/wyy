@@ -1,19 +1,25 @@
 package com.gxuwz.beethoven.model.entity.find;
 
+import com.gxuwz.beethoven.model.entity.SysUser;
+
+import java.util.List;
+
 public class Room {
-    private String diagonal;
+
+    private String roomImg;
     private String title;
     private String type;
+    private List<SysUser> onlineSysUser;
 
     public Room() {
     }
 
-    public String getDiagonal() {
-        return diagonal;
+    public String getRoomImg() {
+        return roomImg;
     }
 
-    public void setDiagonal(String diagonal) {
-        this.diagonal = diagonal;
+    public void setRoomImg(String roomImg) {
+        this.roomImg = roomImg;
     }
 
     public String getTitle() {
@@ -30,5 +36,13 @@ public class Room {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<SysUser> getOnlineSysUser() {
+        return onlineSysUser;
+    }
+
+    public void setOnlineSysUser(List<SysUser> onlineSysUser) {
+        this.onlineSysUser = onlineSysUser;
     }
 }

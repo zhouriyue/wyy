@@ -26,7 +26,7 @@ public class NameViewAdapter extends RecyclerView.Adapter<NameViewAdapter.NameVi
     @NonNull
     @Override
     public NameViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new NameViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_video_viewname_item,null));
+        return new NameViewHolder(LayoutInflater.from(context).inflate(R.layout.viewname_item,null));
     }
 
     @Override

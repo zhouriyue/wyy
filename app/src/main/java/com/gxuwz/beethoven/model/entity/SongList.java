@@ -10,19 +10,60 @@ import java.io.Serializable;
 
 public class SongList implements Serializable, Parcelable {
 
+    /**
+     * 歌单id
+     */
     private String songListId;
+    /**
+     * 歌曲数
+     */
     private Integer songNumber;
+    /**
+     * 创建时间
+     */
     private String createDate;
+    /**
+     * 分享数
+     */
     private Integer shareNumber;
+    /**
+     * 标签
+     */
     private String tag;
     private String summary;
+    /**
+     * 播放量
+     */
     private Integer playNumber;
+    /**
+     * 评论数
+     */
     private Integer commentNumber;
+    /**
+     * 真实id
+     */
     private String reallyId;
+    /**
+     * 歌单名
+     */
     private String songListName;
+    /**
+     * 歌单链接
+     */
     private String songListUrl;
+    /**
+     * 评论
+     */
     private String commends;
+    /**
+     * 歌曲
+     */
     private String songListMusic;
+    /**
+     * 收藏量
+     */
+    private Integer collectNumber;
+
     private Links _links;
 
     protected SongList(Parcel in) {
@@ -256,23 +297,11 @@ public class SongList implements Serializable, Parcelable {
         this.songListMusic = songListMusic;
     }
 
-    @Override
-    public String toString() {
-        return "SongList{" +
-                "songListId='" + songListId + '\'' +
-                ", songNumber=" + songNumber +
-                ", createDate='" + createDate + '\'' +
-                ", shareNumber=" + shareNumber +
-                ", tag='" + tag + '\'' +
-                ", summary='" + summary + '\'' +
-                ", playNumber=" + playNumber +
-                ", commentNumber=" + commentNumber +
-                ", reallyId='" + reallyId + '\'' +
-                ", songListName='" + songListName + '\'' +
-                ", songListUrl='" + songListUrl + '\'' +
-                ", commends='" + commends + '\'' +
-                ", songListMusic='" + songListMusic + '\'' +
-                ", _links=" + _links +
-                '}';
+    public Integer getCollectNumber() {
+        return collectNumber;
+    }
+
+    public void setCollectNumber(Integer collectNumber) {
+        this.collectNumber = collectNumber;
     }
 }

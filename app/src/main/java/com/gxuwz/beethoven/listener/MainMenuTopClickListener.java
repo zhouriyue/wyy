@@ -23,14 +23,6 @@ public class MainMenuTopClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        /**
-         * 底部
-         * 播放或停止音乐
-         */
-        Intent intent = new Intent();
-        intent.setAction(MusicService.ACTION);
-        Intent indexBottomBar = new Intent();
-        indexBottomBar.setAction(IndexBottomBarReceiver.ACTION);
         switch (view.getId()){
             case R.id.my_menu:
                 //点击"我的“时切换到第一页
@@ -48,19 +40,6 @@ public class MainMenuTopClickListener implements View.OnClickListener {
                 //点击“云村”时切换的第二页
                 viewPager.setCurrentItem(3);
                 break;
-            case R.id.play_and_stop:{
-                if(Player.isPlayer) {
-                    intent.putExtra(MusicService.CONTROLLER,MusicService.CONTROLLER_FLAT0);
-                    indexBottomBar.putExtra(IndexBottomBarReceiver.CONTROLLER,IndexBottomBarReceiver.FLAT_STOP);
-                    context.sendBroadcast(intent);
-                    context.sendBroadcast(indexBottomBar);
-                } else {
-                    intent.putExtra(MusicService.CONTROLLER,MusicService.CONTROLLER_FLAT1);
-                    indexBottomBar.putExtra(IndexBottomBarReceiver.CONTROLLER,IndexBottomBarReceiver.FLAT_PLAY);
-                    context.sendBroadcast(intent);
-                    context.sendBroadcast(indexBottomBar);
-                }
-            };break;
         }
 
     }

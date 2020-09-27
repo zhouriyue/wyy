@@ -4,16 +4,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.gxuwz.beethoven.R;
-import com.gxuwz.beethoven.adapter.find.LikeAfternoonAdapter;
 import com.gxuwz.beethoven.adapter.my.MusicAppAdapter;
 import com.gxuwz.beethoven.model.entity.musicapp.MusicApp;
 import com.gxuwz.beethoven.util.WindowPixels;

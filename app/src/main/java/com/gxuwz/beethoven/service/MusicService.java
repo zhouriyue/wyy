@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 
 import com.gxuwz.beethoven.listener.MusicCompletionListener;
+import com.gxuwz.beethoven.model.entity.PlayList;
 import com.gxuwz.beethoven.page.index.Index;
 import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
 import com.gxuwz.beethoven.util.Player;
@@ -36,12 +37,12 @@ public class MusicService extends Service {
     /**
      * 歌曲路径
      */
-    public static final String SONGURL = "songUrl";
+    public static final String PLAYLIST = "playList";
     /**
      * 歌曲在列表变化
      */
     public static final String POSITION = "position";
-    Player player;
+    public static Player player;
     MyReceiver serviceReceiver;
     public static boolean isRun = false;
     public static ImageView ptTagBack;
@@ -70,8 +71,7 @@ public class MusicService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             int control = intent.getIntExtra(CONTROLLER, -1);
-            String songListUrl = intent.getStringExtra(SONGURL);
-            int position = intent.getIntExtra(POSITION, -1);
+            PlayList playList = (PlayList) intent.getSerializableExtra(PLAYLIST);
             switch (control) {
                 case 0:{
                     Player.isPlayer = false;
@@ -83,7 +83,7 @@ public class MusicService extends Service {
                 };break;
                 case 2:{
                     Player.isPlayer = true;
-                    prepareAndPlay(songListUrl);
+                    prepareAndPlay(playList.getLocalUri());
                     player.play();
                 };break;
             }

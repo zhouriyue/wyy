@@ -30,7 +30,7 @@ public class AnchorAdapter extends RecyclerView.Adapter<AnchorAdapter.AnchorView
     @NonNull
     @Override
     public AnchorViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new AnchorViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_my_collect_anchor_item,null));
+        return new AnchorViewHolder(LayoutInflater.from(context).inflate(R.layout.collect_anchor_item,null));
     }
 
     @Override

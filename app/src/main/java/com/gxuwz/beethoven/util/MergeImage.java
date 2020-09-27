@@ -15,12 +15,13 @@ import android.view.animation.LinearInterpolator;
 
 public class MergeImage {
 
+    public static ObjectAnimator animator;
+
     public static ObjectAnimator playImage(View view) {
         //第一个参数是需要旋转的View，
         // 第二个是动画类型（包括alpha/rotation/scale/translate），
         // 第三个参数是旋转开始时的角度
         //第四个参数是旋转结束时的角度
-        ObjectAnimator animator;
         animator = ObjectAnimator.ofFloat(view, "rotation", 0f, 360.0f);
         animator.setDuration(10000);
         animator.setInterpolator(new LinearInterpolator());//匀速
@@ -125,6 +126,7 @@ public class MergeImage {
         float newRadiu = radiu*WindowPixels.DENSITY;
         newWidth = (int) (newWidth * WindowPixels.DENSITY);
         newHeight = (int) (newHeight * WindowPixels.DENSITY);
+        radiu = (int) (radiu * WindowPixels.DENSITY);
         bitmap = zoomImg(bitmap,newWidth,newHeight);
         bitmap = Bitmap.createScaledBitmap(bitmap,newWidth,newHeight,true);
         Bitmap output = bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);

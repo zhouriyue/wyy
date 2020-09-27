@@ -30,7 +30,7 @@ public class AlbumItemAdapter extends RecyclerView.Adapter<AlbumItemAdapter.Albu
     @NonNull
     @Override
     public AlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new AlbumViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_my_local_album_item,null));
+        return new AlbumViewHolder(LayoutInflater.from(context).inflate(R.layout.collect_album_item,null));
     }
 
     @Override

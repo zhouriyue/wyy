@@ -1,5 +1,6 @@
 package com.gxuwz.beethoven.model.entity.mlog;
 
+import com.gxuwz.beethoven.model.entity.SysUser;
 import com.gxuwz.beethoven.model.entity.mlog.Mlog;
 
 public class VideoMlog extends Mlog {
@@ -23,6 +24,18 @@ public class VideoMlog extends Mlog {
      * 封面
      */
     private String diagonal;
+
+    /**
+     * 点赞数
+     */
+    private Integer likeNumber;
+
+    /**
+     * 标题
+     */
+    private String title;
+
+    private SysUser sysUser;
 
     public String getContent() {
         return content;
@@ -62,5 +75,29 @@ public class VideoMlog extends Mlog {
 
     public void setDiagonal(String diagonal) {
         this.diagonal = diagonal;
+    }
+
+    public Integer getLikeNumber() {
+        return likeNumber;
+    }
+
+    public void setLikeNumber(Integer likeNumber) {
+        this.likeNumber = likeNumber;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public SysUser getSysUser() {
+        return sysUser;
+    }
+
+    public void setSysUser(SysUser sysUser) {
+        this.sysUser = sysUser;
     }
 }

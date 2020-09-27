@@ -22,7 +22,7 @@ public class NewSongDiscListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.new_song_tv:{
+            /*case R.id.new_song_tv:{
                 System.out.println("new song");
                 newSongTV.setTextColor(Color.parseColor("#000000"));
                 newDiscTV.setTextColor(Color.parseColor("#707070"));
@@ -37,7 +37,7 @@ public class NewSongDiscListener implements View.OnClickListener {
 
                 newSongGridView.setVisibility(View.GONE);
                 newDiscGridView.setVisibility(View.VISIBLE);
-            };break;
+            };break;*/
         }
     }
 }

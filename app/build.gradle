@@ -21,6 +21,34 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layout/cloud',
+                            'src/main/res/layout/video',
+                            'src/main/res/layout/my',
+                            'src/main/res/layout/cloud/layout/videotalk',
+                            'src/main/res/layout/cloud/layout/hotwall',
+                            'src/main/res/layout/find/layout/yunvillage',
+                            'src/main/res/layout/find/layout/chatroom',
+                            'src/main/res/layout/find/layout/ittalk',
+                            'src/main/res/layout/find/layout/musiccal',
+                            'src/main/res/layout/find/layout/telecastroom',
+                            'src/main/res/layout/find/layout/songlist',
+                            'src/main/res/layout/find/layout/srecommend',
+                            'src/main/res/layout/find/layout/sradiostation',
+                            'src/main/res/layout/find/layout/stelecast',
+                            'src/main/res/layout/find/layout/rankinglist',
+                            'src/main/res/layout/find/layout/slplaza',
+                            'src/main/res/layout/find',
+                            'src/main/res/layout/playlist',
+                            'src/main/res/layout/playview',
+                            'src/main/res/layout',
+                            'src/main/res'
+                    ]
+        }
+    }
 
 }
 
@@ -51,4 +79,6 @@ dependencies {
      */
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
+
 }

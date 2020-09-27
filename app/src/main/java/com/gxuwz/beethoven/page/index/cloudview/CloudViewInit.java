@@ -60,8 +60,8 @@ public class CloudViewInit {
 
     public void findByIdAndNew(){
         cloudPager = CloudView.findViewById(R.id.cloud_viewpager);
-        plaza = layoutInflater.inflate(R.layout.activity_cloud_plaza,null);
-        follow = layoutInflater.inflate(R.layout.activity_cloud_follow,null);
+        plaza = layoutInflater.inflate(R.layout.plaza,null);
+        follow = layoutInflater.inflate(R.layout.follow_cloud,null);
         plazaTitle = CloudView.findViewById(R.id.plaza_title);
         followTitle = CloudView.findViewById(R.id.follow_title);
         wordsTitle = new TextView[2];

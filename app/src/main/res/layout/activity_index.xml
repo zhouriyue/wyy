@@ -99,12 +99,12 @@
         android:scaleType="matrix"
         android:src="@drawable/main"/>
 
-    <androidx.viewpager.widget.ViewPager
+    <com.gxuwz.beethoven.component.viewpager.CustomViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/scrollbar">
-    </androidx.viewpager.widget.ViewPager>
+    </com.gxuwz.beethoven.component.viewpager.CustomViewPager>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -134,28 +134,38 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/song_name"
                 android:text="她说"
-                android:textColor="#1B1B1B"/>
+                android:textColor="@color/black_515151"
+                android:textSize="14dp"
+                android:ellipsize="end"
+                android:maxLines="1"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/singer"
                 android:text="林俊杰"
-                android:textSize="10dp"/>
+                android:textSize="10dp"
+                android:textColor="@color/black_707070"
+                android:ellipsize="end"
+                android:maxLines="1"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:orientation="horizontal">
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/play_and_stop"
-                android:layout_margin="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/play_and_stop" />
             <ImageView
-                android:id="@+id/list"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
+                android:id="@+id/play_list"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/play_list"/>
         </LinearLayout>
     </LinearLayout>

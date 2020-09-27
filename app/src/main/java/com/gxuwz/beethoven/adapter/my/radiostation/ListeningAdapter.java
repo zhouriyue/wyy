@@ -36,7 +36,7 @@ public class ListeningAdapter extends RecyclerView.Adapter<ListeningAdapter.List
     @NonNull
     @Override
     public ListeningViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ListeningViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_my_radiostation_listening_item,null));
+        return new ListeningViewHolder(LayoutInflater.from(context).inflate(R.layout.radiostation_listening_item,null));
     }
 
     @Override

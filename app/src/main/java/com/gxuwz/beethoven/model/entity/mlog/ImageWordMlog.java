@@ -1,5 +1,6 @@
 package com.gxuwz.beethoven.model.entity.mlog;
 
+import com.gxuwz.beethoven.model.entity.SysUser;
 import com.gxuwz.beethoven.model.entity.mlog.Mlog;
 
 import java.util.List;
@@ -25,6 +26,18 @@ public class ImageWordMlog extends Mlog {
      * 语音
      */
     private String voice;
+
+    /**
+     * 点赞数
+     */
+    private Integer likeNumber;
+
+    /**
+     * 标题
+     */
+    private String title;
+
+    private SysUser sysUser;
 
     public ImageWordMlog() {
     }
@@ -67,5 +80,29 @@ public class ImageWordMlog extends Mlog {
 
     public void setVoice(String voice) {
         this.voice = voice;
+    }
+
+    public Integer getLikeNumber() {
+        return likeNumber;
+    }
+
+    public void setLikeNumber(Integer likeNumber) {
+        this.likeNumber = likeNumber;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public SysUser getSysUser() {
+        return sysUser;
+    }
+
+    public void setSysUser(SysUser sysUser) {
+        this.sysUser = sysUser;
     }
 }

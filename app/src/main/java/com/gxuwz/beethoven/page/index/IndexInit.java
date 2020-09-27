@@ -29,10 +29,10 @@ public class IndexInit {
     View view_video;
 
     private void init() {
-        View_My = inflater.inflate(R.layout.activity_my, null);
-        view_find = inflater.inflate(R.layout.activity_find, null);
-        view_cloud = inflater.inflate(R.layout.activity_cloud, null);
-        view_video = inflater.inflate(R.layout.activity_video, null);
+        View_My = inflater.inflate(R.layout.view_my, null);
+        view_find = inflater.inflate(R.layout.find, null);
+        view_cloud = inflater.inflate(R.layout.cloud, null);
+        view_video = inflater.inflate(R.layout.video, null);
 
         pageview =new ArrayList<View>();
         //添加想要切换的界面

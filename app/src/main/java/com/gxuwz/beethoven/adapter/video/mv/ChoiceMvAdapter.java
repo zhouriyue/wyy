@@ -36,7 +36,7 @@ public class ChoiceMvAdapter extends RecyclerView.Adapter<ChoiceMvAdapter.Choice
     @NonNull
     @Override
     public ChoiceMvViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ChoiceMvViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_video_subpage_mv_choice_item,null));
+        return new ChoiceMvViewHolder(LayoutInflater.from(context).inflate(R.layout.subpage_mv_choice_item,null));
     }
 
     @Override

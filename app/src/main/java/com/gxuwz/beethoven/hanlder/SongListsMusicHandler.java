@@ -40,6 +40,12 @@ public class SongListsMusicHandler extends Handler {
      * 歌单对象
      */
     SongList songList;
+    String songListUrl;
+
+    public SongListsMusicHandler(String songListUrl) {
+        this.songListUrl = songListUrl;
+    }
+
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
         //接收到message之后的处理过程
@@ -53,13 +59,12 @@ public class SongListsMusicHandler extends Handler {
             try {
                 JSONObject all_json = new JSONObject(result);
                 String songListMusicsData = all_json.getJSONObject("_embedded").getString("songListMusics");
-
                 Gson gson = new Gson();
                 Type listtype = new TypeToken<List<SongListsMusic>>(){}.getType();
                 List<SongListsMusic> songListsMusicList = gson.fromJson(songListMusicsData,listtype);
                 totalMusic.setText("（共"+songListsMusicList.size()+"首）");
                 songListMusic.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-                songListMusic.setAdapter(new SongListMusicAdapter(context,songListsMusicList,sharedPreferences,songList));
+                songListMusic.setAdapter(new SongListMusicAdapter(context,songListsMusicList,sharedPreferences,songList,songListUrl));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -30,7 +30,7 @@ public class SingerItemAdapter extends RecyclerView.Adapter<SingerItemAdapter.Si
     @NonNull
     @Override
     public SingerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SingerViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_my_local_singer_item,null));
+        return new SingerViewHolder(LayoutInflater.from(context).inflate(R.layout.local_singer_item,null));
     }
 
     @Override

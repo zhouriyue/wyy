@@ -35,7 +35,7 @@ public class PlazaAdvertAdapter extends RecyclerView.Adapter<PlazaAdvertAdapter.
     @NonNull
     @Override
     public PlazaAdvertViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new PlazaAdvertViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_video_subpage_plazaadvert_item,null));
+        return new PlazaAdvertViewHolder(LayoutInflater.from(context).inflate(R.layout.subpage_plazaadvert_item,null));
     }
 
     @Override

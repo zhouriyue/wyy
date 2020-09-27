@@ -30,7 +30,7 @@ public class LikeYunVillageAdapter extends RecyclerView.Adapter<LikeYunVillageAd
     @NonNull
     @Override
     public LyvViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new LyvViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_my_collect_yunvillage_like_item,null));
+        return new LyvViewHolder(LayoutInflater.from(context).inflate(R.layout.collect_yunvillage_like_item,null));
     }
 
     @Override

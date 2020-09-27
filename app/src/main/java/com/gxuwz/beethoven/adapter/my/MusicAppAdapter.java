@@ -49,7 +49,7 @@ public class MusicAppAdapter extends BaseAdapter {
     @SuppressLint("ResourceType")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = LayoutInflater.from(context).inflate(R.layout.activity_my_music_app_item, null);
+        view = LayoutInflater.from(context).inflate(R.layout.music_app_item, null);
         ImageView diagonal,icon,typeIcon;
         TextView title,type;
         LinearLayout typeColor;

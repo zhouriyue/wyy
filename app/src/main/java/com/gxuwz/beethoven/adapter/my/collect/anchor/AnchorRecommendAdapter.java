@@ -30,7 +30,7 @@ public class AnchorRecommendAdapter extends RecyclerView.Adapter<AnchorRecommend
     @NonNull
     @Override
     public AnchorRecommendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new AnchorRecommendViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_my_collect_anchor_recommend_item,null));
+        return new AnchorRecommendViewHolder(LayoutInflater.from(context).inflate(R.layout.collect_anchor_recommend_item,null));
     }
 
     @Override

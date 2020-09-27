@@ -28,7 +28,7 @@ public class RightTopPopupWindow {
     protected  void  initPopupWindow(){
         width = (int) (wm.getDefaultDisplay().getWidth()*0.5);
         height = 600;
-        final View popipWindow_view = layoutInflater.inflate(R.layout.activity_my_local_music_pop,null,false);
+        final View popipWindow_view = layoutInflater.inflate(R.layout.local_music_pop,null,false);
         popupWindow = new PopupWindow(popipWindow_view,width, height,true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(0));
     }

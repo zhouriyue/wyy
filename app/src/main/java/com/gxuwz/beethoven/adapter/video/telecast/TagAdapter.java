@@ -26,7 +26,7 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagViewHolder> {
     @NonNull
     @Override
     public TagViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new TagViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_video_subpage_telecast_tag_item,null));
+        return new TagViewHolder(LayoutInflater.from(context).inflate(R.layout.subpage_telecast_tag_item,null));
     }
 
     @Override

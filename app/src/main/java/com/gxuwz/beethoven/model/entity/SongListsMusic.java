@@ -15,6 +15,7 @@ public class SongListsMusic implements Serializable, Parcelable {
     private Links _links;
     private String musicName;
     private String singerName;
+    private Integer songTime;
 
     public class Links{
         Href music;
@@ -109,15 +110,11 @@ public class SongListsMusic implements Serializable, Parcelable {
         this._links = _links;
     }
 
-    @Override
-    public String toString() {
-        return "SongListsMusic{" +
-                "id=" + id +
-                ", songListId='" + songListId + '\'' +
-                ", reallyId='" + reallyId + '\'' +
-                ", _links=" + _links +
-                ", musicName='" + musicName + '\'' +
-                ", singerName='" + singerName + '\'' +
-                '}';
+    public Integer getSongTime() {
+        return songTime;
+    }
+
+    public void setSongTime(Integer songTime) {
+        this.songTime = songTime;
     }
 }

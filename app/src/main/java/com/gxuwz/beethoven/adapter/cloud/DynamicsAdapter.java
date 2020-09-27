@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
-import com.gxuwz.beethoven.adapter.my.LocalMusicAdapter;
 import com.gxuwz.beethoven.model.entity.dynamics.Dynamics;
 import com.gxuwz.beethoven.model.entity.dynamics.ImageWordDynamics;
 import com.gxuwz.beethoven.util.HttpUtil;
@@ -37,7 +35,7 @@ public class DynamicsAdapter extends RecyclerView.Adapter<DynamicsAdapter.Dynami
     @NonNull
     @Override
     public DynamicsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new DynamicsViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_cloud_dynamics_item,null));
+        return new DynamicsViewHolder(LayoutInflater.from(context).inflate(R.layout.dynamics_item,null));
     }
 
     @Override

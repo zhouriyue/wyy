@@ -3,8 +3,8 @@ package com.gxuwz.beethoven.page.index.myview.download;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -17,8 +17,6 @@ import android.widget.ImageView;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.PagerCustomAdapter;
 import com.gxuwz.beethoven.listener.my.download.DownloadChangerListener;
-import com.gxuwz.beethoven.listener.video.VideoChangerListener;
-import com.gxuwz.beethoven.page.index.myview.localmusic.LocalMusicActivity;
 import com.gxuwz.beethoven.page.index.myview.localmusic.songle.SingleViewInit;
 
 import java.util.ArrayList;
@@ -26,6 +24,7 @@ import java.util.ArrayList;
 public class DownLoadActivity extends AppCompatActivity {
 
     Context context;
+    SharedPreferences sharedPreferences;
     ViewPager videoPager;
     View single,radioStation,video,downloading;
     ImageView toBack;
@@ -40,17 +39,18 @@ public class DownLoadActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.black));
         }
-        setContentView(R.layout.activity_my_download);
+        setContentView(R.layout.download);
         /**
          * 隐藏标题栏
          */
         getSupportActionBar().hide();
+        sharedPreferences = getSharedPreferences("data",MODE_PRIVATE);
         findByIdAndNew();
 
         /**
          * 初始化“单曲”页
          */
-        new SingleViewInit(single).init(this, DownLoadActivity.this);
+        new SingleViewInit(single,sharedPreferences).init(this, DownLoadActivity.this);
         /**
          * 初始化“电台节目”页
          */
@@ -61,10 +61,10 @@ public class DownLoadActivity extends AppCompatActivity {
         toBack = findViewById(R.id.to_back);
         context = DownLoadActivity.this;
         subPages = new ArrayList<View>();
-        single = LayoutInflater.from(context).inflate(R.layout.activity_my_download_single,null);
-        radioStation = LayoutInflater.from(context).inflate(R.layout.activity_my_download_radiostation,null);
-        video = LayoutInflater.from(context).inflate(R.layout.activity_my_download_video,null);
-        downloading = LayoutInflater.from(context).inflate(R.layout.activity_my_download_downloading,null);
+        single = LayoutInflater.from(context).inflate(R.layout.download_single,null);
+        radioStation = LayoutInflater.from(context).inflate(R.layout.download_radiostation,null);
+        video = LayoutInflater.from(context).inflate(R.layout.download_video,null);
+        downloading = LayoutInflater.from(context).inflate(R.layout.download_downloading,null);
         subPages.add(single);
         subPages.add(radioStation);
         subPages.add(video);

@@ -9,12 +9,10 @@ import android.view.WindowManager;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.PagerCustomAdapter;
 import com.gxuwz.beethoven.adapter.video.NameViewAdapter;
-import com.gxuwz.beethoven.adapter.video.VideoBoxAdapter;
 import com.gxuwz.beethoven.listener.video.VideoChangerListener;
 import com.gxuwz.beethoven.model.entity.video.VideoBox;
 
@@ -73,19 +71,19 @@ public class VideoViewInit {
             View pagerItem = null;
             switch (i) {
                 case 1:{
-                    pagerItem = layoutInflater.inflate(R.layout.activity_video_subpage_telecast,null);
+                    pagerItem = layoutInflater.inflate(R.layout.subpage_telecast,null);
                 };break;
                 case 6:{
-                    pagerItem = layoutInflater.inflate(R.layout.activity_video_subpage_official,null);
+                    pagerItem = layoutInflater.inflate(R.layout.subpage_official,null);
                 };break;
                 case 7:{
-                    pagerItem = layoutInflater.inflate(R.layout.activity_video_subpage_plazaadvert,null);
+                    pagerItem = layoutInflater.inflate(R.layout.subpage_plazaadvert,null);
                 };break;
                 case 8:{
-                    pagerItem = layoutInflater.inflate(R.layout.activity_video_subpage_mv,null);
+                    pagerItem = layoutInflater.inflate(R.layout.subpage_mv,null);
                 };break;
                 default:{
-                    pagerItem = layoutInflater.inflate(R.layout.activity_video_sub_pages_item,null);
+                    pagerItem = layoutInflater.inflate(R.layout.sub_pages_item,null);
                 };break;
             }
             subPages.add(pagerItem);

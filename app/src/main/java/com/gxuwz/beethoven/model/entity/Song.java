@@ -8,22 +8,103 @@ public class Song {
     /**
      * 歌手
      */
-    public String singer;
+    private String singer;
     /**
      * 歌曲名
      */
-    public String song;
+    private String songName;
     /**
      * 歌曲的地址
      */
-    public String path;
+    private String path;
     /**
      * 歌曲长度
      */
-    public int duration;
+    private int duration;
     /**
      * 歌曲的大小
      */
-    public long size;
+    private long size;
 
+    /**
+     * 图片
+     */
+    private String image;
+
+    /**
+     *详情
+     */
+    private String detail;
+
+    /**
+     * 是否为新歌
+     */
+    private Integer isNew;
+
+    public Song() {
+    }
+
+    public String getSinger() {
+        return singer;
+    }
+
+    public void setSinger(String singer) {
+        this.singer = singer;
+    }
+
+    public String getSongName() {
+        return songName;
+    }
+
+    public void setSongName(String songName) {
+        this.songName = songName;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public Integer getIsNew() {
+        return isNew;
+    }
+
+    public void setIsNew(Integer isNew) {
+        this.isNew = isNew;
+    }
 }

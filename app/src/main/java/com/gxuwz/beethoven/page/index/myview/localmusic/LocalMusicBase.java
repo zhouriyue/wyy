@@ -1,10 +1,13 @@
 package com.gxuwz.beethoven.page.index.myview.localmusic;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.my.localmusic.LocalMusicTopMenuAdapter;
@@ -13,7 +16,8 @@ import com.gxuwz.beethoven.listener.my.localmusic.localMusicTopMenuChangeListene
 
 import java.util.ArrayList;
 
-public class LocalMusicBase extends Activity {
+public class LocalMusicBase extends AppCompatActivity {
+    SharedPreferences sharedPreferences;
     /**
      * 本地音乐头部菜单
      */
@@ -44,6 +48,10 @@ public class LocalMusicBase extends Activity {
     ImageView toMany;
 
     public void init(){
+        /**
+         * 获取sharedPreferences对象
+         */
+        sharedPreferences = getSharedPreferences("data",MODE_PRIVATE);
         layoutInflater = getLayoutInflater();
         findByIdAll();
         pageview = new ArrayList<View>();
@@ -87,10 +95,9 @@ public class LocalMusicBase extends Activity {
     public void findByIdAll(){
         localMenu = findViewById(R.id.local_menu);
         toMany = findViewById(R.id.to_many);
-        SingleView = layoutInflater.inflate(R.layout.activity_my_local_music_single,null);
-        SingerView = layoutInflater.inflate(R.layout.activity_my_local_music_singer,null);
-        AlbumView = layoutInflater.inflate(R.layout.activity_my_local_music_album,null);
-        FileView = layoutInflater.inflate(R.layout.activity_my_local_music_file,null);
-
+        SingleView = layoutInflater.inflate(R.layout.local_music_single,null);
+        SingerView = layoutInflater.inflate(R.layout.local_music_singer,null);
+        AlbumView = layoutInflater.inflate(R.layout.local_music_album,null);
+        FileView = layoutInflater.inflate(R.layout.local_music_file,null);
     }
 }

@@ -14,21 +14,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".page.index.myview.follow.FollowActivity"></activity>
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true">
+        <activity android:name=".page.index.cloudview.videotalk.VideoTalkActivity"></activity>
+        <activity android:name=".page.index.cloudview.hotwall.HotWallActivity" />
+        <activity android:name=".page.index.findview.yunvillage.YunVillageActivity" />
+        <activity android:name=".page.index.findview.chatroom.ChatRoomActivity" />
+        <activity android:name=".page.index.findview.imgtexttalk.ITTalkActivity" />
+        <activity android:name=".page.index.findview.musiccal.MusicCalActivity" />
+        <activity android:name=".page.index.findview.telecastroom.TelecastRoomActivity" />
+        <activity android:name=".page.index.findview.songlist.SongListFActivity" />
+        <activity android:name=".page.index.findview.spefun.telecast.STelecastActivity" />
+        <activity android:name=".page.index.findview.spefun.radiostation.SRadioStationActivity" />
+        <activity android:name=".page.index.findview.spefun.rankinglist.RankingListActivity" />
+        <activity android:name=".page.index.findview.spefun.slplaza.SLPlazaActivity" />
+        <activity android:name=".page.index.findview.spefun.everyrecomm.EveryRecommActivity" />
+        <activity android:name=".page.index.myview.follow.FollowActivity" />
         <activity android:name=".page.index.myview.collect.CollectActivity" />
         <activity android:name=".page.index.myview.radiostation.RadioStationActivity" />
         <activity android:name=".page.index.myview.download.DownLoadActivity" />
         <activity android:name=".page.index.playview.ActivityPlayView" />
-        <activity
-            android:name=".page.index.myview.localmusic.LocalMusicActivity"
-            android:theme="@android:style/Theme.NoTitleBar" />
-        <activity
-            android:name=".page.index.myview.songlist.SongListActivity"
-            android:theme="@android:style/Theme.NoTitleBar" />
-        <activity
-            android:name=".page.index.Index"
-            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity android:name=".page.index.myview.localmusic.LocalMusicActivity" />
+        <activity android:name=".page.index.myview.songlist.SongListActivity" />
+        <activity android:name=".page.index.Index" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.PagerCustomAdapter;
 import com.gxuwz.beethoven.listener.my.download.DownloadChangerListener;
+import com.gxuwz.beethoven.page.index.myview.follow.mv.MvViewInit;
 import com.gxuwz.beethoven.page.index.myview.follow.song.SongViewInit;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class FollowActivity extends AppCompatActivity {
     ArrayList<View> subPages;
 
     SongViewInit songViewInit;
+    MvViewInit mvViewInit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +43,20 @@ public class FollowActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.black));
         }
-        setContentView(R.layout.activity_my_follow);
+        setContentView(R.layout.my_follow);
         /**
          * 隐藏标题栏
          */
         getSupportActionBar().hide();
         findByIdAndNew();
+        /**
+         * 歌曲页
+         */
         songViewInit.init(context);
+        /**
+         * mv页
+         */
+        mvViewInit.init(context);
     }
 
     public void findByIdAndNew(){
@@ -55,12 +64,13 @@ public class FollowActivity extends AppCompatActivity {
         layoutInflater = getLayoutInflater();
         followViewPager = findViewById(R.id.follow_menu);
         subPages = new ArrayList<View>();
-        songView = layoutInflater.inflate(R.layout.activity_my_follow_song,null);
-        mvView = layoutInflater.inflate(R.layout.activity_my_follow_mv,null);
+        songView = layoutInflater.inflate(R.layout.follow_song,null);
+        mvView = layoutInflater.inflate(R.layout.follow_mv,null);
         subPages.add(songView);
         subPages.add(mvView);
         pagerCustomAdapter = new PagerCustomAdapter(subPages);
         songViewInit = new SongViewInit(songView);
+        mvViewInit = new MvViewInit(mvView);
         toBackLin = findViewById(R.id.to_back_lin);
         toBackLin.setOnClickListener(new View.OnClickListener() {
             @Override

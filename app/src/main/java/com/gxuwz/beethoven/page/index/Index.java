@@ -1,7 +1,13 @@
 package com.gxuwz.beethoven.page.index;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
 
@@ -9,6 +15,7 @@ import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.page.index.cloudview.CloudViewInit;
 import com.gxuwz.beethoven.page.index.findview.FindViewInit;
 import com.gxuwz.beethoven.page.index.myview.MyViewInit;
+import com.gxuwz.beethoven.page.index.playlistview.PlayListView;
 import com.gxuwz.beethoven.page.index.videoview.VideoViewInit;
 
 public class Index extends IndexBase{
@@ -21,11 +28,25 @@ public class Index extends IndexBase{
 
     VideoViewInit videoViewInit;
 
+    PlayListView playListView;
+
+    ImageView playListIV;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.black));
+        }
         setContentView(R.layout.activity_index);
+        /**
+         * 隐藏标题栏
+         * hide title box
+         */
+        getSupportActionBar().hide();
         init();
         initFunModel();
         /**
@@ -46,7 +67,6 @@ public class Index extends IndexBase{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             videoViewInit.init(Index.this);
         }
-
     }
 
     public void initFunModel(){
@@ -54,5 +74,7 @@ public class Index extends IndexBase{
         findViewInit = new FindViewInit(FindView,windowManager,this);
         cloudViewInit = new CloudViewInit(CloudView,this,windowManager,inflater);
         videoViewInit = new VideoViewInit(VideoView,inflater,windowManager);
+        playListIV = findViewById(R.id.play_list);
+        playListView = new PlayListView(Index.this,playListIV);
     }
 }
