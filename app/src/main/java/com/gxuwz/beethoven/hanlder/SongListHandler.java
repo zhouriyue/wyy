@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.gxuwz.beethoven.adapter.my.WaterFallAdapter;
+import com.gxuwz.beethoven.dao.SongListDao;
 import com.gxuwz.beethoven.model.entity.SongList;
 import com.gxuwz.beethoven.model.entity.SysUser;
 
@@ -25,7 +26,7 @@ public class SongListHandler extends Handler {
     RecyclerView songList = null;
     Context context = null;
     SysUser sysUser = null;
-    Bitmap usernameUrilB;
+
 
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
@@ -42,7 +43,7 @@ public class SongListHandler extends Handler {
                 Type listtype = new TypeToken<List<SongList>>(){}.getType();
                 List<SongList> songLists = gson.fromJson(songListStr,listtype);
                 songList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-                songList.setAdapter(new WaterFallAdapter(context,songLists,sysUser,usernameUrilB));
+                songList.setAdapter(new WaterFallAdapter(context,songLists,sysUser));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

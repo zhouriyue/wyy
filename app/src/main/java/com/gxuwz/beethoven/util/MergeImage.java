@@ -2,6 +2,7 @@ package com.gxuwz.beethoven.util;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -12,6 +13,21 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
 public class MergeImage {
 
@@ -29,6 +45,176 @@ public class MergeImage {
         animator.setRepeatMode(ValueAnimator.RESTART);//动画重复模式
         animator.start();
         return animator;
+    }
+
+    /**
+     * 高斯模糊
+     * @param context
+     * @param url
+     * @param imageView
+     * @param scaleRatio
+     * @param blurRadius
+     */
+    public static void doBlur(Context context,String url,ImageView imageView,int scaleRatio,int blurRadius){
+        Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation(blurRadius,scaleRatio)))
+                .into(imageView);
+    }
+
+    public static void doBlur(Context context,int url,ImageView imageView,int scaleRatio,int blurRadius){
+        Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation(blurRadius,scaleRatio)))
+                .into(imageView);
+    }
+
+    public static void doBlur(Context context,String url,int error,ImageView imageView,int scaleRatio,int blurRadius){
+        Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .error(error)
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation(blurRadius,scaleRatio)))
+                .into(imageView);
+    }
+
+    /**
+     * 使用Glide渲染图片
+     * @param context
+     * @param url
+     * @param imageView
+     * @param width
+     * @param height
+     * @param redius
+     */
+    public static void showGlideImg(Context context, String url, ImageView imageView,int width,int height,int redius){
+        //RoundedCorners roundedCorners= new RoundedCorners(10);
+        //通过RequestOptions扩展功能,override采样率,压缩图片,降低内存消耗
+        RequestOptions myOptions = new RequestOptions().transform(new MultiTransformation<>(new CenterCrop(),new RoundedCorners(redius)));
+        //RequestOptions options = RequestOptions.transform(new CenterCrop(),roundedCorners));
+        Glide.with(context)
+                .load(url)
+                .transition(new DrawableTransitionOptions().crossFade())
+                .centerCrop()
+                .apply(myOptions)
+                .into(imageView);
+    }
+
+    public static void showGlideImgDb(Context context, String url, ImageView imageView,int redius){
+        redius = (int) (redius * WindowPixels.DENSITY);
+        RequestOptions myOptions = new RequestOptions().transform(new MultiTransformation<>(new CenterCrop(),new RoundedCorners(redius)));
+        Glide.with(context)
+                .load(url)
+                .transition(new DrawableTransitionOptions().crossFade())
+                .centerCrop()
+                .apply(myOptions)
+                .into(imageView);
+    }
+
+    public static void showGlideImgDb(Context context, String url, ImageView imageView){
+        Glide.with(context)
+                .load(url)
+                .centerCrop()
+                .into(imageView);
+    }
+
+    public static void showGlideImgDb(Context context, Bitmap bitmap, ImageView imageView){
+        Glide.with(context)
+                .load(bitmap)
+                .centerCrop()
+                .into(imageView);
+    }
+
+    public static void showGlideImgDb(Context context, int url,int error, ImageView imageView,int redius){
+        redius = (int) (redius * WindowPixels.DENSITY);
+        RequestOptions myOptions = new RequestOptions().transform(new MultiTransformation<>(new CenterCrop(),new RoundedCorners(redius)));
+        Glide.with(context)
+                .load(url)
+                .transition(new DrawableTransitionOptions().crossFade())
+                .error(error)
+                .centerCrop()
+                .apply(myOptions)
+                .into(imageView);
+    }
+
+    public static void showGlideImgDb(Context context, String url,int error, ImageView imageView,int redius){
+        redius = (int) (redius * WindowPixels.DENSITY);
+        RequestOptions myOptions = new RequestOptions().transform(new MultiTransformation<>(new CenterCrop(),new RoundedCorners(redius)));
+        Glide.with(context)
+                .load(url)
+                .transition(new DrawableTransitionOptions().crossFade())
+                .error(error)
+                .centerCrop()
+                .apply(myOptions)
+                .into(imageView);
+    }
+
+    public static void showGlideImgDb(Context context, int url, ImageView imageView,int redius){
+        redius = (int) (redius * WindowPixels.DENSITY);
+        RequestOptions myOptions = new RequestOptions().transform(new MultiTransformation<>(new CenterCrop(),new RoundedCorners(redius)));
+        Glide.with(context)
+                .load(url)
+                .transition(new DrawableTransitionOptions().crossFade())
+                .centerCrop()
+                .apply(myOptions)
+                .into(imageView);
+    }
+
+    /**
+     * 使用Glide渲染图片
+     * @param context
+     * @param url
+     * @param imageView
+     * @param width
+     * @param height
+     */
+    public static void showGlideImg(Context context, String url, ImageView imageView,int width,int height){
+        //RoundedCorners roundedCorners= new RoundedCorners(10);
+        //通过RequestOptions扩展功能,override采样率,压缩图片,降低内存消耗
+        RequestOptions myOptions = new RequestOptions().transform(new MultiTransformation<>(new CenterCrop(),new RoundedCorners(10)));
+        //RequestOptions options = RequestOptions.transform(new CenterCrop(),roundedCorners));
+        Glide.with(context)
+                .load(url)
+                .transition(new DrawableTransitionOptions().crossFade())
+                .centerCrop()
+                .apply(myOptions)
+                .into(imageView);
+    }
+
+    /**
+     * 使用Glide渲染图片
+     * @param context
+     * @param url
+     * @param imageView
+     */
+    public static void showGlideImg(Context context, String url, ImageView imageView){
+        //RoundedCorners roundedCorners= new RoundedCorners(10);
+        //通过RequestOptions扩展功能,override采样率,压缩图片,降低内存消耗
+        RequestOptions myOptions = new RequestOptions().transform(new MultiTransformation<>(new CenterCrop(),new RoundedCorners(10)));
+        //RequestOptions options = RequestOptions.transform(new CenterCrop(),roundedCorners));
+        Glide.with(context)
+                .load(url)
+                .transition(new DrawableTransitionOptions().crossFade())
+                .centerCrop()
+                .apply(myOptions)
+                .into(imageView);
+    }
+
+    public static void getGlideBitmap(Context context,String url,Bitmap[] bitmaps,int i){
+        Glide.with(context)
+                .asBitmap()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)//缓存
+                .load(url)
+                .centerCrop()
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        bitmaps[i] = resource;
+                        System.out.println(resource);
+                    }
+                });
     }
 
     /**
@@ -234,10 +420,10 @@ public class MergeImage {
         int width = bm.getWidth();
         int height = bm.getHeight();
         // 计算缩放比例
-        float scale = ((float) newWidth) / width;
-        int widthScale = (int) (scale*height);
+        float scale = (float) (newWidth*1.0/width*1.0);
+        float widthScale = scale*height;
         if(widthScale<newHeight) {
-            scale = (float) (newHeight*1.0/height);
+            scale = (float) (newHeight*1.0/height*1.0);
             x = (int) ((scale*width-newWidth)/2);
         }
         // 取得想要缩放的matrix参数

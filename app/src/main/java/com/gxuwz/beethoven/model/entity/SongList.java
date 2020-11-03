@@ -43,6 +43,8 @@ public class SongList implements Serializable, Parcelable {
      * 真实id
      */
     private String reallyId;
+
+    private String userId;
     /**
      * 歌单名
      */
@@ -65,6 +67,11 @@ public class SongList implements Serializable, Parcelable {
     private Integer collectNumber;
 
     private Links _links;
+
+
+
+    public SongList() {
+    }
 
     protected SongList(Parcel in) {
         songListId = in.readString();
@@ -92,10 +99,16 @@ public class SongList implements Serializable, Parcelable {
             commentNumber = in.readInt();
         }
         reallyId = in.readString();
+        userId = in.readString();
         songListName = in.readString();
         songListUrl = in.readString();
         commends = in.readString();
         songListMusic = in.readString();
+        if (in.readByte() == 0) {
+            collectNumber = null;
+        } else {
+            collectNumber = in.readInt();
+        }
     }
 
     public static final Creator<SongList> CREATOR = new Creator<SongList>() {
@@ -116,43 +129,47 @@ public class SongList implements Serializable, Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(songListId);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(songListId);
         if (songNumber == null) {
-            parcel.writeByte((byte) 0);
+            dest.writeByte((byte) 0);
         } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(songNumber);
+            dest.writeByte((byte) 1);
+            dest.writeInt(songNumber);
         }
-        parcel.writeString(createDate);
+        dest.writeString(createDate);
         if (shareNumber == null) {
-            parcel.writeByte((byte) 0);
+            dest.writeByte((byte) 0);
         } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(shareNumber);
+            dest.writeByte((byte) 1);
+            dest.writeInt(shareNumber);
         }
-        parcel.writeString(tag);
-        parcel.writeString(summary);
+        dest.writeString(tag);
+        dest.writeString(summary);
         if (playNumber == null) {
-            parcel.writeByte((byte) 0);
+            dest.writeByte((byte) 0);
         } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(playNumber);
+            dest.writeByte((byte) 1);
+            dest.writeInt(playNumber);
         }
         if (commentNumber == null) {
-            parcel.writeByte((byte) 0);
+            dest.writeByte((byte) 0);
         } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(commentNumber);
+            dest.writeByte((byte) 1);
+            dest.writeInt(commentNumber);
         }
-        parcel.writeString(reallyId);
-        parcel.writeString(songListName);
-        parcel.writeString(songListUrl);
-        parcel.writeString(commends);
-        parcel.writeString(songListMusic);
-    }
-
-    public SongList() {
+        dest.writeString(reallyId);
+        dest.writeString(userId);
+        dest.writeString(songListName);
+        dest.writeString(songListUrl);
+        dest.writeString(commends);
+        dest.writeString(songListMusic);
+        if (collectNumber == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(collectNumber);
+        }
     }
 
     public class Links{
@@ -303,5 +320,13 @@ public class SongList implements Serializable, Parcelable {
 
     public void setCollectNumber(Integer collectNumber) {
         this.collectNumber = collectNumber;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

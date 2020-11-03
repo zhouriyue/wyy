@@ -59,8 +59,7 @@ public class FindViewInit {
         findViewRv = findView.findViewById(R.id.find_view_rv);
         findList = new ArrayList<Find>();
         setData();
-        findViewRv.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL));
-        FindAdapter findAdapter = new FindAdapter(context,findList);
+
         /**
          * recycler 设置流畅度
          */
@@ -106,6 +105,8 @@ public class FindViewInit {
 
             }
         });
+        findViewRv.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL));
+        FindAdapter findAdapter = new FindAdapter(context,findList);
         findViewRv.setAdapter(findAdapter);
     }
 
@@ -733,124 +734,229 @@ public class FindViewInit {
         findList.add(find);
 
         /**
-         * 推荐房间
+         * 推荐歌曲
          */
         find = new Find();
-        find.setTitle("找到你的专属阵地");
-        find.setToMangy("查看更多");
+        find.setTitle("80后 这里有你的青春");
+        find.setToMangy("播放全部");
         find.setIcon("play");
-        find.setType(10);
+        find.setType(5);
+        recSongList = new ArrayList<Song>();
 
-        List<YunVillage> yunVillageList = new ArrayList<YunVillage>();
-        YunVillage yunVillage = new YunVillage();
-        yunVillage.setImg("youth");
-        yunVillage.setHotNumber(230);
-        yunVillage.setName("网易音乐人的云圈");
-        yunVillage.setTitle("打开你的热爱");
-        yunVillageList.add(yunVillage);
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
 
-        yunVillage = new YunVillage();
-        yunVillage.setImg("zhoushen");
-        yunVillage.setHotNumber(1250);
-        yunVillage.setName("二次元云圈");
-        yunVillage.setTitle("9.9万网友已加入");
-        yunVillageList.add(yunVillage);
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("少年游");
+        recSongList.add(song);
 
-        yunVillage = new YunVillage();
-        yunVillage.setImg("youth");
-        yunVillage.setHotNumber(1250);
-        yunVillage.setName("二次元云圈");
-        yunVillage.setTitle("9.9万网友已加入");
-        yunVillageList.add(yunVillage);
-        find.setYunVillageList(yunVillageList);
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("风云无阻");
+        recSongList.add(song);
 
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        find.setSongList(recSongList);
         findList.add(find);
-
         /**
-         * 推荐排行榜
+         * 推荐歌曲
          */
         find = new Find();
-        find.setTitle("热歌风向标");
-        find.setToMangy("查看更多");
+        find.setTitle("80后 这里有你的青春");
+        find.setToMangy("播放全部");
         find.setIcon("play");
-        find.setType(11);
-        List<RankingList> rankingListList = new ArrayList<RankingList>();
-
-        RankingList rankingList = new RankingList();
-        rankingList.setName("硬地原创音乐榜");
-        rankingList.setImg("zhoushen1");
+        find.setType(5);
         recSongList = new ArrayList<Song>();
+
         song = new Song();
         song.setImage("youth");
-        song.setSongName("all that gitter 光粒 fly,all that gitter 光粒 fly");
-        song.setSinger("-李荣海/李荣海");
-        song.setIsNew(1);
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
         recSongList.add(song);
+
         song = new Song();
         song.setImage("youth");
-        song.setSongName("all that gitter 光粒 fly,all that gitter 光粒 fly");
-        song.setSinger("-李荣海/李荣海");
-        song.setIsNew(1);
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("少年游");
         recSongList.add(song);
+
         song = new Song();
         song.setImage("youth");
-        song.setSongName("all that gitter 光粒 fly,all that gitter 光粒 fly");
-        song.setSinger("-李荣海/李荣海");
-        song.setIsNew(1);
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("风云无阻");
         recSongList.add(song);
-        rankingList.setSongList(recSongList);
-        rankingListList.add(rankingList);
 
-        rankingList = new RankingList();
-        rankingList.setName("云音乐说唱榜");
-        rankingList.setImg("zhoushen");
-        recSongList = new ArrayList<Song>();
         song = new Song();
-        song.setImage("zhoushen1");
-        song.setSongName("嗨咯喂（Live）");
-        song.setSinger("-李佳隆");
-        song.setIsNew(1);
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
         recSongList.add(song);
-        song = new Song();
-        song.setImage("zhoushen1");
-        song.setSongName("药水歌（Live）");
-        song.setSinger("-药水哥");
-        song.setIsNew(1);
-        recSongList.add(song);
-        song = new Song();
-        song.setImage("zhoushen1");
-        song.setSongName("不怪他（Live）");
-        song.setSinger("-李佳隆");
-        song.setIsNew(1);
-        recSongList.add(song);
-        rankingList.setSongList(recSongList);
-        rankingListList.add(rankingList);
 
-        rankingList = new RankingList();
-        rankingList.setName("云音乐飙升榜");
-        rankingList.setImg("youth");
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        find.setSongList(recSongList);
+        findList.add(find);
+        /**
+         * 推荐歌曲
+         */
+        find = new Find();
+        find.setTitle("80后 这里有你的青春");
+        find.setToMangy("播放全部");
+        find.setIcon("play");
+        find.setType(5);
         recSongList = new ArrayList<Song>();
+
         song = new Song();
-        song.setImage("zhoushen1");
-        song.setSongName("讲个笑话");
-        song.setSinger("-李佳隆");
-        song.setIsNew(1);
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
         recSongList.add(song);
+
         song = new Song();
-        song.setImage("zhoushen1");
-        song.setSongName("7%");
-        song.setSinger("-XMASM");
-        song.setIsNew(1);
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("少年游");
         recSongList.add(song);
+
         song = new Song();
-        song.setImage("zhoushen1");
-        song.setSongName("熬鹰战队");
-        song.setSinger("-黄明昊（Justin）");
-        song.setIsNew(1);
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("风云无阻");
         recSongList.add(song);
-        rankingList.setSongList(recSongList);
-        rankingListList.add(rankingList);
-        find.setRankingListList(rankingListList);
+
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        song = new Song();
+        song.setImage("youth");
+        song.setDetail("给我一杯酒烽火几时休");
+        song.setSinger("-任贤齐/周华健");
+        song.setSongName("别傻了");
+        recSongList.add(song);
+
+        find.setSongList(recSongList);
         findList.add(find);
 
         /**

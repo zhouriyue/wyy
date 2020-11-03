@@ -3,19 +3,29 @@ package com.gxuwz.beethoven.model.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.gxuwz.beethoven.model.entity.my.songlist.SLMore;
 import com.gxuwz.beethoven.model.vo.Href;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class SongListsMusic implements Serializable, Parcelable {
 
     private Integer id;
     private String songListId;
-    private String reallyId;
     private Links _links;
+    private String musicId;
+    private String singerId;
     private String musicName;
     private String singerName;
     private Integer songTime;
+    private String songCachePath;
+    private Integer reallyId;
+
+    private List<SLMore> slMoreList;
+
+    public SongListsMusic() {
+    }
 
     public class Links{
         Href music;
@@ -78,11 +88,11 @@ public class SongListsMusic implements Serializable, Parcelable {
         this.songListId = songListId;
     }
 
-    public String getReallyId() {
+    public Integer getReallyId() {
         return reallyId;
     }
 
-    public void setReallyId(String reallyId) {
+    public void setReallyId(Integer reallyId) {
         this.reallyId = reallyId;
     }
 
@@ -116,5 +126,54 @@ public class SongListsMusic implements Serializable, Parcelable {
 
     public void setSongTime(Integer songTime) {
         this.songTime = songTime;
+    }
+
+    public List<SLMore> getSlMoreList() {
+        return slMoreList;
+    }
+
+    public void setSlMoreList(List<SLMore> slMoreList) {
+        this.slMoreList = slMoreList;
+    }
+
+    public String getMusicId() {
+        return musicId;
+    }
+
+    public void setMusicId(String musicId) {
+        this.musicId = musicId;
+    }
+
+    public String getSingerId() {
+        return singerId;
+    }
+
+    public void setSingerId(String singerId) {
+        this.singerId = singerId;
+    }
+
+    public String getSongCachePath() {
+        return songCachePath;
+    }
+
+    public void setSongCachePath(String songCachePath) {
+        this.songCachePath = songCachePath;
+    }
+
+    @Override
+    public String toString() {
+        return "SongListsMusic{" +
+                "id=" + id +
+                ", songListId='" + songListId + '\'' +
+                ", _links=" + _links +
+                ", musicId='" + musicId + '\'' +
+                ", singerId='" + singerId + '\'' +
+                ", musicName='" + musicName + '\'' +
+                ", singerName='" + singerName + '\'' +
+                ", songTime=" + songTime +
+                ", songCachePath='" + songCachePath + '\'' +
+                ", reallyId=" + reallyId +
+                ", slMoreList=" + slMoreList +
+                '}';
     }
 }

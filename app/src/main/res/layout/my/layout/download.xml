@@ -4,136 +4,140 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".page.index.myview.download.DownLoadActivity">
+    tools:context=".page.fragment.my.downmanage.DownLoadActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp">
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
         <LinearLayout
             android:id="@+id/top_box"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
             android:orientation="horizontal">
+
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:orientation="horizontal"
+                android:gravity="center">
+
                 <ImageView
                     android:id="@+id/to_back"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_margin="14dp"
                     android:background="@drawable/icon_last_local" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toRightOf="@+id/to_back"
                     android:text="下载管理"
                     android:textColor="#383838"
                     android:textSize="16dp" />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
 
-
-                <RelativeLayout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
                     <ImageView
-                        android:layout_toLeftOf="@+id/search"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="28dp"
+                        android:layout_margin="14dp"
                         android:background="@drawable/icon_search_707070" />
                     <LinearLayout
                         android:id="@+id/search"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true">
+                        android:layout_height="wrap_content">
                         <ImageView
                             android:id="@+id/to_many"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_marginTop="10dp"
                             android:background="@drawable/to_many_707070" />
                     </LinearLayout>
-                </RelativeLayout>
-            </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#fff"
             android:layout_below="@+id/top_box"
-            >
+            android:background="#fff">
+
             <TextView
                 android:id="@+id/single"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.0"
+                android:background="@drawable/selector"
                 android:gravity="center"
+                android:onClick="onClick"
                 android:text="单曲"
                 android:textColor="#616161"
-                android:textSize="14dp"
-                android:background="@drawable/selector"/>
+                android:textSize="14dp" />
             <!--layout_weight这个属性为权重，让两个textview平分这个linearLayout-->
             <TextView
                 android:id="@+id/radio_station"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.0"
+                android:background="@drawable/selector"
                 android:gravity="center"
+                android:onClick="onClick"
                 android:text="电台节目"
                 android:textColor="#616161"
-                android:textSize="14dp"
-                android:background="@drawable/selector"/>
+                android:textSize="14dp" />
+
             <TextView
                 android:id="@+id/video"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.0"
+                android:background="@drawable/selector"
                 android:gravity="center"
+                android:onClick="onClick"
                 android:text="视频"
                 android:textColor="#616161"
-                android:textSize="14dp"
-                android:background="@drawable/selector"/>
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/download"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.0"
+                android:background="@drawable/selector"
                 android:gravity="center"
+                android:onClick="onClick"
                 android:text="下载0"
                 android:textColor="#616161"
-                android:textSize="14dp"
-                android:background="@drawable/selector"/>
+                android:textSize="14dp" />
 
         </LinearLayout>
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/download_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/linearLayout">
-        </androidx.viewpager.widget.ViewPager>
+            android:layout_below="@+id/linearLayout"></androidx.viewpager.widget.ViewPager>
     </RelativeLayout>
 
 </RelativeLayout>

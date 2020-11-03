@@ -1,0 +1,13 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!--背景的渐变色-->
+    <!--实现应用背景颜色渐变-->
+    <gradient
+        android:type="linear"
+        android:startColor="#65caff"
+        android:centerColor="#73a0fe"
+        android:centerX="0.4"
+        android:centerY="0.5"
+        android:endColor="#8274fe"/>
+    <corners android:radius="30dp"/>
+</shape>

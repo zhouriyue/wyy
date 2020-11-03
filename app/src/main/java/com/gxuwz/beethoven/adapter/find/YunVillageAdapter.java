@@ -41,7 +41,7 @@ public class YunVillageAdapter extends RecyclerView.Adapter<YunVillageAdapter.Yu
     @Override
     public void onBindViewHolder(@NonNull YunVillageViewHolder holder, int position) {
         YunVillage yunVillage = yunVillageList.get(position);
-        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(yunVillage.getImg(),context),188,180,10));
+        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(yunVillage.getImg(),context),150,140,10));
         holder.title.setText(yunVillage.getTitle());
         holder.hotNumber.setText(yunVillage.getHotNumber()+"");
         holder.name.setText(yunVillage.getName());

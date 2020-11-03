@@ -3,58 +3,77 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/id"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp">
-    <TextView
-        android:id="@+id/position"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:text="1"/>
-    <TextView
-        android:id="@+id/music_name"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp">
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:layout_marginLeft="5dp"
-        android:text="她说"
-        android:layout_toRightOf="@+id/position"/>
-    <TextView
-        android:id="@+id/music_singer_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#000"
-        android:layout_marginLeft="5dp"
-        android:textSize="12dp"
-        android:layout_marginTop="30dp"
-        android:text="林俊杰-她说"
-        android:layout_toRightOf="@+id/position"/>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/pt_tag"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/play3"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/to_many" />
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/black_2c"
+            android:text="1" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="82dp">
+            <TextView
+                android:id="@+id/music_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_2c"
+                android:textSize="14dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="她说" />
+            <TextView
+                android:id="@+id/music_singer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_707070"
+                android:layout_marginTop="5dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="10dp"
+                android:text="林俊杰-她说" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="82dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="7dp">
+            <ImageView
+                android:id="@+id/pt_tag"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/play3" />
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/to_many"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
+            android:padding="7dp">
             <ImageView
+                android:id="@+id/more"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/to_many_707070"
-                android:layout_toRightOf="@+id/position"
-                android:layout_marginTop="15dp"/>
+                android:background="@drawable/to_many_707070" />
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

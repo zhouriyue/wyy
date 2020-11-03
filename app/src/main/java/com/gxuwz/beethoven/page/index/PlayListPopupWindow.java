@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
+
 import com.gxuwz.beethoven.util.WindowPixels;
 
 public class PlayListPopupWindow {
@@ -47,5 +48,13 @@ public class PlayListPopupWindow {
 
     public void setPopupWindow(PopupWindow popupWindow) {
         this.popupWindow = popupWindow;
+    }
+
+    public View getPlayListView() {
+        return playListView;
+    }
+
+    public void setPlayListView(View playListView) {
+        this.playListView = playListView;
     }
 }

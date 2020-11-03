@@ -33,6 +33,7 @@ public class MusicHandler extends Handler {
     int back;
     Player mPlayer;
     Context context;
+    PlayList playList;
     int position;
     static boolean isPlay = false;
 
@@ -57,34 +58,38 @@ public class MusicHandler extends Handler {
             try {
                 JSONObject all_json = new JSONObject(result);
                 String songUrl = all_json.optString("songUrl");
-                /**
-                 * 设置播放广播
-                 */
-                PlayListDao playListDao = new PlayListDao(context);
-                PlayList playList = new PlayList();
-                playList.setSongName(songListsMusic.getMusicName());
-                playList.setSingerName(songListsMusic.getSingerName());
-                playList.setNetworkUri(songUrl);
-                playList.setSongTime(songListsMusic.getSongTime());
-                String localUrl = HttpUtil.downFile(context,HttpUtil.BASEURL+songUrl,songUrl.substring(songUrl.lastIndexOf("/")));
-                playList.setLocalUri(localUrl);
-                int size = playListDao.find(playList).size();
-                if(size==0) {
-                    playListDao.insert(playList);
-
-                }
-                playList = playListDao.find(playList).get(0);
-                playList.setSongListUri(songListUrl);
-                if(size==0) {
-                    freshPlayList(playList);
-                }
+                addPlayList(songUrl);
+                addSongLMusic();
                 saveSharedPreferences(playList);
-                Player.playCurrent(context);
                 IndexBottomBarReceiver.sendBroadcast(IndexBottomBarReceiver.FLAT_PLAY,context);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void addSongLMusic(){
+        //System.out.println(songListsMusic.toString());
+    }
+
+    private void addPlayList(String songUrl){
+        /*PlayListDao playListDao = new PlayListDao(context);
+        playList = new PlayList();
+        playList.setSongName(songListsMusic.getMusicName());
+        playList.setSingerName(songListsMusic.getSingerName());
+        playList.setNetworkUri(songUrl);
+        playList.setSongTime(songListsMusic.getSongTime());
+        String localUrl = HttpUtil.downFile(context,HttpUtil.BASEURL+songUrl,songUrl.substring(songUrl.lastIndexOf("/")));
+        playList.setLocalUri(localUrl);
+        int size = playListDao.find(playList).size();
+        if(size==0) {
+            playListDao.insert(playList);
+        }
+        playList = playListDao.find(playList).get(0);
+        playList.setSongListUri(songListUrl);
+        if(size==0) {
+            freshPlayList(playList);
+        }*/
     }
 
     private void saveSharedPreferences(PlayList playList){
@@ -107,11 +112,11 @@ public class MusicHandler extends Handler {
         editor.commit();
     }
 
-    private void freshPlayList(PlayList playList) {
+    /*private void freshPlayList(PlayList playList) {
         Intent intent = new Intent(CurrentPlayView.FreshPlayListReceiver.ACTION);
         intent.putExtra("playList",playList);
         context.sendBroadcast(intent);
-    }
+    }*/
 
     public Context getContext() {
         return context;

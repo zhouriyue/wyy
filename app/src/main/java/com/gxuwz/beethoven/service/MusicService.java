@@ -5,16 +5,24 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
+import com.gxuwz.beethoven.dao.LocalSongDao;
+import com.gxuwz.beethoven.dao.PlayListDao;
+import com.gxuwz.beethoven.dao.SongDao;
 import com.gxuwz.beethoven.listener.MusicCompletionListener;
-import com.gxuwz.beethoven.model.entity.PlayList;
+import com.gxuwz.beethoven.model.entity.current.LocalSong;
+import com.gxuwz.beethoven.model.entity.current.PlayList;
+import com.gxuwz.beethoven.model.entity.current.Song;
 import com.gxuwz.beethoven.page.index.Index;
 import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
+import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.Player;
+import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
 import java.io.IOException;
 
@@ -32,8 +40,9 @@ public class MusicService extends Service {
      * 1表示播放
      * 0表示暂停
      */
-    public static final int CONTROLLER_FLAT0 = 0;
-    public static final int CONTROLLER_FLAT1 = 1;
+    public static final int STOP = 0;
+    public static final int PLAY = 1;
+    public static final int PRPLAY = 2;
     /**
      * 歌曲路径
      */
@@ -47,6 +56,10 @@ public class MusicService extends Service {
     public static boolean isRun = false;
     public static ImageView ptTagBack;
     public static int position;
+    SharedPreferences sharedPreferences;
+    PlayListDao playListDao;
+    SongDao songDao;
+    LocalSongDao localSongDao;
 
     @Nullable
     @Override
@@ -71,7 +84,18 @@ public class MusicService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             int control = intent.getIntExtra(CONTROLLER, -1);
-            PlayList playList = (PlayList) intent.getSerializableExtra(PLAYLIST);
+            initData(context);
+            Long slId = sharedPreferences.getLong("slId",-1);
+            Long songId = sharedPreferences.getLong("songId",-1);
+            String songUrl = "";
+            if(slId!=-1) {
+                Song song = songDao.findById(songId);
+                songUrl = song.getStandardUrl();
+                songUrl = StaticHttp.STATIC_BASEURL+songUrl;
+            } else {
+                LocalSong localSong = localSongDao.findBySongId(songId);
+                songUrl = localSong.getSongUrl();
+            }
             switch (control) {
                 case 0:{
                     Player.isPlayer = false;
@@ -83,10 +107,25 @@ public class MusicService extends Service {
                 };break;
                 case 2:{
                     Player.isPlayer = true;
-                    prepareAndPlay(playList.getLocalUri());
+                    prepareAndPlay(songUrl);
                     player.play();
                 };break;
             }
+        }
+    }
+
+    private void initData(Context context){
+        if(sharedPreferences==null) {
+            sharedPreferences = context.getSharedPreferences("data",MODE_PRIVATE);
+        }
+        if(songDao==null) {
+            songDao = new SongDao(context);
+        }
+        if(localSongDao==null) {
+            localSongDao = new LocalSongDao(context);
+        }
+        if(playListDao==null) {
+            playListDao = new PlayListDao(context);
         }
     }
 
@@ -98,5 +137,17 @@ public class MusicService extends Service {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void musicCtrl(Context context,int ctrl){
+        Intent intent = new Intent(ACTION);
+        intent.putExtra(CONTROLLER, ctrl);
+        context.sendBroadcast(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(serviceReceiver);
     }
 }

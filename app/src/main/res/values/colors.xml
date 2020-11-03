@@ -7,6 +7,7 @@
     <color name="black">#000</color>
     <color name="white">#fff</color>
     <color name="transparent">#0000</color>
+    <color name="transparent_wBF">#BFffffff</color>
     <color name="transparent_30">#40ffffff</color>
     <color name="transparent_40">#59000000</color>
     <color name="transparent_99">#99000000</color>
@@ -19,12 +20,14 @@
     <color name="black_E6E6E6">#FFF0F0F0</color>
     <color name="black_A2">#A2A2A2</color>
     <color name="blue_4e7cb0">#4e7cb0</color>
+    <color name="blue_tr_4e">#994e7cb0</color>
     <color name="blue_man">#06cffd</color>
     <color name="black_bf">#bfbfbf</color>
     <color name="black_2c">#2c2c2c</color>
     <color name="black_tr_27">#CC271b27</color>
     <color name="red_33ag">#33FFA9A9</color>
     <color name="red_fe3a3b">#fe3a3b</color>
+    <color name="tran_r_ff3c3d">#40ff3c3d</color>
     <color name="red_fd5b57">#fd5b57</color>
     <color name="red_ff7a57">#ff7a57</color>
     <color name="pink">#d4237a</color>

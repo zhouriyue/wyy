@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.gxuwz.beethoven">
     <!-- 开启网络权限 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 开启读取本地网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -11,12 +15,19 @@
         android:icon="@mipmap/beethoven"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true">
-        <activity android:name=".page.index.cloudview.videotalk.VideoTalkActivity"></activity>
+        android:usesCleartextTraffic="true">
+        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".page.fragment.member.RechargeActivity" />
+        <activity android:name=".page.fragment.my.usermain.UserMainActivity" />
+        <activity android:name=".page.fragment.search.SeaSongActivity" />
+        <activity android:name=".page.fragment.search.SearchActivity" />
+        <activity android:name=".page.fragment.PrincipalSheetActivity" />
+        <activity android:name=".page.index.cloudview.videotalk.VideoTalkActivity" />
         <activity android:name=".page.index.cloudview.hotwall.HotWallActivity" />
         <activity android:name=".page.index.findview.yunvillage.YunVillageActivity" />
         <activity android:name=".page.index.findview.chatroom.ChatRoomActivity" />
@@ -29,13 +40,14 @@
         <activity android:name=".page.index.findview.spefun.rankinglist.RankingListActivity" />
         <activity android:name=".page.index.findview.spefun.slplaza.SLPlazaActivity" />
         <activity android:name=".page.index.findview.spefun.everyrecomm.EveryRecommActivity" />
-        <activity android:name=".page.index.myview.follow.FollowActivity" />
-        <activity android:name=".page.index.myview.collect.CollectActivity" />
-        <activity android:name=".page.index.myview.radiostation.RadioStationActivity" />
-        <activity android:name=".page.index.myview.download.DownLoadActivity" />
-        <activity android:name=".page.index.playview.ActivityPlayView" />
-        <activity android:name=".page.index.myview.localmusic.LocalMusicActivity" />
-        <activity android:name=".page.index.myview.songlist.SongListActivity" />
+        <activity android:name=".page.fragment.my.follow.FollowActivity" />
+        <activity android:name=".page.fragment.my.collect.CollectActivity" />
+        <activity android:name=".page.fragment.my.radiostation.RadioStationActivity" />
+        <activity android:name=".page.fragment.my.downmanage.DownLoadActivity" />
+        <activity android:name=".page.fragment.playview.ActivityPlayView" />
+        <activity android:name=".page.fragment.my.localmusic.LocalMusicActivity"
+            android:exported="true"/>
+        <activity android:name=".page.fragment.my.songlist.SongListActivity" />
         <activity android:name=".page.index.Index" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -46,6 +58,7 @@
         </activity>
 
         <service android:name=".service.MusicService" />
+        <service android:name=".service.DownloadService" />
     </application>
 
 </manifest>

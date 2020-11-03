@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--搜索提示框信息 item-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/position"
+    android:background="@drawable/underline_bottom">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/icon_search_707070"/>
+            <TextView
+                android:id="@+id/song_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black_707070"
+                android:text="上海"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

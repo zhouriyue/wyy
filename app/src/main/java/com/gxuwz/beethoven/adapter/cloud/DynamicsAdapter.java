@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.dynamics.Dynamics;
 import com.gxuwz.beethoven.model.entity.dynamics.ImageWordDynamics;
@@ -46,7 +47,8 @@ public class DynamicsAdapter extends RecyclerView.Adapter<DynamicsAdapter.Dynami
             holder.username.setText("周日月");
             holder.dyn_time.setText("19:20");
             holder.dyn_type.setText("分享歌单");
-            holder.diagonal.setImageBitmap(HttpUtil.getRes(imageWordDynamics.getDiagonal(),context));
+            Glide.with(context).load(HttpUtil.getRes(imageWordDynamics.getDiagonal(),context)).override(500, 500).into(holder.diagonal);
+            //holder.diagonal.setImageBitmap(HttpUtil.getRes(imageWordDynamics.getDiagonal(),context));
             String content = imageWordDynamics.getFriend().toString()+imageWordDynamics.getContent().toString();
             SpannableString spannableString = new SpannableString(content);
             //设置文字颜色

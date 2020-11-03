@@ -13,16 +13,29 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.gxuwz.beethoven.R;
+import com.gxuwz.beethoven.adapter.my.songlist.SDLPopWinAdapter;
+import com.gxuwz.beethoven.dao.LatePlayDao;
+import com.gxuwz.beethoven.dao.LocalSongDao;
+import com.gxuwz.beethoven.dao.OperateDao;
 import com.gxuwz.beethoven.dao.PlayListDao;
+import com.gxuwz.beethoven.dao.SongDao;
+import com.gxuwz.beethoven.dao.SongListDao;
 import com.gxuwz.beethoven.model.entity.Music;
-import com.gxuwz.beethoven.model.entity.PlayList;
-import com.gxuwz.beethoven.page.index.playlistview.CurrentPlayView;
+import com.gxuwz.beethoven.model.entity.current.LocalSong;
+import com.gxuwz.beethoven.model.entity.current.Operate;
+import com.gxuwz.beethoven.model.entity.current.PlayList;
+import com.gxuwz.beethoven.model.entity.current.Song;
+import com.gxuwz.beethoven.page.fragment.my.ring.RingTestPW;
+import com.gxuwz.beethoven.page.fragment.my.songlist.LoadDownPopuWindow;
+import com.gxuwz.beethoven.page.fragment.search.SaveToSonglistPw;
 import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
 import com.gxuwz.beethoven.service.MusicService;
 import com.gxuwz.beethoven.util.HttpUtil;
-import com.gxuwz.beethoven.util.Player;
+import com.gxuwz.beethoven.util.MergeImage;
+import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,16 +43,30 @@ import java.util.List;
 public class LocalMusicAdapter extends RecyclerView.Adapter<LocalMusicAdapter.LocalMusicViewHolder> {
     private Context context;
     SharedPreferences sharedPreferences;
-    Intent intent;
-    List<Music> musicList;
+    LoadDownPopuWindow loadDownPopuWindow;
+    SaveToSonglistPw saveToSonglistPw;
+    PlayListDao playListDao;
+    LocalSongDao localSongDao;
+    SongListDao songListDao;
+    SongDao songDao;
+    OperateDao operateDao;
+    LatePlayDao latePlayDao;
+    List<LocalSong> localSongs;
     PlayList playList;
     private int backItem = -1;
-    ImageView ptTagBack;
 
-    public LocalMusicAdapter(Context context, List<Music> musicList,SharedPreferences sharedPreferences) {
+    public LocalMusicAdapter(Context context, List<LocalSong> localSongs, SharedPreferences sharedPreferences, LoadDownPopuWindow loadDownPopuWindow) {
         this.context = context;
-        this.musicList = musicList;
+        this.localSongs = localSongs;
         this.sharedPreferences = sharedPreferences;
+        playListDao = new PlayListDao(context);
+        localSongDao = new LocalSongDao(context);
+        latePlayDao = new LatePlayDao(context);
+        songListDao = new SongListDao(context);
+        songDao = new SongDao(context);
+        operateDao = new OperateDao(context);
+        this.loadDownPopuWindow = loadDownPopuWindow;
+        this.saveToSonglistPw = new SaveToSonglistPw(context);
     }
 
     @NonNull
@@ -50,37 +77,17 @@ public class LocalMusicAdapter extends RecyclerView.Adapter<LocalMusicAdapter.Lo
 
     @Override
     public void onBindViewHolder(@NonNull LocalMusicAdapter.LocalMusicViewHolder holder, int position) {
-        Music music = musicList.get(position);
+        LocalSong localSong = localSongs.get(position);
         holder.position.setText((position+1)+"");
-        holder.musicName.setText(music.getMusicName());
-        holder.nameAndSinger.setText(music.getSinger()+"-"+music.getMusicName());
-        if(MusicService.position==position&&MusicService.isRun) {
-            if(MusicService.ptTagBack!=null) {
-                MusicService.ptTagBack.setBackgroundResource(0);
-                MusicService.ptTagBack.setImageBitmap(HttpUtil.getRes("stop1",context));
-            }
-        }
-        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(MusicService.ptTagBack!=null) {
-                    MusicService.ptTagBack.setImageBitmap(HttpUtil.getRes("play3",context));
-                }
-                holder.ptTag.setBackgroundResource(0);
-                holder.ptTag.setImageBitmap(HttpUtil.getRes("stop1",context));
-                saveSharedPreferences(music);
-                Player.playCurrent(context);
-                MusicService.ptTagBack = holder.ptTag;
-                MusicService.position = position;
-                MusicService.isRun = true;
-                IndexBottomBarReceiver.sendBroadcast(IndexBottomBarReceiver.FLAT_PLAY,context);
-            }
-        });
+        holder.musicName.setText(localSong.getSongName());
+        holder.nameAndSinger.setText(localSong.getSingerName()+"-"+localSong.getSongName());
+        holder.ptTag.setOnClickListener(new ItemListenner(holder,localSong,position));
+        holder.more.setOnClickListener(new MoreListener(localSong));
     }
 
     @Override
     public int getItemCount() {
-        return musicList.size();
+        return localSongs.size();
     }
 
     class LocalMusicViewHolder extends RecyclerView.ViewHolder {
@@ -88,71 +95,100 @@ public class LocalMusicAdapter extends RecyclerView.Adapter<LocalMusicAdapter.Lo
         private TextView position;
         private TextView musicName;
         private TextView nameAndSinger;
-        private RelativeLayout relativeLayout;
-        private ImageView ptTag;
+        private ImageView ptTag,more;
 
         public LocalMusicViewHolder(@NonNull View itemView) {
             super(itemView);
             position = itemView.findViewById(R.id.position);
             musicName = itemView.findViewById(R.id.music_name);
             nameAndSinger = itemView.findViewById(R.id.music_singer_name);
-            relativeLayout = itemView.findViewById(R.id.id);
             ptTag = itemView.findViewById(R.id.pt_tag);
+            more = itemView.findViewById(R.id.more);
         }
     }
 
-    private void saveSharedPreferences(Music music){
-        PlayList playList = saveSong(music);
-        /**
-         * 设置播放歌曲的歌名、歌手、歌曲
-         */
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("id",playList.getId());
-        editor.putString("songName",playList.getSongName());
-        editor.putString("singerName",playList.getSingerName());
-        editor.putInt("songTime",playList.getSongTime());
-        editor.putString("localUri",playList.getLocalUri());
-        editor.putString("networkUri",playList.getNetworkUri());
-        editor.putString("songListUri",playList.getSongListUri());
-        /**
-         * playStatus==1表示播放
-         * playStatus==0表示停止
-         */
-        editor.putString("playStatus","1");
-        editor.commit();
+    class MoreListener implements View.OnClickListener{
+
+        LocalSong localSong;
+
+        public MoreListener(LocalSong localSong) {
+            this.localSong = localSong;
+        }
+
+        @Override
+        public void onClick(View v) {
+            List<Operate> operates = operateDao.findByType(2);
+            initView(operates,v,localSong);
+        }
     }
 
-    private PlayList saveSong(Music music){
-        List<PlayList> playLists = new ArrayList<PlayList>();
-        PlayListDao playListDao = new PlayListDao(context);
-        playList = new PlayList();
-        playList.setSongName(music.getMusicName());
-        playList.setSingerName(music.getSinger());
-        playList.setSongTime(music.getDuration());
-        playList.setLocalUri(music.getSongUrl());
-        playLists = playListDao.find(playList);
-        int size = playLists.size();
-        if(size==0) {
-            playListDao.insert(playList);
-            playList = playListDao.find(playList).get(0);
-            freshPlayList(playList);
+    public void initView(List<Operate> operates, View view, LocalSong localSong){
+        View singListView = loadDownPopuWindow.getSingListView();
+        TextView songName = singListView.findViewById(R.id.song_name);
+        ImageView img = singListView.findViewById(R.id.img);
+        if(localSong.getCoverPicture()!=null) {
+            String url = StaticHttp.STATIC_BASEURL+localSong.getCoverPicture();
+            MergeImage.showGlideImg(context,url,img);
         } else {
-            playList = playLists.get(0);
+            MergeImage.showGlideImgDb(context,StaticHttp.DEFALUT_SONGLIST_COVERPICTURE,img,1);
         }
-        return playList;
+        songName.setText(localSong.getSongName());
+        RecyclerView slMoreRv = singListView.findViewById(R.id.sl_more_rv);
+        //initSinger(singerName);
+        if(localSong!=null) {
+            slMoreRv.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL));
+            SDLPopWinAdapter sdlPopWinAdapter = new SDLPopWinAdapter(context,operates,saveToSonglistPw,view,localSong);
+            sdlPopWinAdapter.setLdPopupWindow(loadDownPopuWindow.popupWindow);
+            slMoreRv.setAdapter(sdlPopWinAdapter);
+        }
+        loadDownPopuWindow.showAtLocation(view);
     }
 
-    private void sendBroadcast(int position){
-        intent = new Intent("CTL_ACTION");
-        intent.putExtra("controller",2);
-        intent.putExtra("playList",playList);
-        intent.putExtra("position",position);
-    }
+    class ItemListenner implements View.OnClickListener {
 
-    private void freshPlayList(PlayList playList) {
-        intent = new Intent(CurrentPlayView.FreshPlayListReceiver.ACTION);
-        intent.putExtra("playList",playList);
-        context.sendBroadcast(intent);
+        LocalMusicViewHolder holder;
+        LocalSong localSong;
+        int position;
+
+        public ItemListenner(LocalMusicViewHolder holder, LocalSong localSong, int position) {
+            this.holder = holder;
+            this.localSong = localSong;
+            this.position = position;
+        }
+
+        @Override
+        public void onClick(View view) {
+            if(MusicService.ptTagBack!=null) {
+                MusicService.ptTagBack.setImageBitmap(HttpUtil.getRes("play3",context));
+            }
+            holder.ptTag.setBackgroundResource(0);
+            holder.ptTag.setImageBitmap(HttpUtil.getRes("stop1",context));
+            if(localSong==null) {
+                localSong = new LocalSong();
+                localSong.setSongName(localSong.getSongName());
+                localSong.setSongUrl(localSong.getSongUrl());
+                localSong.setSingerName(localSong.getSingerName());
+                localSongDao.insert(localSong);
+                localSong = localSongDao.findByUrl(localSong.getSongUrl());
+            } else {
+                if(!songDao.isSlToSong(-1,localSong.getSongId())){
+                    songDao.insertSlToSong(-1,localSong.getSongId());
+                }
+                localSong = localSongDao.findByUrl(localSong.getSongUrl());
+            }
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putLong("slId",-1);
+            editor.putLong("songId",localSong.getSongId());
+            editor.commit();
+            playList = new PlayList();
+            playList.setSlId((long) -1);
+            playList.setSongId(localSong.getSongId());
+            if(!playListDao.isExist(playList)){
+                playListDao.insert(playList);
+            }
+            MusicService.musicCtrl(context,2);
+            IndexBottomBarReceiver.sendBroadcast(IndexBottomBarReceiver.FLAT_PLAY,context);
+        }
     }
 
     public int getBackItem() {

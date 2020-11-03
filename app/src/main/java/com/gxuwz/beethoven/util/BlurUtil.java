@@ -249,12 +249,15 @@ public class BlurUtil {
      */
     public static Bitmap doBlur(Bitmap originBitmap, int scaleRatio, int blurRadius){
 //        print("原图：：",originBitmap);
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originBitmap,
-                originBitmap.getWidth() / scaleRatio,
-                originBitmap.getHeight() / scaleRatio,
-                false);
-        Bitmap blurBitmap = doBlur(scaledBitmap, blurRadius, false);
-        scaledBitmap.recycle();
+        Bitmap blurBitmap = null;
+        if(originBitmap!=null){
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(originBitmap,
+                    originBitmap.getWidth() / scaleRatio,
+                    originBitmap.getHeight() / scaleRatio,
+                    false);
+            blurBitmap = doBlur(scaledBitmap, blurRadius, false);
+            scaledBitmap.recycle();
+        }
         return blurBitmap;
     }
 

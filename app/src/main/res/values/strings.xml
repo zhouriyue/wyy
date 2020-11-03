@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">多芬音乐</string>
+    <string name="search_search">多芬音乐</string>
+    <string name="search_hint_text">多芬音乐</string>
 </resources>

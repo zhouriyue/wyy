@@ -42,12 +42,12 @@ public class PlayListView {
     public void init(){
         viewPager = playListView.findViewById(R.id.play_list_rv);
         pagerCustomAdapter = new PagerCustomAdapter(viewList);
-        initPager();
-        initPopuWindow();
         /**
          * “当前播放”页初始化
          */
         currentPlayView = new CurrentPlayView(context,viewList.get(1));
+        initPager();
+        initPopuWindow();
     }
 
     /**
@@ -72,6 +72,25 @@ public class PlayListView {
 
     public void initPager(){
         viewPager.setAdapter(pagerCustomAdapter);
+        viewPager.setOnPageChangeListener(new OnPageChangeLer());
         viewPager.setCurrentItem(1);
+    }
+
+    class OnPageChangeLer implements ViewPager.OnPageChangeListener {
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            currentPlayView.init();
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            currentPlayView.init();
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
     }
 }

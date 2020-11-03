@@ -16,6 +16,7 @@ import java.util.ArrayList;
  * “云村”初始化模块
  */
 public class CloudViewInit {
+
     View CloudView;
     Context context;
     ViewPager cloudPager;

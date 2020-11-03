@@ -30,7 +30,7 @@ public class MainMenuPopupWindow {
 
     protected  void  initPopupWindow(){
         int width = (int) (wm.getDefaultDisplay().getWidth()*0.8);
-        final View popipWindow_view = layoutInflater.inflate(R.layout.activity_left_menu,null,false);
+        final View popipWindow_view = layoutInflater.inflate(R.layout.activity_more_fun,null,false);
         popupWindow = new PopupWindow(popipWindow_view,width, ViewGroup.LayoutParams.MATCH_PARENT,true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(0));
     }

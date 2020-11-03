@@ -1,6 +1,5 @@
 package com.gxuwz.beethoven.page.index;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -27,7 +26,7 @@ import com.gxuwz.beethoven.hanlder.SysUserHandler;
 import com.gxuwz.beethoven.listener.LeftMenuListener;
 import com.gxuwz.beethoven.listener.MainMenuPageChangeListener;
 import com.gxuwz.beethoven.listener.MainMenuTopClickListener;
-import com.gxuwz.beethoven.page.index.playview.ActivityPlayView;
+import com.gxuwz.beethoven.page.fragment.playview.ActivityPlayView;
 import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
 import com.gxuwz.beethoven.service.MusicService;
 import com.gxuwz.beethoven.util.BlurUtil;
@@ -44,7 +43,6 @@ public class IndexBase extends AppCompatActivity {
     protected ArrayList<View> pageview;
     protected LayoutInflater inflater;
     protected TextView[] textViews;
-
     protected View MyView, VideoView, FindView, CloudView;
     /**
      * 底部部分
@@ -114,10 +112,10 @@ public class IndexBase extends AppCompatActivity {
                 Intent indexBottomBar = new Intent();
                 indexBottomBar.setAction(IndexBottomBarReceiver.ACTION);
                 if (Player.isPlayer) {
-                    intent.putExtra(MusicService.CONTROLLER, MusicService.CONTROLLER_FLAT0);
+                    intent.putExtra(MusicService.CONTROLLER, MusicService.STOP);
                     indexBottomBar.putExtra(IndexBottomBarReceiver.CONTROLLER, IndexBottomBarReceiver.FLAT_STOP);
                 } else {
-                    intent.putExtra(MusicService.CONTROLLER, MusicService.CONTROLLER_FLAT1);
+                    intent.putExtra(MusicService.CONTROLLER, MusicService.PLAY);
                     indexBottomBar.putExtra(IndexBottomBarReceiver.CONTROLLER, IndexBottomBarReceiver.FLAT_PLAY);
                 }
                 sendBroadcast(intent);
@@ -213,11 +211,11 @@ public class IndexBase extends AppCompatActivity {
         FindView = inflater.inflate(R.layout.find, null);
         CloudView = inflater.inflate(R.layout.cloud, null);
         VideoView = inflater.inflate(R.layout.video, null);
+
         viewPager = findViewById(R.id.viewPager);
         userNameView = MyView.findViewById(R.id.username);
         perPicView = MyView.findViewById(R.id.per_pic);
         songList = MyView.findViewById(R.id.rv3);
-        myBg = findViewById(R.id.my_bg);
         playPerPicView = findViewById(R.id.play_song_list_url);
         playAndStop = findViewById(R.id.play_and_stop);
         playMusicView = findViewById(R.id.play_song_list_url);
@@ -241,6 +239,7 @@ public class IndexBase extends AppCompatActivity {
         textViews[2] = findViewById(R.id.cloud_menu);
         textViews[3] = findViewById(R.id.video_menu);
         mainMenuTopClickListener = new MainMenuTopClickListener(viewPager, this);
+
         for (int i = 0; i < textViews.length; i++) {
             textViews[i].setOnClickListener(mainMenuTopClickListener);
         }

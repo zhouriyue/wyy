@@ -72,14 +72,14 @@ public class MusicCalAdapter extends RecyclerView.Adapter<MusicCalAdapter.MusicC
                 context.startActivity(intent);
             }
         });
-        timer = new Timer();
+        /*timer = new Timer();
         timerTask = new TimerTask() {
             @Override
             public void run() {
                 handler.sendEmptyMessage(1);
             }
         };
-        timer.schedule(timerTask,3,10000);
+        timer.schedule(timerTask,3,10000);*/
 
     }
 

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.SysUser;
 import com.gxuwz.beethoven.model.entity.mlog.ImageWordMlog;
@@ -21,6 +22,7 @@ import com.gxuwz.beethoven.model.entity.mlog.Mlog;
 import com.gxuwz.beethoven.model.entity.mlog.VideoMlog;
 import com.gxuwz.beethoven.page.index.cloudview.videotalk.VideoTalkActivity;
 import com.gxuwz.beethoven.page.index.findview.imgtexttalk.ITTalkActivity;
+import com.gxuwz.beethoven.page.fragment.my.songlist.SongListActivity;
 import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
@@ -61,11 +63,12 @@ public class PlazaAdapter extends RecyclerView.Adapter<PlazaAdapter.PlazaHolder>
         if(mlogList.get(position).getType().equals("ImageWordMlog")) {
             imageWordMlog = (ImageWordMlog) mlogList.get(position);
             if(position%2==0) {
-                holder.relativeLayout.setMinimumHeight((int) (350*windowPixels.getDensity()));
-                holder.diagonal.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(imageWordMlog.getMusicDiagonal(),context),itemWidth, (int) (itmeHeight)));
+                //holder.relativeLayout.setMinimumHeight((int) (350*windowPixels.getDensity()));
+                Glide.with(context).load(MergeImage.roundedCustom(HttpUtil.getRes(imageWordMlog.getMusicDiagonal(),context),itemWidth, itmeHeight)).into(holder.diagonal);
             } else {
-                holder.relativeLayout.setMinimumHeight((int) (350*windowPixels.getDensity()*0.7));
-                holder.diagonal.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(imageWordMlog.getMusicDiagonal(),context),itemWidth, (int) (itmeHeight*0.7)));
+                //holder.relativeLayout.setMinimumHeight((int) (350*windowPixels.getDensity()*0.7));
+                Glide.with(context).load(MergeImage.roundedCustom(HttpUtil.getRes(imageWordMlog.getMusicDiagonal(),context),itemWidth, (int) (itmeHeight*0.7))).into(holder.diagonal);
+                //holder.diagonal.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(imageWordMlog.getMusicDiagonal(),context),itemWidth, (int) (itmeHeight*0.7)));
             }
             holder.content.setText(imageWordMlog.getContent());
             sysUser = imageWordMlog.getSysUser();
@@ -79,8 +82,9 @@ public class PlazaAdapter extends RecyclerView.Adapter<PlazaAdapter.PlazaHolder>
             });
         } else {
             videoMlog = (VideoMlog) mlogList.get(position);
-            holder.relativeLayout.setMinimumHeight((int) (300*windowPixels.getDensity()));
-            holder.diagonal.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(videoMlog.getDiagonal(),context),itemWidth,itmeHeight));
+            //holder.relativeLayout.setMinimumHeight((int) (300*windowPixels.getDensity()));
+            Glide.with(context).load(MergeImage.roundedCustom(HttpUtil.getRes(videoMlog.getDiagonal(),context),itemWidth,itmeHeight)).into(holder.diagonal);
+            //holder.diagonal.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(videoMlog.getDiagonal(),context),itemWidth,itmeHeight));
             holder.content.setText(videoMlog.getContent());
             sysUser = videoMlog.getSysUser();
             holder.likeNumber.setText(videoMlog.getLikeNumber()+"");

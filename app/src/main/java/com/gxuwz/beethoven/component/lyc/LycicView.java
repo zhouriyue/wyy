@@ -109,10 +109,11 @@ public class LycicView extends ScrollView {
         //计算index对应的textview的高度
         if(index < lyricTextList.size()){
             int sum = 0;
-            for(int i = 0;i<=index-1;i++){
+            for(int i = 0;i<=index-1&&i<lyricItemHeights.size();i++){
                 sum+=lyricItemHeights.get(i);
             }
             //加上index这行高度的一半
+            if(index<lyricItemHeights.size())
             sum+=lyricItemHeights.get(index)/2;
             scrollTo(0,sum);
         }
@@ -127,7 +128,7 @@ public class LycicView extends ScrollView {
     int getIndex(int length){
         int index = 0;
         int sum = 0;
-        while(sum <= length){
+        while(sum <= length&&index<lyricItemHeights.size()){
             sum+=lyricItemHeights.get(index);
             index++;
         }
@@ -155,6 +156,11 @@ public class LycicView extends ScrollView {
             }
             prevSelected = index;
         }
+    }
+
+    public void remove(){
+        removeAllViews();
+        notify();
     }
 
     /**

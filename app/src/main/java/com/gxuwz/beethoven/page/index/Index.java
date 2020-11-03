@@ -11,12 +11,17 @@ import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
 
+import com.bumptech.glide.Glide;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.page.index.cloudview.CloudViewInit;
 import com.gxuwz.beethoven.page.index.findview.FindViewInit;
 import com.gxuwz.beethoven.page.index.myview.MyViewInit;
 import com.gxuwz.beethoven.page.index.playlistview.PlayListView;
 import com.gxuwz.beethoven.page.index.videoview.VideoViewInit;
+import com.gxuwz.beethoven.util.BlurUtil;
+import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.MergeImage;
+import com.gxuwz.beethoven.util.WindowPixels;
 
 public class Index extends IndexBase{
 

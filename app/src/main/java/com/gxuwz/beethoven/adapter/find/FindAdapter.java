@@ -1,5 +1,6 @@
 package com.gxuwz.beethoven.adapter.find;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -53,7 +55,14 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
             case 1:{
                 holder.titleBox.setVisibility(View.GONE);
                 List<Banners> bannersList = find.getBannersList();
+                /**
+                 * recycler 设置流畅度
+                 */
+                holder.findItemRv.setHasFixedSize(true);
                 holder.findItemRv.setNestedScrollingEnabled(false);
+                holder.findItemRv.setItemViewCacheSize(20);
+                RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+                holder.findItemRv.setRecycledViewPool(recycledViewPool);
                 holder.findItemRv.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL));
                 BannerAdapter bannerAdapter = new BannerAdapter(context, bannersList);
                 holder.findItemRv.setAdapter(bannerAdapter);
@@ -61,9 +70,15 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
             case 2:{
                 holder.titleBox.setVisibility(View.GONE);
                 List<SpecialFun> specialFunList = find.getSpecialFunList();
+                /**
+                 * recycler 设置流畅度
+                 */
+                holder.findItemRv.setHasFixedSize(true);
+                holder.findItemRv.setNestedScrollingEnabled(false);
+                holder.findItemRv.setItemViewCacheSize(20);
+                RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+                holder.findItemRv.setRecycledViewPool(recycledViewPool);
                 LinearLayoutManager ms= new LinearLayoutManager(context);
-                //禁用滑动
-                ms.setSmoothScrollbarEnabled(false);
                 ms.setOrientation(LinearLayoutManager.HORIZONTAL);
                 holder.findItemRv.setLayoutManager(ms);
                 holder.findItemRv.setNestedScrollingEnabled(false);
@@ -75,6 +90,14 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
                 holder.title.setText(find.getTitle());
                 holder.toMany.setText(find.getToMangy());
                 List<SongList> songLists = find.getSongLists();
+                /**
+                 * recycler 设置流畅度
+                 */
+                holder.findItemRv.setHasFixedSize(true);
+                holder.findItemRv.setNestedScrollingEnabled(false);
+                holder.findItemRv.setItemViewCacheSize(20);
+                RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+                holder.findItemRv.setRecycledViewPool(recycledViewPool);
                 LinearLayoutManager ms= new LinearLayoutManager(context);
                 //禁用滑动
                 ms.setSmoothScrollbarEnabled(false);
@@ -88,6 +111,14 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
                 holder.title.setText(find.getTitle());
                 holder.toMany.setText(find.getToMangy());
                 List<Telecast> telecastList = find.getTelecastList();
+                /**
+                 * recycler 设置流畅度
+                 */
+                holder.findItemRv.setHasFixedSize(true);
+                holder.findItemRv.setNestedScrollingEnabled(false);
+                holder.findItemRv.setItemViewCacheSize(20);
+                RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+                holder.findItemRv.setRecycledViewPool(recycledViewPool);
                 LinearLayoutManager ms= new LinearLayoutManager(context);
                 ms.setOrientation(LinearLayoutManager.HORIZONTAL);
                 //禁用滑动
@@ -102,6 +133,14 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
                 holder.title.setText(find.getTitle());
                 holder.toMany.setText(find.getToMangy());
                 List<Song> songList = find.getSongList();
+                /**
+                 * recycler 设置流畅度
+                 */
+                holder.findItemRv.setHasFixedSize(true);
+                holder.findItemRv.setNestedScrollingEnabled(false);
+                holder.findItemRv.setItemViewCacheSize(20);
+                RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+                holder.findItemRv.setRecycledViewPool(recycledViewPool);
                 LinearLayoutManager ms= new LinearLayoutManager(context);
                 //禁用滑动
                 ms.setSmoothScrollbarEnabled(false);
@@ -116,7 +155,14 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
                 holder.title.setText(find.getTitle());
                 holder.toMany.setText(find.getToMangy());
                 List<MusicCal> musicCalList = find.getMusicCals();
+                /**
+                 * recycler 设置流畅度
+                 */
+                holder.findItemRv.setHasFixedSize(true);
                 holder.findItemRv.setNestedScrollingEnabled(false);
+                holder.findItemRv.setItemViewCacheSize(20);
+                RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+                holder.findItemRv.setRecycledViewPool(recycledViewPool);
                 holder.findItemRv.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL));
                 MusicCalAdapter musicCalAdapter = new MusicCalAdapter(context,musicCalList);
                 holder.findItemRv.setAdapter(musicCalAdapter);
@@ -125,10 +171,15 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
                 holder.title.setText(find.getTitle());
                 holder.toMany.setText(find.getToMangy());
                 List<Mlog> mlogList = find.getMlogList();
+                /**
+                 * recycler 设置流畅度
+                 */
+                holder.findItemRv.setHasFixedSize(true);
                 holder.findItemRv.setNestedScrollingEnabled(false);
+                holder.findItemRv.setItemViewCacheSize(20);
+                RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+                holder.findItemRv.setRecycledViewPool(recycledViewPool);
                 LinearLayoutManager ms= new LinearLayoutManager(context);
-                //禁用滑动
-                ms.setSmoothScrollbarEnabled(false);
                 ms.setOrientation(LinearLayoutManager.HORIZONTAL);
                 holder.findItemRv.setLayoutManager(ms);
                 MLogAdapter mLogAdapter = new MLogAdapter(context,mlogList);
@@ -180,12 +231,19 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
                 holder.title.setText(find.getTitle());
                 holder.toMany.setText(find.getToMangy());
                 List<Room> roomList = find.getRoomList();
+                /**
+                 * recycler 设置流畅度
+                 */
+                holder.findItemRv.setHasFixedSize(true);
+                holder.findItemRv.setNestedScrollingEnabled(false);
+                holder.findItemRv.setItemViewCacheSize(20);
+                RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+                holder.findItemRv.setRecycledViewPool(recycledViewPool);
                 LinearLayoutManager ms= new LinearLayoutManager(context);
                 //禁用滑动
                 ms.setSmoothScrollbarEnabled(false);
                 ms.setOrientation(LinearLayoutManager.HORIZONTAL);
                 holder.findItemRv.setLayoutManager(ms);
-                holder.findItemRv.setNestedScrollingEnabled(false);
                 RoomAdapter roomAdapter = new RoomAdapter(context,roomList);
                 holder.findItemRv.setAdapter(roomAdapter);
             };break;
@@ -194,10 +252,17 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
                 holder.title.setText(find.getTitle());
                 holder.toMany.setText(find.getToMangy());
                 List<YunVillage> yunVillageList = find.getYunVillageList();
+                /**
+                 * recycler 设置流畅度
+                 */
+                holder.findItemRv.setHasFixedSize(true);
+                holder.findItemRv.setNestedScrollingEnabled(false);
+                holder.findItemRv.setItemViewCacheSize(20);
+                RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+                holder.findItemRv.setRecycledViewPool(recycledViewPool);
                 LinearLayoutManager ms= new LinearLayoutManager(context);
                 ms.setOrientation(LinearLayoutManager.HORIZONTAL);
                 holder.findItemRv.setLayoutManager(ms);
-                holder.findItemRv.setNestedScrollingEnabled(false);
                 YunVillageAdapter yunVillageAdapter = new YunVillageAdapter(context,yunVillageList);
                 holder.findItemRv.setAdapter(yunVillageAdapter);
             };break;
@@ -206,12 +271,17 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
                 holder.title.setText(find.getTitle());
                 holder.toMany.setText(find.getToMangy());
                 List<RankingList> rankingListList = find.getRankingListList();
+                /**
+                 * recycler 设置流畅度
+                 */
+                holder.findItemRv.setHasFixedSize(true);
+                holder.findItemRv.setNestedScrollingEnabled(false);
+                holder.findItemRv.setItemViewCacheSize(20);
+                RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+                holder.findItemRv.setRecycledViewPool(recycledViewPool);
                 LinearLayoutManager ms= new LinearLayoutManager(context);
-                //禁用滑动
-                ms.setSmoothScrollbarEnabled(false);
                 ms.setOrientation(LinearLayoutManager.HORIZONTAL);
                 holder.findItemRv.setLayoutManager(ms);
-                holder.findItemRv.setNestedScrollingEnabled(false);
                 RankingListAdapter rankingListAdapter = new RankingListAdapter(context,rankingListList);
                 holder.findItemRv.setAdapter(rankingListAdapter);
             };break;
@@ -220,10 +290,16 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
                 holder.title.setText(find.getTitle());
                 holder.toMany.setText(find.getToMangy());
                 List<SpeSong> speSongList = find.getSpeSongList();
+                /**
+                 * recycler 设置流畅度
+                 */
+                holder.findItemRv.setHasFixedSize(true);
+                holder.findItemRv.setNestedScrollingEnabled(false);
+                holder.findItemRv.setItemViewCacheSize(20);
+                RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+                holder.findItemRv.setRecycledViewPool(recycledViewPool);
                 LinearLayoutManager ms= new LinearLayoutManager(context);
                 ms.setOrientation(LinearLayoutManager.HORIZONTAL);
-                //禁用滑动
-                ms.setSmoothScrollbarEnabled(false);
                 holder.findItemRv.setLayoutManager(ms);
                 holder.findItemRv.setNestedScrollingEnabled(false);
                 SpeSongAdapter speSongAdapter = new SpeSongAdapter(context,speSongList);
@@ -256,6 +332,16 @@ public class FindAdapter extends RecyclerView.Adapter<FindAdapter.FindViewHolder
             titleOnclick1 = itemView.findViewById(R.id.title_onclick1);
             titleOnclick2 = itemView.findViewById(R.id.title_onclick2);
         }
+    }
+
+    private int getMaxElem(int[] arr) {
+        int size = arr.length;
+        int maxVal = Integer.MIN_VALUE;
+        for (int i = 0; i < size; i++) {
+            if (arr[i]>maxVal)
+                maxVal = arr[i];
+        }
+        return maxVal;
     }
 
     public boolean isScrolling() {

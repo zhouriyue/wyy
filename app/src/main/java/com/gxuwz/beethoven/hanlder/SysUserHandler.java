@@ -5,14 +5,14 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.gxuwz.beethoven.model.entity.SongList;
+import com.bumptech.glide.Glide;
+import com.gxuwz.beethoven.model.entity.mlog.SysUserDao;
 import com.gxuwz.beethoven.model.entity.SysUser;
 import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
@@ -20,18 +20,17 @@ import com.gxuwz.beethoven.util.MergeImage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
-import java.util.List;
-
 public class SysUserHandler extends Handler {
 
     TextView userNameView = null;
     ImageView perPicView = null;
     RecyclerView songList = null;
     Context context = null;
-    Bitmap usernameUrilB = null;
     SysUser sysUser = null;
     String songLists = null;
+    SysUserDao sysUserDao = null;
+    SysUser localSysUser = null;
+    Bitmap bitmap = null;
 
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
@@ -40,53 +39,62 @@ public class SysUserHandler extends Handler {
             //获取子线程回传的数据
             Bundle bundle = msg.getData();
             String result = bundle.getString("result");
+            if(result==null) return;
             //解析json
             try {
                 JSONObject all_json = new JSONObject(result);
+                Log.i("sysUser:",all_json.toString());
                 String userName = all_json.optString("userName");
                 String perPic = all_json.optString("perPic");
                 songLists = all_json.getJSONObject("_links").getJSONObject("songLists").optString("href");
                 sysUser = new SysUser();
+                sysUser.setUserId(userName);
                 sysUser.setUserName(userName);
                 sysUser.setPerPic(perPic);
+                sysUserDao = new SysUserDao(context);
+                localSysUser = sysUserDao.findByUserId(userName);
+                final Handler perPicViewHandle = new PerPicViewHandle();
+                startThreadPic(perPicViewHandle);
                 /**
                  * 视图
                  */
-                System.out.println(userNameView);
                 userNameView.setText(userName);
-                final Handler perPicViewHandle = new Handler() {
-                    public void handleMessage(android.os.Message msg) {
-                        usernameUrilB = (Bitmap) msg.obj;
-                        usernameUrilB = MergeImage.circleShow(usernameUrilB);
-                        perPicView.setImageBitmap(usernameUrilB);
-                        SongListHandler songListHandler = new SongListHandler();
-                        songListHandler.setSongList(songList);
-                        songListHandler.setContext(context);
-                        songListHandler.usernameUrilB = usernameUrilB;
-                        songListHandler.setSysUser(sysUser);
-                        HttpUtil.get(songLists,songListHandler);
-
-                    };
-                };
-                new Thread(){
-                    @Override
-                    public void run() {
-                        Bitmap imageDate = HttpUtil.getImage(perPic);
-                        Message msg = new Message();
-                        msg.obj = imageDate;
-                        perPicViewHandle.sendMessage(msg);
-                    }
-                }.start();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
-            /**
-             * 获取歌单
-             */
-
         }
+    }
+
+    public void startThreadPic(Handler perPicViewHandle){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String fileName = sysUser.getPerPic().substring(sysUser.getPerPic().lastIndexOf("/")+1);
+                bitmap = HttpUtil.getImage(sysUser.getPerPic());
+                String url = HttpUtil.saveBitmap(context,bitmap,HttpUtil.USER,fileName);
+                Message msg = new Message();
+                msg.obj = url;
+                perPicViewHandle.sendMessage(msg);
+            }
+        }).start();
+    }
+
+    class PerPicViewHandle extends Handler{
+
+        public void handleMessage(android.os.Message msg) {
+            sysUser.setPerPic((String) msg.obj);
+            if(localSysUser==null) {
+                sysUserDao.insert(sysUser);
+            } else {
+                sysUserDao.update(sysUser);
+            }
+            Glide.with(context).load(MergeImage.circleShow(HttpUtil.getLocalImage(sysUser.getPerPic()))).into(perPicView);
+            SongListHandler songListHandler = new SongListHandler();
+            songListHandler.setSongList(songList);
+            songListHandler.setContext(context);
+            songListHandler.setSysUser(sysUser);
+            HttpUtil.get(songLists,songListHandler);
+        };
     }
 
     public TextView getUserNameView() {

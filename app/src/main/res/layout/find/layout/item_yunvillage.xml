@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
-        android:id="@+id/yunv_lin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:id="@+id/yunv_lin">
         <RelativeLayout
-            android:layout_width="180dp"
-            android:layout_height="190dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/shape_plaza">
             <ImageView
-                android:layout_marginTop="5dp"
                 android:id="@+id/img"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_width="150dp"
+                android:layout_height="140dp"
+                android:layout_marginBottom="10dp"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -24,7 +21,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_margin="5dp">
                 <ImageView
-                    android:layout_width="15dp"
+                    android:layout_width="10dp"
                     android:layout_height="15dp"
                     android:background="@drawable/hot_whick"/>
                 <TextView
@@ -36,7 +33,7 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
                 android:background="@color/white"
                 android:layout_marginBottom="5dp"
@@ -65,5 +62,4 @@
                     android:text="打开你的热爱"/>
             </LinearLayout>
         </RelativeLayout>
-    </LinearLayout>
 </LinearLayout>

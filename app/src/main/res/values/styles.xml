@@ -13,4 +13,8 @@
         <!--<item name="android:windowExitAnimation">@anim/activity_left_menu_exit</item>-->
     </style>
 
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@android:color/darker_gray</item>
+        <item name="colorControlActivated">@android:color/holo_orange_dark</item>
+    </style>
 </resources>

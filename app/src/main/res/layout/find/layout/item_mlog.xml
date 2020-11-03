@@ -11,8 +11,7 @@
         android:layout_marginRight="10dp">
         <RelativeLayout
             android:layout_width="100dp"
-            android:layout_height="160dp"
-            android:background="@drawable/shape_10dp_black_f0">
+            android:layout_height="160dp">
             <RelativeLayout
                 android:layout_width="100dp"
                 android:layout_height="120dp">
