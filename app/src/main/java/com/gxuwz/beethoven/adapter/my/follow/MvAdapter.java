@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.my.follow.Mv;
 import com.gxuwz.beethoven.model.entity.my.follow.Singer;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -44,8 +44,8 @@ public class MvAdapter extends RecyclerView.Adapter<MvAdapter.MvViewHolder> {
         Mv mv = mvList.get(position);
         Singer singer = mv.getSinger();
 
-        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(singer.getPerPic(),context)));
-        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(mv.getImg(),context),item,height));
+        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(singer.getPerPic(),context)));
+        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(mv.getImg(),context),item,height));
         holder.detail.setText(mv.getDetail());
         holder.time.setText(mv.getTime());
         holder.playNumber.setText(mv.getPlayNumber()+"");

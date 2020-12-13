@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.my.local.anchor.Anchor;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -36,8 +36,8 @@ public class AnchorRecommendAdapter extends RecyclerView.Adapter<AnchorRecommend
     @Override
     public void onBindViewHolder(@NonNull AnchorRecommendViewHolder holder, int position) {
         Anchor anchor = anchorList.get(position);
-        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(anchor.getDiagonal(),context),180,100));
-        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(anchor.getPicPer(),context)));
+        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(anchor.getDiagonal(),context),180,100));
+        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(anchor.getPicPer(),context)));
         holder.anchorType.setText(anchor.getAnchorType());
         holder.title.setText(anchor.getTitle());
         holder.username.setText(anchor.getUsername());

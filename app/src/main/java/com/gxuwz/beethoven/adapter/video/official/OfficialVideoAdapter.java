@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.video.official.OfficialVideo;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -41,7 +41,7 @@ public class OfficialVideoAdapter extends RecyclerView.Adapter<OfficialVideoAdap
     @Override
     public void onBindViewHolder(@NonNull OfficialVideoViewHolder holder, int position) {
         OfficialVideo officialVideo = officialVideoList.get(position);
-        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(officialVideo.getDiagonal(),context),itemWidth,height));
+        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(officialVideo.getDiagonal(),context),itemWidth,height));
         holder.time.setText(officialVideo.getTime());
         holder.title.setText(officialVideo.getTitle());
     }

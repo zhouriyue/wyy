@@ -85,12 +85,10 @@ public class CPLAdapter extends RecyclerView.Adapter<CPLAdapter.CPLViewHolder> {
         holder.positionItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putLong("slId",playList.getSlId());
-                editor.putLong("songId",playList.getSongId());
-                editor.commit();
-                MusicService.musicCtrl(context,MusicService.PRPLAY);
-                IndexBottomBarReceiver.sendBroadcast(IndexBottomBarReceiver.FLAT_PLAY,context);
+                Song song = new Song();
+                song.setSlId(playList.getSlId());
+                song.setSongId(playList.getSongId());
+                Player.play(context,song);
             }
         });
     }

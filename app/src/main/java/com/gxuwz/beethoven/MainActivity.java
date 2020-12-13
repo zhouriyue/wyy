@@ -1,6 +1,5 @@
 package com.gxuwz.beethoven;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -8,8 +7,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -24,9 +21,8 @@ import com.gxuwz.beethoven.model.entity.current.Operate;
 import com.gxuwz.beethoven.model.entity.current.SetMeal;
 import com.gxuwz.beethoven.model.entity.current.TypeOperate;
 import com.gxuwz.beethoven.page.fragment.PrincipalSheetActivity;
-import com.gxuwz.beethoven.page.index.Index;
-import com.gxuwz.beethoven.service.MusicService;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
+import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
@@ -54,27 +50,8 @@ public class MainActivity extends AppCompatActivity {
          */
         getSupportActionBar().hide();
         sharedPreferences = getSharedPreferences("data",MODE_PRIVATE);
-        new CountDownTimer(2000,100) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
-            @Override
-            public void onFinish() {
-                //倒计bai时结束后在这里实现activity跳转du
-                Intent intent = new Intent();
-                boolean loginStatus = sharedPreferences.getBoolean("loginStatus",false);
-                if(loginStatus) {
-                    intent.setClass(MainActivity.this, PrincipalSheetActivity.class);
-                } else {
-                    intent.setClass(MainActivity.this, LoginActivity.class);
-                }
-                startActivity(intent);
-                //跳转后zhi销毁自身的activity 否则按返回 还会跳回到图片dao
-                finish();
-            }
-        }.start();
+        MergeImage.showGlideImg(this,R.drawable.main,findViewById(R.id.main));
         operateDao = new OperateDao(MainActivity.this);
-
         Handler handler = new Handler(){
             @Override
             public void handleMessage(@NonNull Message msg) {
@@ -84,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     Gson gson = new Gson();
                     Type listtype = new TypeToken<List<Operate>>(){}.getType();
                     List<Operate> operateList = gson.fromJson(result,listtype);
+                    System.out.println(operateList.size());
                     if(operateList!=null) {
                         for(int i = 0;i < operateList.size();i++) {
                             if(!operateDao.isExist(operateList.get(i).getId())){
@@ -95,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         String url = StaticHttp.BASEURL+StaticHttp.SELECT_OPERATE_ALL;
-        HttpUtil.get(url,handler);
+        HttpUtils.get(url,handler);
 
         Handler handlerType = new Handler(){
             @Override
@@ -115,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         url = StaticHttp.BASEURL+StaticHttp.SELECT_OPERATE_AllTYPE;
-        HttpUtil.get(url,handlerType);
+        HttpUtils.get(url,handlerType);
 
         setMealDao = new SetMealDao(this);
         Handler setMealHanlder = new Handler(){
@@ -136,15 +114,33 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         url = StaticHttp.BASEURL+StaticHttp.SELECT_SETMEAL;
-        HttpUtil.get(url,setMealHanlder);
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("username","zhouriyue");
-        editor.putLong("userId",3);
-        editor.commit();
+        HttpUtils.get(url,setMealHanlder);
         WindowPixels windowPixels = new WindowPixels(getWindowManager());
         WindowPixels.DENSITY = windowPixels.getDensity();
         WindowPixels.WIDTH = windowPixels.getScreenWidth();
         WindowPixels.HEIGHT = windowPixels.getHeight();
+        new CountDownTimer(2000,100) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+            @Override
+            public void onFinish() {
+                //倒计bai时结束后在这里实现activity跳转du
+                Intent intent = new Intent();
+                boolean loginStatus = sharedPreferences.getBoolean("loginStatus",false);
+                loginStatus = true;
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putLong(StaticHttp.USER_ID,41);
+                editor.commit();
+                if(loginStatus) {
+                    intent.setClass(MainActivity.this, PrincipalSheetActivity.class);
+                } else {
+                    intent.setClass(MainActivity.this, LoginActivity.class);
+                }
+                startActivity(intent);
+                //跳转后zhi销毁自身的activity 否则按返回 还会跳回到图片dao
+                finish();
+            }
+        }.start();
     }
 }

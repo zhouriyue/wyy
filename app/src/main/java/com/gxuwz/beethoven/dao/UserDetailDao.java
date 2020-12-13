@@ -50,6 +50,19 @@ public class UserDetailDao {
         return userDetailVo;
     }
 
+    public long update(UserDetailVo userDetailVo) {
+        SQLiteDatabase db = dfHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("detail",userDetailVo.getDetail());
+        values.put("birthday", DateUtil.simpleFormat(userDetailVo.getBirthday()));
+        values.put("address", userDetailVo.getAddress());
+        values.put("per_bg", userDetailVo.getPerBg());
+        values.put("is_member", userDetailVo.getIsMember());
+        long id = db.update("user_detail",values,"user_id=?",new String[]{userDetailVo.getUserId()+""});
+        db.close();
+        return id;
+    }
+
     public long insert(UserDetailVo userDetailVo) {
         SQLiteDatabase db = dfHelper.getWritableDatabase();
         ContentValues values = new ContentValues();

@@ -1,8 +1,10 @@
 package com.gxuwz.beethoven.model.entity.current;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
-public class Song {
+public class Song implements java.io.Serializable{
 
     /** 歌曲id */
     private Long songId;
@@ -12,6 +14,11 @@ public class Song {
 
     /** 歌单封面 */
     private String coverPicture;
+
+    /** 歌手id */
+    private Long sinId;
+
+    private String sinName;
 
     /** 时长 */
     private Long duration;
@@ -31,6 +38,9 @@ public class Song {
     /** 是否是单曲 */
     private Integer isSingle;
 
+    /** 歌单id */
+    private Long slId;
+
     /** 标注音质(S) */
     private String standardUrl;
 
@@ -46,14 +56,33 @@ public class Song {
     /** 歌词id */
     private Long lyrId;
 
+    private String lyrUrl;
+
+    private Long todayPlay;
+
+    private Integer playNumber;
+
+    private Integer isOriginal;
+
+    private Integer timbreType;
+
+    private List<Singer> singerList;
+
+    private List<SongType> songTypeList;
+
+    private Songlist songlistes;
+
+    private Long[] stIds;
+
+    private Long[] sinIds;
+
     /** 删除时间 */
     private Date delTime;
 
     /** 删除标识符 */
     private Integer delFlag;
 
-    public Song() {
-    }
+    private String detail;
 
     public Long getSongId() {
         return songId;
@@ -69,6 +98,30 @@ public class Song {
 
     public void setSongName(String songName) {
         this.songName = songName;
+    }
+
+    public String getCoverPicture() {
+        return coverPicture;
+    }
+
+    public void setCoverPicture(String coverPicture) {
+        this.coverPicture = coverPicture;
+    }
+
+    public Long getSinId() {
+        return sinId;
+    }
+
+    public void setSinId(Long sinId) {
+        this.sinId = sinId;
+    }
+
+    public String getSinName() {
+        return sinName;
+    }
+
+    public void setSinName(String sinName) {
+        this.sinName = sinName;
     }
 
     public Long getDuration() {
@@ -119,6 +172,14 @@ public class Song {
         this.isSingle = isSingle;
     }
 
+    public Long getSlId() {
+        return slId;
+    }
+
+    public void setSlId(Long slId) {
+        this.slId = slId;
+    }
+
     public String getStandardUrl() {
         return standardUrl;
     }
@@ -159,6 +220,86 @@ public class Song {
         this.lyrId = lyrId;
     }
 
+    public String getLyrUrl() {
+        return lyrUrl;
+    }
+
+    public void setLyrUrl(String lyrUrl) {
+        this.lyrUrl = lyrUrl;
+    }
+
+    public Long getTodayPlay() {
+        return todayPlay;
+    }
+
+    public void setTodayPlay(Long todayPlay) {
+        this.todayPlay = todayPlay;
+    }
+
+    public Integer getPlayNumber() {
+        return playNumber;
+    }
+
+    public void setPlayNumber(Integer playNumber) {
+        this.playNumber = playNumber;
+    }
+
+    public Integer getIsOriginal() {
+        return isOriginal;
+    }
+
+    public void setIsOriginal(Integer isOriginal) {
+        this.isOriginal = isOriginal;
+    }
+
+    public Integer getTimbreType() {
+        return timbreType;
+    }
+
+    public void setTimbreType(Integer timbreType) {
+        this.timbreType = timbreType;
+    }
+
+    public List<Singer> getSingerList() {
+        return singerList;
+    }
+
+    public void setSingerList(List<Singer> singerList) {
+        this.singerList = singerList;
+    }
+
+    public List<SongType> getSongTypeList() {
+        return songTypeList;
+    }
+
+    public void setSongTypeList(List<SongType> songTypeList) {
+        this.songTypeList = songTypeList;
+    }
+
+    public Songlist getSonglistes() {
+        return songlistes;
+    }
+
+    public void setSonglistes(Songlist songlistes) {
+        this.songlistes = songlistes;
+    }
+
+    public Long[] getStIds() {
+        return stIds;
+    }
+
+    public void setStIds(Long[] stIds) {
+        this.stIds = stIds;
+    }
+
+    public Long[] getSinIds() {
+        return sinIds;
+    }
+
+    public void setSinIds(Long[] sinIds) {
+        this.sinIds = sinIds;
+    }
+
     public Date getDelTime() {
         return delTime;
     }
@@ -175,11 +316,47 @@ public class Song {
         this.delFlag = delFlag;
     }
 
-    public String getCoverPicture() {
-        return coverPicture;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setCoverPicture(String coverPicture) {
-        this.coverPicture = coverPicture;
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    @Override
+    public String toString() {
+        return "Song{" +
+                "songId=" + songId +
+                ", songName='" + songName + '\'' +
+                ", coverPicture='" + coverPicture + '\'' +
+                ", sinId=" + sinId +
+                ", sinName='" + sinName + '\'' +
+                ", duration=" + duration +
+                ", issuingDate=" + issuingDate +
+                ", mvUrl='" + mvUrl + '\'' +
+                ", isCharge=" + isCharge +
+                ", isCopyright=" + isCopyright +
+                ", isSingle=" + isSingle +
+                ", slId=" + slId +
+                ", standardUrl='" + standardUrl + '\'' +
+                ", hqUrl='" + hqUrl + '\'' +
+                ", sqUrl='" + sqUrl + '\'' +
+                ", witPreUrl='" + witPreUrl + '\'' +
+                ", lyrId=" + lyrId +
+                ", lyrUrl='" + lyrUrl + '\'' +
+                ", todayPlay=" + todayPlay +
+                ", playNumber=" + playNumber +
+                ", isOriginal=" + isOriginal +
+                ", timbreType=" + timbreType +
+                ", singerList=" + singerList +
+                ", songTypeList=" + songTypeList +
+                ", songlistes=" + songlistes +
+                ", stIds=" + Arrays.toString(stIds) +
+                ", sinIds=" + Arrays.toString(sinIds) +
+                ", delTime=" + delTime +
+                ", delFlag=" + delFlag +
+                ", detail='" + detail + '\'' +
+                '}';
     }
 }

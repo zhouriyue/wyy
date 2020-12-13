@@ -30,7 +30,7 @@ import com.gxuwz.beethoven.page.fragment.playview.ActivityPlayView;
 import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
 import com.gxuwz.beethoven.service.MusicService;
 import com.gxuwz.beethoven.util.BlurUtil;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.Player;
 import com.gxuwz.beethoven.util.WindowPixels;
@@ -123,21 +123,21 @@ public class IndexBase extends AppCompatActivity {
             }
         });
         if (Player.isPlayer) {
-            playAndStop.setImageBitmap(HttpUtil.getRes("stop_bar", this));
+            playAndStop.setImageBitmap(HttpUtils.getRes("stop_bar", this));
         } else {
-            playAndStop.setImageBitmap(HttpUtil.getRes("icon_play1", this));
+            playAndStop.setImageBitmap(HttpUtils.getRes("icon_play1", this));
         }
         /**
          * “我的”页面背景图片
          */
-        myBg.setImageBitmap(BlurUtil.doBlur(HttpUtil.getRes("my_bg", this), 10, 5));
-        leftMenu.setImageBitmap(HttpUtil.getRes("view_my_list_whitk", this));
-        search.setImageBitmap(HttpUtil.getRes("view_index_search_white", this));
+        myBg.setImageBitmap(BlurUtil.doBlur(HttpUtils.getRes("my_bg", this), 10, 5));
+        leftMenu.setImageBitmap(HttpUtils.getRes("view_my_list_whitk", this));
+        search.setImageBitmap(HttpUtils.getRes("view_index_search_white", this));
         /**
          * 底部部分
          * 底部播放栏头像
          */
-        playPerPicView.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes("zhouriyue", this)));
+        playPerPicView.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes("zhouriyue", this)));
         sysUserHandler.setUserNameView(userNameView);
         sysUserHandler.setPerPicView(perPicView);
         sysUserHandler.setSongList(songList);
@@ -175,7 +175,7 @@ public class IndexBase extends AppCompatActivity {
             final Handler songListUrlImageHandler = new Handler() {
                 public void handleMessage(android.os.Message songListBit) {
                     if(songListBit.obj==null){
-                        songListUrlImage.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes("icon_singer_default",IndexBase.this)));
+                        songListUrlImage.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes("icon_singer_default",IndexBase.this)));
                     } else {
                         songListUrlImage.setImageBitmap(MergeImage.circleShow((Bitmap) songListBit.obj));
                     }
@@ -188,14 +188,14 @@ public class IndexBase extends AppCompatActivity {
             new Thread() {
                 @Override
                 public void run() {
-                    Bitmap imageDate = HttpUtil.getImage(songListUrlS);
+                    Bitmap imageDate = HttpUtils.getImage(songListUrlS);
                     Message message = new Message();
                     message.obj = imageDate;
                     songListUrlImageHandler.sendMessage(message);
                 }
             }.start();
         } else {
-            songListUrlImage.setImageBitmap(MergeImage.circleShow((HttpUtil.getRes("icon_singer_default",IndexBase.this))));
+            songListUrlImage.setImageBitmap(MergeImage.circleShow((HttpUtils.getRes("icon_singer_default",IndexBase.this))));
         }
     }
 

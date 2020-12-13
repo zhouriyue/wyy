@@ -1,10 +1,13 @@
 package com.gxuwz.beethoven.model.entity.current;
 
+import java.sql.Timestamp;
+
 public class TypeOperate {
 
     private Long tId;
     private Integer type;
     private Long id;
+    private Timestamp updateDate;
 
     public TypeOperate() {
     }
@@ -31,5 +34,13 @@ public class TypeOperate {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Timestamp getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Timestamp updateDate) {
+        this.updateDate = updateDate;
     }
 }

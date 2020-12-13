@@ -1,6 +1,5 @@
 package com.gxuwz.beethoven.page.fragment.my.usermain;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -8,8 +7,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.my.SongListAdapter;
 import com.gxuwz.beethoven.dao.SongListDao;
@@ -28,12 +23,9 @@ import com.gxuwz.beethoven.model.entity.current.Songlist;
 import com.gxuwz.beethoven.model.entity.current.SysUser;
 import com.gxuwz.beethoven.model.vo.UserDetailVo;
 import com.gxuwz.beethoven.util.DateUtil;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
-import java.lang.reflect.Type;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -115,9 +107,11 @@ public class UserMainActivity extends AppCompatActivity {
         String enrollTime = DateUtil.formatYearMonthZh(sysUser.getCreateTime());
         enrollTimeTv.setText(enrollTime);
         TextView userYearTv = findViewById(R.id.user_year);
+        if(userDetailVo.getBirthday()!=null)
         userYearTv.setText(DateUtil.formateYear(userDetailVo.getBirthday()).substring(2));
         //星座
         TextView constellationTv = findViewById(R.id.constellation);
+        if(userDetailVo.getBirthday()!=null)
         constellationTv.setText(DateUtil.getAstro(userDetailVo.getBirthday()));
         //地址
         TextView addressTv = findViewById(R.id.address);

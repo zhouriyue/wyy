@@ -94,6 +94,36 @@ public class PlazaViewInit {
         imageWordMlog.setSysUser(sysUser);
         imageWordMlog.setLikeNumber(230);
         mlogList.add(imageWordMlog);
+
+        imageWordMlog = new ImageWordMlog();
+        imageWordMlog.setMusicDiagonal("mlog");
+        imageWordMlog.setContent("张一山演技炸裂表演 终于找到出处了");
+        sysUser = new SysUser();
+        sysUser.setPerPic("zhoushen");
+        sysUser.setUserName("zhouriyue");
+        imageWordMlog.setSysUser(sysUser);
+        imageWordMlog.setLikeNumber(230);
+        mlogList.add(imageWordMlog);
+
+        imageWordMlog = new ImageWordMlog();
+        imageWordMlog.setMusicDiagonal("mlog");
+        imageWordMlog.setContent("张一山演技炸裂表演 终于找到出处了");
+        sysUser = new SysUser();
+        sysUser.setPerPic("zhoushen");
+        sysUser.setUserName("zhouriyue");
+        imageWordMlog.setSysUser(sysUser);
+        imageWordMlog.setLikeNumber(230);
+        mlogList.add(imageWordMlog);
+
+        imageWordMlog = new ImageWordMlog();
+        imageWordMlog.setMusicDiagonal("mlog");
+        imageWordMlog.setContent("张一山演技炸裂表演 终于找到出处了");
+        sysUser = new SysUser();
+        sysUser.setPerPic("zhoushen");
+        sysUser.setUserName("zhouriyue");
+        imageWordMlog.setSysUser(sysUser);
+        imageWordMlog.setLikeNumber(230);
+        mlogList.add(imageWordMlog);
     }
 
     public void findByIdAndNew(){
@@ -103,7 +133,6 @@ public class PlazaViewInit {
 
     public void recyclerInit(){
         plazaView.setHasFixedSize(true);
-        plazaView.setItemViewCacheSize(10);
         plazaView.setNestedScrollingEnabled(false);
         plazaView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         PlazaAdapter plazaAdapter = new PlazaAdapter(context,mlogList,windowManager);

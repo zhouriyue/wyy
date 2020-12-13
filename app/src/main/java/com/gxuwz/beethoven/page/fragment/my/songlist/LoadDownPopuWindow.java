@@ -24,10 +24,12 @@ public class LoadDownPopuWindow {
         this.singListView = singListView;
         int scopeY1 = 0;
         int scopeY2 = (int) (WindowPixels.HEIGHT-400);
+        int height = (int) (WindowPixels.HEIGHT);
+        popupWindow = new PopupWindow(singListView, ViewGroup.LayoutParams.MATCH_PARENT,height,true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0));
         this.singListView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                System.out.println(event.getY());
                 if(event.getY()>scopeY1&&event.getY()<scopeY2){
                     popupWindow.dismiss();
                 }
@@ -41,17 +43,9 @@ public class LoadDownPopuWindow {
         popupWindow.showAtLocation(view, Gravity.BOTTOM,0,0);
     }
 
-    public void initPopupWindow(){
-        int height = (int) (WindowPixels.HEIGHT);
-        popupWindow = new PopupWindow(singListView, ViewGroup.LayoutParams.MATCH_PARENT,height,true);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(0));
-    }
-
     public void showPopupWindow(){
         if(popupWindow!=null) {
             popupWindow.dismiss();
-        } else {
-            initPopupWindow();
         }
     }
 

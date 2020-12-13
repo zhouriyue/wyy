@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.find.talk.Comment;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
         Comment comment = commentList.get(position);
-        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(comment.getSysUser().getPerPic(),context)));
+        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(comment.getSysUser().getPerPic(),context)));
         String content = comment.getSysUser().getUserName()+":"+comment.getContent();
         SpannableString spannableString = new SpannableString(content);
         //设置文字颜色

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.my.local.singer.SingerItem;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class SingerItemAdapter extends RecyclerView.Adapter<SingerItemAdapter.Si
     @Override
     public void onBindViewHolder(@NonNull SingerViewHolder holder, int position) {
         SingerItem singerItem = singerItemList.get(position);
-        holder.picPer.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(singerItem.getPerPic(),context)));
+        holder.picPer.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(singerItem.getPerPic(),context)));
         holder.singerName.setText(singerItem.getSingerName());
         holder.albumCount.setText(singerItem.getAlbumCount()+"");
         holder.mvCount.setText(singerItem.getMvCount()+"");

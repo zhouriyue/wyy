@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.video.plazaadvert.PlazaAdvert;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -42,7 +42,7 @@ public class PlazaAdvertAdapter extends RecyclerView.Adapter<PlazaAdvertAdapter.
     public void onBindViewHolder(@NonNull PlazaAdvertViewHolder holder, int position) {
         PlazaAdvert plazaAdvert = plazaAdvertList.get(position);
         holder.title.setText(plazaAdvert.getTitle());
-        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(plazaAdvert.getDiagonal(),context),itemWidth,height));
+        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(plazaAdvert.getDiagonal(),context),itemWidth,height));
         holder.content.setText(plazaAdvert.getContent());
     }
 

@@ -11,7 +11,6 @@ import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.cloud.DynamicsAdapter;
 import com.gxuwz.beethoven.model.entity.dynamics.Dynamics;
 import com.gxuwz.beethoven.model.entity.dynamics.ImageWordDynamics;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.ArrayList;
@@ -55,6 +54,6 @@ public class FollowInit {
         setData();
         dynamicsRv.setNestedScrollingEnabled(false);
         dynamicsRv.setAdapter(new DynamicsAdapter(context,dynamicsList));
-        cloudCircle.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes("zhoushen",context)));
+        MergeImage.showGlideImgDb(context,R.drawable.zhoushen,cloudCircle,24);
     }
 }

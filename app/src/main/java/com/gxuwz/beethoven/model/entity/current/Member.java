@@ -8,8 +8,7 @@ import java.util.Date;
  * @author ruoyi
  * @date 2020-10-09
  */
-public class Member
-{
+public class Member implements java.io.Serializable{
     private static final long serialVersionUID = 1L;
 
     /** 会员编号 */

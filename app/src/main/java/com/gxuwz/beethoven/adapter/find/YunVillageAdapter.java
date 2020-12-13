@@ -10,13 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.find.YunVillage;
 import com.gxuwz.beethoven.page.index.findview.yunvillage.YunVillageActivity;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -41,7 +40,7 @@ public class YunVillageAdapter extends RecyclerView.Adapter<YunVillageAdapter.Yu
     @Override
     public void onBindViewHolder(@NonNull YunVillageViewHolder holder, int position) {
         YunVillage yunVillage = yunVillageList.get(position);
-        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(yunVillage.getImg(),context),150,140,10));
+        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(yunVillage.getImg(),context),150,140,10));
         holder.title.setText(yunVillage.getTitle());
         holder.hotNumber.setText(yunVillage.getHotNumber()+"");
         holder.name.setText(yunVillage.getName());

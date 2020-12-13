@@ -10,7 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
-import com.gxuwz.beethoven.model.entity.Song;
+import com.gxuwz.beethoven.model.entity.current.Singer;
+import com.gxuwz.beethoven.model.entity.current.Song;
 
 import java.util.List;
 
@@ -35,7 +36,15 @@ public class SongItemAdapter extends RecyclerView.Adapter<SongItemAdapter.SongIt
         Song song = songList.get(position);
         holder.songPosition.setText((position+1)+"");
         holder.songName.setText(song.getSongName());
-        holder.singerName.setText(song.getSinger());
+        String singerName = "";
+        List<Singer> singerList = song.getSingerList();
+        if(singerList.size()>0) {
+            singerName += singerList.get(0).getSinName();
+            for(int i = 1;i < singerList.size();i++) {
+                singerName += "/" + singerList.get(i).getSinName();
+            }
+        }
+        holder.singerName.setText(singerName);
     }
 
     @Override

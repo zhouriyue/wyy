@@ -6,20 +6,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.find.chatroom.ChatRoomerAdapter;
 import com.gxuwz.beethoven.model.entity.SysUser;
-import com.gxuwz.beethoven.util.HttpUtil;
-import com.gxuwz.beethoven.util.MergeImage;
-import com.gxuwz.beethoven.util.WindowPixels;
+import com.gxuwz.beethoven.util.HttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +46,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     public void findByIdAndNew(){
         context = ChatRoomActivity.this;
         chatroomBg = findViewById(R.id.chatroom_bg);
-        chatroomBg.setBackground(new BitmapDrawable(HttpUtil.getRes("img_comm",context)));
+        chatroomBg.setBackground(new BitmapDrawable(HttpUtils.getRes("img_comm",context)));
         roomerRv = findViewById(R.id.roomer_rv);
         sysUserList = new ArrayList<SysUser>();
         setData();

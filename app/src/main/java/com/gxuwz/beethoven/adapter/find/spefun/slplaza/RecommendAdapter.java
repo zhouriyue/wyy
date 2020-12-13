@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.SongList;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -39,7 +39,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
     @Override
     public void onBindViewHolder(@NonNull RecommendAdapter.RecommendViewHolder holder, int position) {
         SongList songList = songLists.get(position);
-        holder.slImg.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(songList.getSongListUrl(),context),itemWidth,itemWidth,4));
+        holder.slImg.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(songList.getSongListUrl(),context),itemWidth,itemWidth,4));
         holder.playNumber.setText(songList.getPlayNumber()+"");
         holder.slName.setText(songList.getSongListName());
     }

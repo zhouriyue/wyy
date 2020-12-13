@@ -9,15 +9,11 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.FragmentCustomAdapter;
 import com.gxuwz.beethoven.dao.LocalSongDao;
@@ -30,10 +26,9 @@ import com.gxuwz.beethoven.page.fragment.find.FragmentFind;
 import com.gxuwz.beethoven.page.fragment.my.FragmentMy;
 import com.gxuwz.beethoven.page.fragment.video.FragmentVideo;
 import com.gxuwz.beethoven.page.fragment.yunvillage.FragmentYunVillage;
-import com.gxuwz.beethoven.page.index.playlistview.PlayListView;
+import com.gxuwz.beethoven.page.fragment.playlistview.PlayListView;
 import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
 import com.gxuwz.beethoven.service.MusicService;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.Player;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
@@ -114,6 +109,7 @@ public class PrincipalSheetActivity extends FragmentActivity implements View.OnC
         fragmentList.add(fragmentFind);
         fragmentList.add(fragmentYunVillage);
         fragmentList.add(fragmentVideo);
+        viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(new FragmentCustomAdapter(getSupportFragmentManager(), fragmentList));
         viewPager.setCurrentItem(0);
     }

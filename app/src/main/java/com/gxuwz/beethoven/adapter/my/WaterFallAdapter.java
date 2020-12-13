@@ -1,11 +1,6 @@
 package com.gxuwz.beethoven.adapter.my;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.dao.SongListDao;
 import com.gxuwz.beethoven.model.entity.SongList;
 import com.gxuwz.beethoven.model.entity.SysUser;
-import com.gxuwz.beethoven.page.fragment.my.songlist.SongListActivity;
-import com.gxuwz.beethoven.util.HttpUtil;
-import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
 
@@ -57,7 +48,7 @@ public class WaterFallAdapter extends RecyclerView.Adapter<WaterFallAdapter.Wate
     public void onBindViewHolder(@NonNull WaterFallAdapter.WaterFallViewHolder holder, int position) {
         /*SongList songList = songLists.get(position);
         if (isCache){
-            Glide.with(context).load(MergeImage.roundedCustomDB(HttpUtil.getLocalImage(songList.getSongListUrl()),60,60,5)).into(holder.iv);
+            Glide.with(context).load(MergeImage.roundedCustomDB(HttpUtils.getLocalImage(songList.getSongListUrl()),60,60,5)).into(holder.iv);
         } else {
             final Handler perPicViewHandle = new Handler() {
                 public void handleMessage(android.os.Message msg) {
@@ -71,14 +62,14 @@ public class WaterFallAdapter extends RecyclerView.Adapter<WaterFallAdapter.Wate
                     } else {
                         songListDao.update(songList);
                     }
-                    Glide.with(context).load(MergeImage.roundedCustomDB(HttpUtil.getLocalImage(songList.getSongListUrl()),60,60,5)).into(holder.iv);
+                    Glide.with(context).load(MergeImage.roundedCustomDB(HttpUtils.getLocalImage(songList.getSongListUrl()),60,60,5)).into(holder.iv);
                 };
             };
             new Thread(){
                 @Override
                 public void run() {
-                    Bitmap imageDate = HttpUtil.getImage(songList.getSongListUrl());
-                    String url = HttpUtil.saveBitmap(context,imageDate,HttpUtil.USER,HttpUtil.getFileName(songList.getSongListUrl()));
+                    Bitmap imageDate = HttpUtils.getImage(songList.getSongListUrl());
+                    String url = HttpUtils.saveBitmap(context,imageDate,HttpUtils.USER,HttpUtils.getFileName(songList.getSongListUrl()));
                     Message msg = new Message();
                     msg.obj = url;
                     perPicViewHandle.sendMessage(msg);

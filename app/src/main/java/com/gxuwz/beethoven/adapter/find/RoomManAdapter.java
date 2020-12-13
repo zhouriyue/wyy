@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.SysUser;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -35,7 +34,7 @@ public class RoomManAdapter extends RecyclerView.Adapter<RoomManAdapter.RoomManV
     @Override
     public void onBindViewHolder(@NonNull RoomManViewHolder holder, int position) {
         SysUser sysUser = sysUserList.get(position);
-        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(sysUser.getPerPic(),context)));
+        MergeImage.showGlideImgDb(context,R.drawable.zhoushen,holder.perPic,10);
     }
 
     @Override

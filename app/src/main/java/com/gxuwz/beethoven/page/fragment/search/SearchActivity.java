@@ -3,7 +3,6 @@ package com.gxuwz.beethoven.page.fragment.search;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.view.MenuItemCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,9 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -24,21 +20,22 @@ import android.widget.ListAdapter;
 import android.widget.ListPopupWindow;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.search.tip.TipAdapter;
-import com.gxuwz.beethoven.model.entity.SongListsMusic;
 import com.gxuwz.beethoven.model.entity.current.Song;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
@@ -104,7 +101,9 @@ public class SearchActivity extends AppCompatActivity {
                 if(msg.what==1) {
                     Bundle bundle = msg.getData();
                     String result = bundle.getString("result");
-                    Gson gson = new Gson();
+                    GsonBuilder builder = new GsonBuilder();
+                    builder.setDateFormat("yyyy-MM-DD");
+                    Gson gson = builder.create();
                     Type listtype = new TypeToken<List<Song>>(){}.getType();
                     List<Song> songList = gson.fromJson(result,listtype);
                     searchTipPw.setAdapter((ListAdapter) new TipAdapter(SearchActivity.this,songList));
@@ -116,7 +115,7 @@ public class SearchActivity extends AppCompatActivity {
         };
         String url = StaticHttp.BASEURL+StaticHttp.SELECT_SONG;
         url += "?wordKey="+URLEncoder.encode(newText);
-        HttpUtil.get(url,searchHanlder);
+        HttpUtils.get(url,searchHanlder);
     }
 
 

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.find.musiccal.MusicCalSong;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class McContentAdapter extends RecyclerView.Adapter<McContentAdapter.McCo
     @Override
     public void onBindViewHolder(@NonNull McContentViewHolder holder, int position) {
         MusicCalSong musicCalSong = musicCalSongList.get(position);
-        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(musicCalSong.getSong().getImage(),context),48,48,5));
+        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(musicCalSong.getSong().getImage(),context),48,48,5));
         holder.title.setText(musicCalSong.getTitle());
     }
 

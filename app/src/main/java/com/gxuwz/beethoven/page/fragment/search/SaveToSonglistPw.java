@@ -1,40 +1,24 @@
 package com.gxuwz.beethoven.page.fragment.search;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.PopupWindow;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.search.SaveSLAdapter;
 import com.gxuwz.beethoven.dao.SongListDao;
-import com.gxuwz.beethoven.model.entity.SongList;
-import com.gxuwz.beethoven.model.entity.current.Song;
 import com.gxuwz.beethoven.model.entity.current.Songlist;
-import com.gxuwz.beethoven.page.fragment.my.songlist.LoadDownPopuWindow;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.WindowPixels;
-import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
-import java.lang.reflect.Type;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SaveToSonglistPw {

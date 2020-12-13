@@ -14,11 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.gxuwz.beethoven.R;
-import com.gxuwz.beethoven.model.entity.find.spefun.radiostation.RadioStation;
 import com.gxuwz.beethoven.model.entity.find.spefun.radiostation.RadioStationView;
-import com.gxuwz.beethoven.model.entity.find.spefun.radiostation.StationsClass;
-import com.gxuwz.beethoven.model.entity.find.spefun.telecast.STelecastShow;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -115,7 +112,7 @@ public class SRSItemAdapter extends RecyclerView.Adapter<SRSItemAdapter.SRSItemV
             holder.titleLin.setVisibility(View.VISIBLE);
             holder.title.setText(radioStationView.getTitle());
             if(radioStationView.getTitleIcon()!=null) {
-                holder.titleIcon.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(radioStationView.getTitleIcon(),context),titleIconWidth,titleIconHeight,radius));
+                holder.titleIcon.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(radioStationView.getTitleIcon(),context),titleIconWidth,titleIconHeight,radius));
             } else {
                 holder.titleIcon.setVisibility(View.GONE);
             }
@@ -143,7 +140,7 @@ public class SRSItemAdapter extends RecyclerView.Adapter<SRSItemAdapter.SRSItemV
             holder.tagTitle.setText(radioStationView.getTagTitle());
             if(radioStationView.getTagIcon()!=null) {
                 holder.tagImage.setVisibility(View.VISIBLE);
-                holder.tagImage.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(radioStationView.getTagIcon(),context),tagIconWidth,tagIconHeight,radius));
+                holder.tagImage.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(radioStationView.getTagIcon(),context),tagIconWidth,tagIconHeight,radius));
             } else {
                 holder.tagImage.setVisibility(View.GONE);
             }

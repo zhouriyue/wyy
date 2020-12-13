@@ -11,11 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
-import com.gxuwz.beethoven.adapter.my.collect.anchor.AnchorAdapter;
 import com.gxuwz.beethoven.model.entity.SysUser;
 import com.gxuwz.beethoven.model.entity.find.Telecast;
-import com.gxuwz.beethoven.model.entity.my.local.anchor.Anchor;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -39,7 +37,7 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.FollowView
     public void onBindViewHolder(@NonNull FollowAdapter.FollowViewHolder holder, int position) {
         Telecast telecast = telecastList.get(position);
         SysUser sysUser = telecast.getSysUser();
-        holder.picPer.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(telecast.getImg(),context)));
+        holder.picPer.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(telecast.getImg(),context)));
         holder.title.setText(telecast.getTitle());
         holder.detail.setText(telecast.getDetail());
     }

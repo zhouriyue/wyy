@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.widget.ImageView;
 
@@ -16,11 +17,7 @@ import com.gxuwz.beethoven.dao.PlayListDao;
 import com.gxuwz.beethoven.dao.SongDao;
 import com.gxuwz.beethoven.listener.MusicCompletionListener;
 import com.gxuwz.beethoven.model.entity.current.LocalSong;
-import com.gxuwz.beethoven.model.entity.current.PlayList;
 import com.gxuwz.beethoven.model.entity.current.Song;
-import com.gxuwz.beethoven.page.index.Index;
-import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.Player;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
@@ -70,11 +67,10 @@ public class MusicService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        player = new Player();
         serviceReceiver = new MyReceiver();
-
         IntentFilter filter = new IntentFilter(ACTION);
         registerReceiver(serviceReceiver, filter);
+        player = new Player();
         isRun = true;
         player.mediaPlayer.setOnCompletionListener(new MusicCompletionListener(MusicService.this));
     }
@@ -88,23 +84,28 @@ public class MusicService extends Service {
             Long slId = sharedPreferences.getLong("slId",-1);
             Long songId = sharedPreferences.getLong("songId",-1);
             String songUrl = "";
+            System.out.println(slId+","+songId);
             if(slId!=-1) {
                 Song song = songDao.findById(songId);
                 songUrl = song.getStandardUrl();
                 songUrl = StaticHttp.STATIC_BASEURL+songUrl;
             } else {
                 LocalSong localSong = localSongDao.findBySongId(songId);
+                if(localSong!=null)
                 songUrl = localSong.getSongUrl();
             }
             switch (control) {
+                //暂停
                 case 0:{
                     Player.isPlayer = false;
                     player.pause();
                 };break;
+                //播放
                 case 1:{
                     Player.isPlayer = true;
                     player.play();
                 };break;
+                //切换
                 case 2:{
                     Player.isPlayer = true;
                     prepareAndPlay(songUrl);
@@ -131,6 +132,9 @@ public class MusicService extends Service {
 
     private void prepareAndPlay(String music) {
         try {
+            if(player.mediaPlayer == null) {
+                player.mediaPlayer = new MediaPlayer();
+            }
             player.mediaPlayer.reset();
             player.mediaPlayer.setDataSource(music);
             player.mediaPlayer.prepare();

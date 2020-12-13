@@ -1,14 +1,11 @@
 package com.gxuwz.beethoven.adapter.my;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,21 +20,18 @@ import com.gxuwz.beethoven.dao.OperateDao;
 import com.gxuwz.beethoven.dao.PlayListDao;
 import com.gxuwz.beethoven.dao.SongDao;
 import com.gxuwz.beethoven.dao.SongListDao;
-import com.gxuwz.beethoven.model.entity.Music;
 import com.gxuwz.beethoven.model.entity.current.LocalSong;
 import com.gxuwz.beethoven.model.entity.current.Operate;
 import com.gxuwz.beethoven.model.entity.current.PlayList;
-import com.gxuwz.beethoven.model.entity.current.Song;
-import com.gxuwz.beethoven.page.fragment.my.ring.RingTestPW;
 import com.gxuwz.beethoven.page.fragment.my.songlist.LoadDownPopuWindow;
 import com.gxuwz.beethoven.page.fragment.search.SaveToSonglistPw;
 import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
 import com.gxuwz.beethoven.service.MusicService;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
+import com.gxuwz.beethoven.util.Player;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LocalMusicAdapter extends RecyclerView.Adapter<LocalMusicAdapter.LocalMusicViewHolder> {
@@ -52,7 +46,6 @@ public class LocalMusicAdapter extends RecyclerView.Adapter<LocalMusicAdapter.Lo
     OperateDao operateDao;
     LatePlayDao latePlayDao;
     List<LocalSong> localSongs;
-    PlayList playList;
     private int backItem = -1;
 
     public LocalMusicAdapter(Context context, List<LocalSong> localSongs, SharedPreferences sharedPreferences, LoadDownPopuWindow loadDownPopuWindow) {
@@ -159,10 +152,10 @@ public class LocalMusicAdapter extends RecyclerView.Adapter<LocalMusicAdapter.Lo
         @Override
         public void onClick(View view) {
             if(MusicService.ptTagBack!=null) {
-                MusicService.ptTagBack.setImageBitmap(HttpUtil.getRes("play3",context));
+                MusicService.ptTagBack.setImageBitmap(HttpUtils.getRes("play3",context));
             }
             holder.ptTag.setBackgroundResource(0);
-            holder.ptTag.setImageBitmap(HttpUtil.getRes("stop1",context));
+            holder.ptTag.setImageBitmap(HttpUtils.getRes("stop1",context));
             if(localSong==null) {
                 localSong = new LocalSong();
                 localSong.setSongName(localSong.getSongName());
@@ -176,18 +169,8 @@ public class LocalMusicAdapter extends RecyclerView.Adapter<LocalMusicAdapter.Lo
                 }
                 localSong = localSongDao.findByUrl(localSong.getSongUrl());
             }
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putLong("slId",-1);
-            editor.putLong("songId",localSong.getSongId());
-            editor.commit();
-            playList = new PlayList();
-            playList.setSlId((long) -1);
-            playList.setSongId(localSong.getSongId());
-            if(!playListDao.isExist(playList)){
-                playListDao.insert(playList);
-            }
-            MusicService.musicCtrl(context,2);
-            IndexBottomBarReceiver.sendBroadcast(IndexBottomBarReceiver.FLAT_PLAY,context);
+            //播放
+            Player.play(context,localSong);
         }
     }
 

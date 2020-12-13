@@ -1,7 +1,5 @@
 package com.gxuwz.beethoven.page.fragment.my.localmusic;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
@@ -19,13 +17,8 @@ import com.gxuwz.beethoven.dao.SongDao;
 import com.gxuwz.beethoven.model.entity.current.LocalSong;
 import com.gxuwz.beethoven.model.entity.current.Singer;
 import com.gxuwz.beethoven.model.entity.current.Song;
-import com.gxuwz.beethoven.page.fragment.my.AddSongListPW;
-import com.gxuwz.beethoven.page.fragment.my.localmusic.album.AlbumViewInit;
-import com.gxuwz.beethoven.page.fragment.my.localmusic.singer.SingerViewInit;
-import com.gxuwz.beethoven.page.fragment.my.localmusic.songle.SingleViewInit;
-import com.gxuwz.beethoven.page.fragment.my.songlist.SongListActivity;
 import com.gxuwz.beethoven.page.fragment.playview.ActivityPlayView;
-import com.gxuwz.beethoven.page.index.playlistview.PlayListView;
+import com.gxuwz.beethoven.page.fragment.playlistview.PlayListView;
 import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
 import com.gxuwz.beethoven.service.MusicService;
 import com.gxuwz.beethoven.util.MergeImage;

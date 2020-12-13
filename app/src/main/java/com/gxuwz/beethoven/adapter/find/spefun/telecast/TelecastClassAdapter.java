@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.find.spefun.telecast.TelecastClass;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -37,7 +37,7 @@ public class TelecastClassAdapter extends RecyclerView.Adapter<TelecastClassAdap
     @Override
     public void onBindViewHolder(@NonNull TelecastClassViewHolder holder, int position) {
         TelecastClass telecastClass = telecastClassList.get(position);
-        holder.icon.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(telecastClass.getIcon(),context)));
+        holder.icon.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(telecastClass.getIcon(),context)));
         holder.name.setText(telecastClass.getName());
     }
 

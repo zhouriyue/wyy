@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.my.local.album.Album;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class AlbumItemAdapter extends RecyclerView.Adapter<AlbumItemAdapter.Albu
     @Override
     public void onBindViewHolder(@NonNull AlbumViewHolder holder, int position) {
         Album album = albumList.get(position);
-        holder.albumdiagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(album.getAlbumDiagonal(),context),48,48,5));
+        holder.albumdiagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(album.getAlbumDiagonal(),context),48,48,5));
         holder.albumTitle.setText(album.getAlbumTitle());
         holder.singerName.setText(album.getSingerName());
         holder.count.setText(album.getCount()+"首");

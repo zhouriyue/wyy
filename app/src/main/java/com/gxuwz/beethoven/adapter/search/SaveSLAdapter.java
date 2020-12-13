@@ -21,7 +21,7 @@ import com.gxuwz.beethoven.dao.SongDao;
 import com.gxuwz.beethoven.dao.SongListDao;
 import com.gxuwz.beethoven.model.entity.current.Song;
 import com.gxuwz.beethoven.model.entity.current.Songlist;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
@@ -99,9 +99,9 @@ public class SaveSLAdapter extends RecyclerView.Adapter<SaveSLAdapter.SaveSLView
                     }
                 };
                 String url = StaticHttp.BASEURL+StaticHttp.ADD_TO_SONGLIST;
-                String data = "slId="+ URLEncoder.encode(String.valueOf(songlist.getSlId()));
-                data += "&songId="+URLEncoder.encode(String.valueOf(songId));
-                HttpUtil.post(url,data,handler);
+                String data = "slId="+ songlist.getSlId();
+                data += "&songId="+songId;
+                HttpUtils.post(url,data,handler);
             }
         });
     }

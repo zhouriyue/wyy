@@ -46,6 +46,7 @@ public class PlayAppAdapter extends RecyclerView.Adapter<PlayAppAdapter.PlayAppV
         switch (playApp.getType()) {
             case 1:{
                 holder.songListName.setText("上次播放歌曲："+playApp.getName());
+
             };break;
             case 2:{
                 holder.songListName.setText(playApp.getName());

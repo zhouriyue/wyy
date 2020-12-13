@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.SongList;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -47,7 +47,7 @@ public class RecentBroadcastsAdapter extends RecyclerView.Adapter<RecentBroadcas
         new Thread(){
             @Override
             public void run() {
-                Bitmap imageDate = HttpUtil.getImage(songList.getSongListUrl());
+                Bitmap imageDate = HttpUtils.getImage(songList.getSongListUrl());
                 Message msg = new Message();
                 msg.obj = imageDate;
                 perPicViewHandle.sendMessage(msg);

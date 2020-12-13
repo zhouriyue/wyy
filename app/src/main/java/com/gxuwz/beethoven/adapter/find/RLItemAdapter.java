@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.Song;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class RLItemAdapter extends RecyclerView.Adapter<RLItemAdapter.RLItemView
     @Override
     public void onBindViewHolder(@NonNull RLItemViewHolder holder, int position) {
         Song song = songList.get(position);
-        holder.image.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(song.getImage(),context),48,48,5));
+        holder.image.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(song.getImage(),context),48,48,5));
         if(song.getIsNew()==1) {
             holder.type.setText("新");
         } else {

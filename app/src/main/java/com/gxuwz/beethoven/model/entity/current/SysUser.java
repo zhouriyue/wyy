@@ -1,7 +1,6 @@
 package com.gxuwz.beethoven.model.entity.current;
 
 import java.util.Date;
-import java.util.List;
 
 public class SysUser {
     /** 用户ID */

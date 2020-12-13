@@ -1,7 +1,9 @@
 package com.gxuwz.beethoven.page.fragment.my;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.my.PlayAppAdapter;
@@ -32,6 +34,7 @@ import com.gxuwz.beethoven.dao.SongDao;
 import com.gxuwz.beethoven.dao.SongListDao;
 import com.gxuwz.beethoven.dao.SysUserDao;
 import com.gxuwz.beethoven.dao.UserDetailDao;
+import com.gxuwz.beethoven.http.CollectionesHttp;
 import com.gxuwz.beethoven.model.entity.LatePlay;
 import com.gxuwz.beethoven.model.entity.current.LocalSong;
 import com.gxuwz.beethoven.model.entity.current.Member;
@@ -46,9 +49,10 @@ import com.gxuwz.beethoven.page.fragment.my.downmanage.DownLoadActivity;
 import com.gxuwz.beethoven.page.fragment.my.follow.FollowActivity;
 import com.gxuwz.beethoven.page.fragment.my.localmusic.LocalMusicActivity;
 import com.gxuwz.beethoven.page.fragment.my.radiostation.RadioStationActivity;
+import com.gxuwz.beethoven.page.fragment.my.songlist.LoadDownView;
 import com.gxuwz.beethoven.page.fragment.my.usermain.UserMainActivity;
 import com.gxuwz.beethoven.util.DateUtil;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
@@ -74,6 +78,7 @@ public class FragmentMy extends Fragment {
 
     protected ImageView perPicView, slAddBt;
     protected TextView userNameView;
+    RecyclerView collectRv;
     LinearLayout userMain;
     List<Songlist> songlists;
     SongListAdapter songListAdapter;
@@ -92,6 +97,9 @@ public class FragmentMy extends Fragment {
 
     //添加歌单
     AddSongListPW addSongListPW;
+
+    //操作弹框
+    LoadDownView loadDownView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -112,11 +120,20 @@ public class FragmentMy extends Fragment {
 
     public void init(View view) {
         findByIdAll(view);
+        initData();
         initOnClick();
         initPerMess();
         initSonglist();
         initLatePlay(view);
         initForUserMain(view);
+        initCollecSonglist(view);
+    }
+
+    //显示收藏歌单
+    public void initCollecSonglist(View view){
+        collectRv = view.findViewById(R.id.collect_rv);
+        collectRv.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+        CollectionesHttp.list(context,collectRv,sysUser.getUserId());
     }
 
     public void initForUserMain(View view){
@@ -139,6 +156,7 @@ public class FragmentMy extends Fragment {
         PlayApp playApp = new PlayApp();
         if(slId!=-1) {
             Song song = songDao.findById(songId);
+            if(song!=null)
             playApp.setName("最近播放："+song.getSongName());
         } else {
             LocalSong localSong = localSongDao.findBySongId(songId);
@@ -185,7 +203,7 @@ public class FragmentMy extends Fragment {
         songListRv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         songlists = songListDao.findUserSL(sharedPreferences.getLong("userId",-1));
         if(songListAdapter==null){
-            songListAdapter = new SongListAdapter(getContext(), songlists);
+            songListAdapter = new SongListAdapter(getContext(), songlists,loadDownView);
             songListRv.setAdapter(songListAdapter);
         }
         Handler handler = new Handler() {
@@ -194,21 +212,24 @@ public class FragmentMy extends Fragment {
                 if (msg.what == 1) {
                     Bundle bundle = msg.getData();
                     String result = bundle.getString("result");
-                    Gson gson = new Gson();
+                    GsonBuilder builder = new GsonBuilder();
+                    builder.setDateFormat("yyyy-MM-DD");
+                    Gson gson = builder.create();
                     Type listtype = new TypeToken<List<Songlist>>() {}.getType();
                     songlists = gson.fromJson(result, listtype);
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             for(int i = 0;i < songlists.size();i++) {
-                                if(!songListDao.isExsit(songlists.get(i).getSlId())) {
+                                if(!songListDao.isExsit(songlists.get(i).getSlId())){
                                     songListDao.insert(songlists.get(i));
+                                } else {
+                                    songListDao.update(songlists.get(i));
                                 }
                             }
                         }
                     }).start();
                     if(songListAdapter!=null) {
-                        songListRv.removeAllViews();
                         songListAdapter.updateData(songlists);
                     }
                 }
@@ -216,8 +237,7 @@ public class FragmentMy extends Fragment {
         };
         String url = StaticHttp.BASEURL + StaticHttp.GET_SONGLIST;
         url += "?createById=" + URLEncoder.encode(String.valueOf(sharedPreferences.getLong("userId",-1)));
-        HttpUtil.get(url, handler);
-
+        HttpUtils.get(url, handler);
         //弹框
         addSongListPW = new AddSongListPW(getActivity());
     }
@@ -241,8 +261,30 @@ public class FragmentMy extends Fragment {
                             sysUserDao.insert(sysUser);
                             if(!userDetailDao.isExist(userDetailVo.getUserId())) {
                                 userDetailDao.insert(userDetailVo);
+                            } else {
+                                userDetailDao.update(userDetailVo);
                             }
-                            memberDao.insert(member);
+                            if(userDetailVo.getIsMember()==1) {
+                                if(memberDao.findById(sysUser.getUserId())==null) {
+                                    memberDao.insert(member);
+                                } else {
+                                    memberDao.update(member);
+                                }
+                            }
+                        } else {
+                            sysUserDao.update(sysUser);
+                            if(!userDetailDao.isExist(userDetailVo.getUserId())) {
+                                userDetailDao.insert(userDetailVo);
+                            } else {
+                                userDetailDao.update(userDetailVo);
+                            }
+                            if(userDetailVo.getIsMember()==1) {
+                                if(memberDao.findById(sysUser.getUserId())==null) {
+                                    memberDao.insert(member);
+                                } else {
+                                    memberDao.update(member);
+                                }
+                            }
                         }
                         MergeImage.showGlideImgDb(getContext(), StaticHttp.STATIC_BASEURL + all_json.getString("avatar"), perPicView, (int) (30 * WindowPixels.DENSITY));
                         userNameView.setText(sysUser.getNickName());
@@ -254,8 +296,7 @@ public class FragmentMy extends Fragment {
         };
         String url = StaticHttp.SYSTEM_BASEURL + StaticHttp.GET_USER_DETAIL;
         url += "?userId=" + sharedPreferences.getLong("userId",-1);
-        System.out.println(url);
-        HttpUtil.get(url, handler);
+        HttpUtils.get(url, handler);
     }
 
     /** 初始化user、userDetail数据*/
@@ -280,14 +321,16 @@ public class FragmentMy extends Fragment {
         userDetailVo.setAddress(all_json.getString("address"));
         userDetailVo.setPerBg(all_json.getString("perBg"));
         userDetailVo.setIsMember(all_json.getInt("isMember"));
-        if(member==null) {
-            member = new Member();
+        if(userDetailVo.getIsMember()==1) {
+            if(member==null) {
+                member = new Member();
+            }
+            member.setUserId(all_json.getLong("mId"));
+            member.setValidDay(all_json.getLong("validDay"));
+            //member.setmGrade(all_json.getInt("mGrade"));
+            member.setUserId(all_json.getLong("userId"));
+            member.setEnrollDate(DateUtil.parseString(all_json.getString("enrollDate")));
         }
-        member.setUserId(all_json.getLong("mId"));
-        member.setValidDay(all_json.getLong("validDay"));
-        member.setmGrade(all_json.getInt("mGrade"));
-        member.setUserId(all_json.getLong("userId"));
-        member.setEnrollDate(DateUtil.parseString(all_json.getString("enrollDate")));
     }
 
     public void initOnClick() {
@@ -348,6 +391,19 @@ public class FragmentMy extends Fragment {
             }
         });
     }
+    UpdateSonglistReceiver updateDataReceiver;
+    public void initData(){
+        loadDownView = new LoadDownView(getContext());
+        updateDataReceiver = new UpdateSonglistReceiver();
+        IntentFilter intentFilter = new IntentFilter(UpdateSonglistReceiver.ACTION);
+        getContext().registerReceiver(updateDataReceiver,intentFilter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getContext().unregisterReceiver(updateDataReceiver);
+    }
 
     public void findByIdAll(View view) {
         context = getContext();
@@ -362,15 +418,58 @@ public class FragmentMy extends Fragment {
         followLin = view.findViewById(R.id.follow_lin);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        boolean isRefreSonglist = sharedPreferences.getBoolean("isRefreSonglist",false);
-        if(isRefreSonglist) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("isRefreSonglist",false);
-            editor.commit();
-            initSonglist();
+    public class UpdateSonglistReceiver extends BroadcastReceiver{
+
+        public static final String ACTION = "my_data_update";
+        public static final String CONTROLLER = "songlist";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String controller = intent.getStringExtra(CONTROLLER);
+            switch (controller){
+                case "songlist":{receiverSonglist();}break;
+                case "collectiones":{receiverCollectiones();}break;
+            }
+            loadDownView.getLoadDownPopuWindow().showPopupWindow();
         }
+    }
+
+    private void receiverSonglist(){
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                if (msg.what == 1) {
+                    Bundle bundle = msg.getData();
+                    String result = bundle.getString("result");
+                    GsonBuilder builder = new GsonBuilder();
+                    builder.setDateFormat("yyyy-MM-DD");
+                    Gson gson = builder.create();
+                    Type listtype = new TypeToken<List<Songlist>>() {}.getType();
+                    songlists = gson.fromJson(result, listtype);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for(int i = 0;i < songlists.size();i++) {
+                                if(!songListDao.isExsit(songlists.get(i).getSlId())) {
+                                    songListDao.insert(songlists.get(i));
+                                } else {
+                                    songListDao.update(songlists.get(i));
+                                }
+                            }
+                        }
+                    }).start();
+                    if(songListAdapter!=null) {
+                        songListAdapter.updateData(songlists);
+                    }
+                }
+            }
+        };
+        String url = StaticHttp.BASEURL + StaticHttp.GET_SONGLIST;
+        url += "?createById=" + URLEncoder.encode(String.valueOf(sharedPreferences.getLong("userId",-1)));
+        HttpUtils.get(url, handler);
+        addSongListPW.getPopupWindow();
+    }
+    private void receiverCollectiones(){
+        CollectionesHttp.list(context,collectRv,sysUser.getUserId());
     }
 }

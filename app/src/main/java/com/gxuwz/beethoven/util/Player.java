@@ -1,13 +1,13 @@
 package com.gxuwz.beethoven.util;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -19,22 +19,26 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.gxuwz.beethoven.component.lyc.LycicView;
+import com.gxuwz.beethoven.dao.LatePlayDao;
 import com.gxuwz.beethoven.dao.PlayListDao;
+import com.gxuwz.beethoven.model.entity.LatePlay;
+import com.gxuwz.beethoven.model.entity.current.LocalSong;
 import com.gxuwz.beethoven.model.entity.current.PlayList;
-import com.gxuwz.beethoven.page.index.playlistview.CurrentPlayView;
+import com.gxuwz.beethoven.model.entity.current.Song;
 import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
 import com.gxuwz.beethoven.receiver.playview.PlayViewReceiver;
 import com.gxuwz.beethoven.service.MusicService;
+import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
 public class Player implements OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener {
 
-    public static MediaPlayer mediaPlayer; // 媒体播放器
-    public static SeekBar seekBar; // 拖动条
-    public static LycicView lyriscView;
-    public static List<Long> lyriscTimes;
-    public static TextView currentAndMaxTime;
-    private Timer mTimer = new Timer(); // 计时器
-    public static boolean isPlayer = false;
+    public static MediaPlayer mediaPlayer;    // 媒体播放器
+    public static SeekBar seekBar;            // 进度条
+    public static LycicView lyriscView;       // 歌词显示组件
+    public static List<Long> lyriscTimes;     // 歌词的时间队列
+    public static TextView currentAndMaxTime; // 显示歌词组件
+    private Timer mTimer = new Timer();       // 计时器
+    public static boolean isPlayer = false;   // 播放状态
 
     // 初始化播放器
     public Player() {
@@ -68,33 +72,25 @@ public class Player implements OnBufferingUpdateListener, OnCompletionListener, 
      * 上一首
      */
     public static void lastOne(Context context) {
-        PlayList playList = null;
-        PlayListDao playListDao = new PlayListDao(context);
         SharedPreferences sharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE);
         Long slId = sharedPreferences.getLong("slId", -1);
         Long songId = sharedPreferences.getLong("songId", -1);
-        List<Integer> idList = playListDao.findAllId();
-        playList = playListDao.findBySlIdAndSongId(slId,songId);
-        int index = 0;
-        if(playList!=null) {
-            if (index != -1) {
-                if (index - 1 <= 0) {
-                    index = idList.size() - 1;
-                } else {
-                    index -= 1;
-                }
-            }
-        } else {
-            if(idList.size()!=0){
-                index = 0;
-            } else {
-                return;
-            }
+
+        /**从播放历史获取上一首歌 **/
+        LatePlayDao latePlayDao = new LatePlayDao(context);
+        LatePlay latePlay = latePlayDao.findLatePlay(slId,songId);
+        LatePlay lateSong = null;
+        if(latePlay!=null) {
+            lateSong = latePlayDao.findLast(latePlay.getPlayDate());
         }
-        playList = playListDao.findById(idList.get(index));
-        //保存播放信息
-        saveSharedPreferences(sharedPreferences, playList);
-        MusicService.musicCtrl(context,MusicService.PRPLAY);
+        if(lateSong.getPlayDate()!=null) {
+            //设置当前播放歌曲
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putLong("slId", lateSong.getSlId());
+            editor.putLong("songId", lateSong.getSongId());
+            editor.commit();
+        }
+        MusicService.musicCtrl(context, MusicService.PRPLAY);
         IndexBottomBarReceiver.sendBroadcast(IndexBottomBarReceiver.FLAT_PLAY, context);
         PlayViewReceiver.sendBroadcast(context);
         Player.isPlayer = true;
@@ -107,36 +103,136 @@ public class Player implements OnBufferingUpdateListener, OnCompletionListener, 
         PlayList playList = null;
         PlayListDao playListDao = new PlayListDao(context);
         SharedPreferences sharedPreferences = context.getSharedPreferences("data", Context.MODE_PRIVATE);
-        Long slId = sharedPreferences.getLong("slId", -1);
-        Long songId = sharedPreferences.getLong("songId", -1);
-        List<Integer> idList = playListDao.findAllId();
-        playList = playListDao.findBySlIdAndSongId(slId,songId);
-        int index = 0;
-        if(playList!=null) {
-            index = idList.indexOf(playList.getId());
-            if (index != -1) {
-                if (index + 1 >= idList.size()) {
+        int playModel = sharedPreferences.getInt(StaticHttp.PLAY_MODEL, 0);
+        //1表示随机播放
+        if (playModel == 1) {
+            List<PlayList> playLists = playListDao.findBGMin();
+            int count = playLists.size();
+            if(count!=0) {
+                int random = (int)Math.random()*count;
+                playList = playLists.get(random);
+                playListDao.updatePlayGrade(playList);
+            }
+            saveSharedPreferences(sharedPreferences, playList);
+        } else {
+            Long slId = sharedPreferences.getLong("slId", -1);
+            Long songId = sharedPreferences.getLong("songId", -1);
+            List<Integer> idList = playListDao.findAllId();
+            playList = playListDao.findBySlIdAndSongId(slId, songId);
+            int index = 0;
+            if (playList != null) {
+                index = idList.indexOf(playList.getId());
+                if (index != -1) {
+                    if (index + 1 >= idList.size()) {
+                        index = 0;
+                    } else {
+                        index += 1;
+                    }
+                }
+            } else {
+                if (idList.size() != 0) {
                     index = 0;
                 } else {
-                    index += 1;
+                    return;
                 }
             }
-        } else {
-            if(idList.size()!=0) {
-                index = 0;
-            } else {
-                return;
-            }
+            playList = playListDao.findById(idList.get(index));
+            saveSharedPreferences(sharedPreferences, playList);
         }
-        playList = playListDao.findById(idList.get(index));
-        saveSharedPreferences(sharedPreferences, playList);
+        //添加到播放记录
+        LatePlayDao latePlayDao = new LatePlayDao(context);
+        LatePlay latePlay = new LatePlay();
+        latePlay.setSlId((long)-1);
+        latePlay.setSongId(playList.getSongId());
+        latePlay.setPlayDate(new Date());
+        if(latePlayDao.findLatePlay(latePlay)==null){
+            latePlayDao.insert(latePlay);
+        } else {
+            latePlayDao.update(latePlay);
+        }
         //播放歌曲
-        MusicService.musicCtrl(context,MusicService.PRPLAY);
+        MusicService.musicCtrl(context, MusicService.PRPLAY);
         //底部bar广播
         IndexBottomBarReceiver.sendBroadcast(IndexBottomBarReceiver.FLAT_PLAY, context);
         //播放页广播
         PlayViewReceiver.sendBroadcast(context);
         Player.isPlayer = true;
+    }
+
+    /**
+     * 播放歌曲
+     **/
+    public static void play(Context context, Song song) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(StaticHttp.DATA, Context.MODE_PRIVATE);
+
+        //设置当前播放歌曲
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putLong("slId", song.getSlId());
+        editor.putLong("songId", song.getSongId());
+        editor.commit();
+
+        //添加进播放列表
+        PlayListDao playListDao = new PlayListDao(context);
+        PlayList playList = new PlayList();
+        playList.setSlId(song.getSlId());
+        playList.setSongId(song.getSongId());
+        if (!playListDao.isExist(playList)) {
+            playListDao.updatePlayGrade(playList);
+        }
+
+        //添加到播放记录
+        LatePlayDao latePlayDao = new LatePlayDao(context);
+        LatePlay latePlay = new LatePlay();
+        latePlay.setSlId(song.getSlId());
+        latePlay.setSongId(song.getSongId());
+        latePlay.setPlayDate(new Date());
+        if(latePlayDao.findLatePlay(latePlay)==null){
+            latePlayDao.insert(latePlay);
+        } else {
+            latePlayDao.update(latePlay);
+        }
+
+        //播放控制
+        MusicService.musicCtrl(context, 2);
+        IndexBottomBarReceiver.sendBroadcast(IndexBottomBarReceiver.FLAT_PLAY, context);
+    }
+
+    /**
+     * 播放歌曲
+     **/
+    public static void play(Context context, LocalSong localSong) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(StaticHttp.DATA, Context.MODE_PRIVATE);
+
+        //设置当前播放歌曲
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putLong("slId", -1);
+        editor.putLong("songId", localSong.getSongId());
+        editor.commit();
+
+        //添加进播放列表
+        PlayListDao playListDao = new PlayListDao(context);
+        PlayList playList = new PlayList();
+        playList.setSlId((long) -1);
+        playList.setSongId(localSong.getSongId());
+        if (!playListDao.isExist(playList)) {
+            playListDao.updatePlayGrade(playList);
+        }
+
+        //添加到播放记录
+        LatePlayDao latePlayDao = new LatePlayDao(context);
+        LatePlay latePlay = new LatePlay();
+        latePlay.setSlId((long)-1);
+        latePlay.setSongId(localSong.getSongId());
+        latePlay.setPlayDate(new Date());
+        if(latePlayDao.findLatePlay(latePlay)==null){
+            latePlayDao.insert(latePlay);
+        } else {
+            latePlayDao.update(latePlay);
+        }
+
+        //播放控制
+        MusicService.musicCtrl(context, 2);
+        IndexBottomBarReceiver.sendBroadcast(IndexBottomBarReceiver.FLAT_PLAY, context);
     }
 
     public static void saveSharedPreferences(SharedPreferences sharedPreferences, PlayList playList) {
@@ -165,12 +261,12 @@ public class Player implements OnBufferingUpdateListener, OnCompletionListener, 
                     seekBar.setProgress((int) pos);
                     currentTime = position / 1000;
                     totalTime = duration / 1000;
-                    currentAndMaxTime.setText(DateUtil.sToDate((int)currentTime) + "/" + DateUtil.sToDate((int)totalTime));
+                    currentAndMaxTime.setText(DateUtil.sToDate((int) currentTime) + "/" + DateUtil.sToDate((int) totalTime));
                 }
                 /**
                  * 歌词显示
                  */
-                if (lyriscView != null&&lyriscTimes!=null) {
+                if (lyriscView != null && lyriscTimes != null) {
                     int lryIndex = lyriscTimes.indexOf(currentTime);
                     if (lryIndex != -1) {
                         lyriscView.scrollToIndex(lryIndex);
@@ -182,25 +278,27 @@ public class Player implements OnBufferingUpdateListener, OnCompletionListener, 
         ;
     };
 
-    public static void setSeekBarChange(){
+    public static void setSeekBarChange() {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             //当进度改变
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
             }
+
             //当开始拖动
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
+
             //当拖动停止的时候调用
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 int duration = mediaPlayer.getDuration();
                 float seekBarMax = seekBar.getMax();
                 int pro = seekBar.getProgress();
-                int position = (int) (pro/seekBarMax*duration);
+                int position = (int) (pro / seekBarMax * duration);
                 mediaPlayer.seekTo(position);
             }
         });

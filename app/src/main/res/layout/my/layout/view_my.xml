@@ -251,68 +251,12 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shape"
                 android:orientation="vertical">
-                <!--我的音乐-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <TextView
-                                android:id="@+id/mymusic"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="我的音乐"
-                                android:textColor="#000000"
-                                android:textSize="12dp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="300dp"
-                                android:layout_toRightOf="@id/mymusic"
-                                android:text=">"
-                                android:textSize="12dp" />
-
-                            <HorizontalScrollView
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/mymusic"
-                                android:layout_marginTop="10dp"
-                                android:scrollbars="none">
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@id/mymusic"
-                                    >
-
-                                    <GridView
-                                        android:id="@+id/music_app_gv"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="fill_parent"
-                                        android:gravity="center"
-                                        android:numColumns="auto_fit"
-                                        android:stretchMode="spacingWidthUniform"></GridView>
-                                </LinearLayout>
-                            </HorizontalScrollView>
-                        </RelativeLayout>
-                    </LinearLayout>
-                </LinearLayout>
 
                 <!--最近播放-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:orientation="vertical">
@@ -351,7 +295,7 @@
                 <!--创建歌单-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:orientation="vertical">
@@ -370,7 +314,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="创建歌单"
-                                    android:textColor="#000000"
+                                    android:textColor="@color/black_2c"
                                     android:textSize="12dp"
                                     android:textStyle="bold"
                                     />
@@ -390,10 +334,53 @@
                             </LinearLayout>
                         </RelativeLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv3"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!--搜藏歌单-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:gravity="center">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="收藏歌单"
+                                android:textColor="@color/black_2c"
+                                android:textSize="12dp"
+                                android:textStyle="bold"
+                                />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/collect_rv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>

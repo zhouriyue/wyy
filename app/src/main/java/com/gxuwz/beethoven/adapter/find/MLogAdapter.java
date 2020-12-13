@@ -17,7 +17,6 @@ import com.gxuwz.beethoven.model.entity.mlog.ImageWordMlog;
 import com.gxuwz.beethoven.model.entity.mlog.Mlog;
 import com.gxuwz.beethoven.model.entity.mlog.VideoMlog;
 import com.gxuwz.beethoven.page.index.findview.imgtexttalk.ITTalkActivity;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -43,12 +42,12 @@ public class MLogAdapter extends RecyclerView.Adapter<MLogAdapter.MLogViewHolder
     public void onBindViewHolder(@NonNull MLogViewHolder holder, int position) {
         if("ImageWordMlog".equals(mlogList.get(position).getType())){
             ImageWordMlog imageWordMlog = (ImageWordMlog) mlogList.get(position);
-            holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(imageWordMlog.getMusicDiagonal(),context),100,120,10));
+            MergeImage.showGlideImgDb(context,R.drawable.youth,holder.diagonal,10);
             holder.title.setText(imageWordMlog.getTitle());
             holder.likeNumber.setText(imageWordMlog.getLikeNumber()+"赞");
         } else if("VideoMlog".equals(mlogList.get(position).getType())) {
             VideoMlog videoMlog = (VideoMlog) mlogList.get(position);
-            holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(videoMlog.getDiagonal(),context),100,120,10));
+            MergeImage.showGlideImgDb(context,R.drawable.youth,holder.diagonal,10);
             holder.title.setText(videoMlog.getTitle());
             holder.likeNumber.setText(videoMlog.getLikeNumber()+"赞");
         }

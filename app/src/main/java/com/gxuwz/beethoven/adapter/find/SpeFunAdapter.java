@@ -19,8 +19,9 @@ import com.gxuwz.beethoven.page.index.findview.spefun.radiostation.SRadioStation
 import com.gxuwz.beethoven.page.index.findview.spefun.slplaza.SLPlazaActivity;
 import com.gxuwz.beethoven.page.index.findview.spefun.rankinglist.RankingListActivity;
 import com.gxuwz.beethoven.page.index.findview.spefun.telecast.STelecastActivity;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
+import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
 import java.util.List;
 
@@ -61,17 +62,11 @@ public class SpeFunAdapter extends RecyclerView.Adapter<SpeFunAdapter.RSLViewHol
                     case "rankinglist":{
                         intent = new Intent(context, RankingListActivity.class);
                     };break;
-                    case "sradiostation":{
-                        intent = new Intent(context, SRadioStationActivity.class);
-                    };break;
-                    case "stelecast":{
-                        intent = new Intent(context, STelecastActivity.class);
-                    };break;
                 }
                 context.startActivity(intent);
             }
         });
-        holder.icon.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(specialFun.getIcon(),context)));
+        MergeImage.showGlideImgDb(context, StaticHttp.STATIC_BASEURL+specialFun.getIcon(),holder.icon,24);
         holder.title.setText(specialFun.getTitle());
     }
 

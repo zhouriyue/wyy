@@ -1,28 +1,16 @@
 package com.gxuwz.beethoven.page.index.myview;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.gxuwz.beethoven.R;
-import com.gxuwz.beethoven.adapter.my.RecentBroadcastsAdapter;
-import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 import com.gxuwz.beethoven.hanlder.SysUserHandler;
 import com.gxuwz.beethoven.model.entity.SongList;
-import com.gxuwz.beethoven.page.fragment.my.collect.CollectActivity;
-import com.gxuwz.beethoven.page.fragment.my.downmanage.DownLoadActivity;
-import com.gxuwz.beethoven.page.fragment.my.follow.FollowActivity;
-import com.gxuwz.beethoven.page.fragment.my.localmusic.LocalMusicActivity;
-import com.gxuwz.beethoven.page.fragment.my.radiostation.RadioStationActivity;
-import com.gxuwz.beethoven.util.HttpUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyViewInit {
@@ -74,7 +62,7 @@ public class MyViewInit {
         songListContinue = new SongList();
         musicAppInit = new MusicAppInit(MyView);
         sysUserHandler.setContext(context);
-        HttpUtil.get(StaticHttp.HTTPURL,sysUserHandler);
+        HttpUtils.get(StaticHttp.HTTPURL,sysUserHandler);
         songListAll.setSongListUrl(sharedPreferences.getString("songListUrl",null));
         songListAll.setSongListName("全部已播歌曲");
         songListAll.setTag("87首");

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.my.radiostation.RecommendItem;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -41,7 +41,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
     @Override
     public void onBindViewHolder(@NonNull RecommendViewHolder holder, int position) {
         RecommendItem recommendItem = recommendItemList.get(position);
-        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(recommendItem.getDiagonal(),context),itemWidth,height,5));
+        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(recommendItem.getDiagonal(),context),itemWidth,height,5));
         holder.content.setText(recommendItem.getContent());
     }
 

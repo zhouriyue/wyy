@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.SysUser;
 import com.gxuwz.beethoven.model.entity.find.spefun.telecast.TrMessage;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
         TrMessage trMessage = trMessageList.get(position);
         SysUser sysUser = trMessage.getSysUser();
-        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(sysUser.getPerPic(),context)));
+        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(sysUser.getPerPic(),context)));
         holder.content.setText(trMessage.getContent());
         holder.position.setText(position+"");
         holder.username.setText(sysUser.getUserName());

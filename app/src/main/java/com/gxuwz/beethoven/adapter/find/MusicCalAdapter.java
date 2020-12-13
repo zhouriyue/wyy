@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.find.MusicCal;
 import com.gxuwz.beethoven.page.index.findview.musiccal.MusicCalActivity;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -60,11 +60,10 @@ public class MusicCalAdapter extends RecyclerView.Adapter<MusicCalAdapter.MusicC
         this.nextImage = holder.nextImage;
         this.time = holder.time;
         this.title = holder.title;
-
-        holder.image.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(musicCal.getImage(),context),60,60,10));
+        MergeImage.showGlideImgDb(context,R.drawable.zhoushen,holder.image,10);
+        MergeImage.showGlideImgDb(context,R.drawable.zhoushen1,holder.nextImage,10);
         holder.title.setText(musicCal.getTitle());
         holder.time.setText(musicCal.getTime());
-        holder.nextImage.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(musicCalNext.getImage(),context),50,50,10));
         holder.musicCalBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,12 +89,12 @@ public class MusicCalAdapter extends RecyclerView.Adapter<MusicCalAdapter.MusicC
                 current = (current+1)%size;
                 musicCal = musicCalNext;
                 musicCalNext = musicCalList.get(current);
-                image.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(musicCal.getImage(),context),60,60,10));
+                image.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(musicCal.getImage(),context),60,60,10));
                 title.setText(musicCal.getTitle());
                 time.setText(musicCal.getTime());
                 Log.i("title",musicCal.getTitle());
                 Log.i("current",current+"="+size);
-                nextImage.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(musicCalNext.getImage(),context),50,50,10));
+                nextImage.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(musicCalNext.getImage(),context),50,50,10));
             }
         }
     };

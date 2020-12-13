@@ -3,6 +3,9 @@ package com.gxuwz.beethoven.page.index.findview;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -12,24 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.find.FindAdapter;
-import com.gxuwz.beethoven.model.entity.Song;
-import com.gxuwz.beethoven.model.entity.SongList;
-import com.gxuwz.beethoven.model.entity.SysUser;
-import com.gxuwz.beethoven.model.entity.find.Banners;
-import com.gxuwz.beethoven.model.entity.find.Dic;
-import com.gxuwz.beethoven.model.entity.find.Find;
-import com.gxuwz.beethoven.model.entity.find.MusicCal;
-import com.gxuwz.beethoven.model.entity.find.RankingList;
-import com.gxuwz.beethoven.model.entity.find.Room;
-import com.gxuwz.beethoven.model.entity.find.SpeSong;
-import com.gxuwz.beethoven.model.entity.find.SpecialFun;
-import com.gxuwz.beethoven.model.entity.find.Telecast;
-import com.gxuwz.beethoven.model.entity.find.YunVillage;
-import com.gxuwz.beethoven.model.entity.mlog.ImageWordMlog;
-import com.gxuwz.beethoven.model.entity.mlog.Mlog;
-import com.gxuwz.beethoven.model.entity.my.follow.Singer;
+import com.gxuwz.beethoven.model.entity.current.Find;
+import com.gxuwz.beethoven.util.HttpUtils;
+import com.gxuwz.beethoven.util.staticdata.StaticHttp;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,15 +46,16 @@ public class FindViewInit {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void init(LayoutInflater layoutInflater){
         findByIdAndNew();
+        initData();
     }
-
-
 
     public void findByIdAndNew(){
         findViewRv = findView.findViewById(R.id.find_view_rv);
         findList = new ArrayList<Find>();
-        setData();
+    }
 
+    /** 初始化adapter **/
+    public void initAdapter(){
         /**
          * recycler 设置流畅度
          */
@@ -110,10 +106,32 @@ public class FindViewInit {
         findViewRv.setAdapter(findAdapter);
     }
 
+    private void initData(){
+        Handler handler = new Handler(){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                if(msg.what==1) {
+                    Bundle bundle = msg.getData();
+                    String result = bundle.getString("result");
+                    GsonBuilder builder = new GsonBuilder();
+                    builder.setDateFormat("yyyy-MM-DD");
+                    Gson gson = builder.create();
+                    Type listtype = new TypeToken<List<Find>>(){}.getType();
+                    findList = gson.fromJson(result,listtype);
+                    initAdapter();
+                }
+            }
+        };
+        String url = StaticHttp.BASEURL + StaticHttp.SELCET_FIND;
+        HttpUtils.get(url,handler);
+    }
+
     private void setData(){
+
         /**
          * 轮播图
-         */
+         *//*
         Find find = new Find();
         find.setType(1);
         List<Banners> bannersList = new ArrayList<Banners>();
@@ -128,9 +146,10 @@ public class FindViewInit {
         bannersList.add(banners);
         find.setBannersList(bannersList);
         findList.add(find);
-        /**
+
+        *//**
          * 个性功能
-         */
+         *//*
         find = new Find();
         find.setType(2);
         List<SpecialFun> specialFunList = new ArrayList<SpecialFun>();
@@ -168,9 +187,9 @@ public class FindViewInit {
         find.setSpecialFunList(specialFunList);
         findList.add(find);
 
-        /**
+        *//**
          * 推荐歌单
-         */
+         *//*
         find = new Find();
         find.setTitle("人气歌单推荐");
         find.setToMangy("查看更多");
@@ -205,9 +224,9 @@ public class FindViewInit {
         find.setSongLists(songLists);
         findList.add(find);
 
-        /**
+        *//**
          * 推荐直播
-         */
+         *//*
         find = new Find();
         find.setTitle("嘿！你又在听我说嘛？");
         find.setToMangy("查看更多");
@@ -246,9 +265,9 @@ public class FindViewInit {
         find.setTelecastList(telecastList);
         findList.add(find);
 
-        /**
+        *//**
          * 推荐歌曲
-         */
+         *//*
         find = new Find();
         find.setTitle("根据任贤齐推荐");
         find.setToMangy("查看更多");
@@ -322,9 +341,9 @@ public class FindViewInit {
         find.setSongList(recSongList);
         findList.add(find);
 
-        /**
+        *//**
          * 音乐日历
-         */
+         *//*
         find = new Find();
         find.setType(6);
         List<MusicCal> musicCalList = new ArrayList<MusicCal>();
@@ -355,9 +374,9 @@ public class FindViewInit {
 
         findList.add(find);
 
-        /**
+        *//**
          * 官方推荐歌单
-         */
+         *//*
         find = new Find();
         find.setTitle("忙碌暂停 音乐Play>>");
         find.setToMangy("查看更多");
@@ -392,9 +411,9 @@ public class FindViewInit {
         find.setSongLists(songLists);
         findList.add(find);
 
-        /**
+        *//**
          * 推荐mlog
-         */
+         *//*
         find = new Find();
         find.setTitle("周深：一个人的唱诗班");
         find.setToMangy("查看更多");
@@ -429,9 +448,9 @@ public class FindViewInit {
         find.setMlogList(mlogList);
         findList.add(find);
 
-        /**
+        *//**
          * 新歌和新碟
-         */
+         *//*
         find = new Find();
         find.setType(8);
         recSongList = new ArrayList<Song>();
@@ -577,9 +596,9 @@ public class FindViewInit {
         find.setDicList(dicList);
         findList.add(find);
 
-        /**
+        *//**
          * 推荐房间
-         */
+         *//*
         find = new Find();
         find.setTitle("蹲着一个唱歌好听的小姐姐");
         find.setToMangy("查看更多");
@@ -657,9 +676,9 @@ public class FindViewInit {
         find.setRoomList(roomList);
         findList.add(find);
 
-        /**
+        *//**
          * 推荐歌曲
-         */
+         *//*
         find = new Find();
         find.setTitle("80后 这里有你的青春");
         find.setToMangy("播放全部");
@@ -733,9 +752,9 @@ public class FindViewInit {
         find.setSongList(recSongList);
         findList.add(find);
 
-        /**
+        *//**
          * 推荐歌曲
-         */
+         *//*
         find = new Find();
         find.setTitle("80后 这里有你的青春");
         find.setToMangy("播放全部");
@@ -808,9 +827,9 @@ public class FindViewInit {
 
         find.setSongList(recSongList);
         findList.add(find);
-        /**
+        *//**
          * 推荐歌曲
-         */
+         *//*
         find = new Find();
         find.setTitle("80后 这里有你的青春");
         find.setToMangy("播放全部");
@@ -883,9 +902,9 @@ public class FindViewInit {
 
         find.setSongList(recSongList);
         findList.add(find);
-        /**
+        *//**
          * 推荐歌曲
-         */
+         *//*
         find = new Find();
         find.setTitle("80后 这里有你的青春");
         find.setToMangy("播放全部");
@@ -959,9 +978,9 @@ public class FindViewInit {
         find.setSongList(recSongList);
         findList.add(find);
 
-        /**
+        *//**
          * 推荐个性音乐
-         */
+         *//*
         find = new Find();
         find.setTitle("别致翻唱 品味精华");
         find.setToMangy("查看更多");
@@ -994,7 +1013,7 @@ public class FindViewInit {
         speSongList.add(speSong);
         find.setSpeSongList(speSongList);
 
-        findList.add(find);
+        findList.add(find);*/
     }
 
     private int getMaxElem(int[] arr) {

@@ -66,6 +66,8 @@ public class DfHelper extends SQLiteOpenHelper {
                 "hq_url VARCHAR(255)," +
                 "sq_url VARCHAR(255)," +
                 "wit_pre_url VARCHAR(255)," +
+                "timbre_type INTEGER(1)," +
+                "lyr_url VARCHAR(255)," +
                 "lyr_id INTEGER(11))");
         //歌手
         db.execSQL("CREATE TABLE singer(" +
@@ -94,7 +96,8 @@ public class DfHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE play_list(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "sl_id INTEGER(11)," +
-                "song_id INTEGER(11))");
+                "song_id INTEGER(11)," +
+                "play_grade INTEGER(8) DEFAULT 0)");
         //歌曲
         db.execSQL("CREATE TABLE lyric(" +
                 "lyr_id INTEGER PRIMARY KEY," +

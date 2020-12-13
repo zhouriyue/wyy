@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.SysUser;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UsersViewHol
     @Override
     public void onBindViewHolder(@NonNull UsersViewHolder holder, int position) {
         SysUser sysUser = sysUserList.get(position);
-        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(sysUser.getPerPic(),context)));
+        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(sysUser.getPerPic(),context)));
     }
 
     @Override

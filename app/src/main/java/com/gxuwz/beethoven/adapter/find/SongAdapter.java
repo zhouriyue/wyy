@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.gxuwz.beethoven.R;
-import com.gxuwz.beethoven.model.entity.Song;
+import com.gxuwz.beethoven.model.entity.current.Song;
 import com.gxuwz.beethoven.util.WindowPixels;
 import java.util.List;
 

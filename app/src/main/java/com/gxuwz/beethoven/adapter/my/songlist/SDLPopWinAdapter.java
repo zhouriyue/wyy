@@ -1,12 +1,9 @@
 package com.gxuwz.beethoven.adapter.my.songlist;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.provider.MediaStore;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.dao.MemberDao;
 import com.gxuwz.beethoven.dao.SongListDao;
-import com.gxuwz.beethoven.dao.SysUserDao;
 import com.gxuwz.beethoven.dao.ThreadDAO;
 import com.gxuwz.beethoven.dao.ThreadDAOImpl;
 import com.gxuwz.beethoven.dao.UserDetailDao;
@@ -32,7 +27,6 @@ import com.gxuwz.beethoven.model.entity.current.LocalSong;
 import com.gxuwz.beethoven.model.entity.current.Member;
 import com.gxuwz.beethoven.model.entity.current.Operate;
 import com.gxuwz.beethoven.model.entity.current.Song;
-import com.gxuwz.beethoven.model.entity.my.songlist.SLMore;
 import com.gxuwz.beethoven.model.vo.UserDetailVo;
 import com.gxuwz.beethoven.page.fragment.member.RechargeActivity;
 import com.gxuwz.beethoven.page.fragment.my.AddSongListPW;
@@ -40,15 +34,12 @@ import com.gxuwz.beethoven.page.fragment.my.downmanage.DownLoadActivity;
 import com.gxuwz.beethoven.page.fragment.my.ring.RingTestPW;
 import com.gxuwz.beethoven.page.fragment.search.SaveToSonglistPw;
 import com.gxuwz.beethoven.util.DateUtil;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
-import com.gxuwz.beethoven.util.MusicUtils;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
-import java.io.File;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Handler;
 
 public class SDLPopWinAdapter extends RecyclerView.Adapter<SDLPopWinAdapter.SdLPopWinViewHolder> {
 
@@ -66,8 +57,8 @@ public class SDLPopWinAdapter extends RecyclerView.Adapter<SDLPopWinAdapter.SdLP
     PopupWindow ldPopupWindow;
     View view;
     Song song;
-    long slId;
-    long userId;
+    Long slId;
+    Long userId;
     LocalSong localSong;
 
     public SDLPopWinAdapter(Context context, List<Operate> operates,SaveToSonglistPw saveToSonglistPw,View view) {
@@ -91,6 +82,16 @@ public class SDLPopWinAdapter extends RecyclerView.Adapter<SDLPopWinAdapter.SdLP
         this.sharedPreferences = context.getSharedPreferences("data",Context.MODE_PRIVATE);
         this.userId = this.sharedPreferences.getLong("userId",-1);
         saveToSonglistPw.setLdPopupWindow(ldPopupWindow);
+    }
+
+    public SDLPopWinAdapter(Context context, List<Operate> operates,View view, Long slId) {
+        this.context = context;
+        this.operates = operates;
+        this.view = view;
+        this.slId = slId;
+        this.songListDao = new SongListDao(context);
+        this.sharedPreferences = context.getSharedPreferences("data",Context.MODE_PRIVATE);
+        this.userId = this.sharedPreferences.getLong("userId",-1);
     }
 
     public SDLPopWinAdapter(Context context, List<Operate> operates, SaveToSonglistPw saveToSonglistPw, View view, Song song) {
@@ -121,7 +122,7 @@ public class SDLPopWinAdapter extends RecyclerView.Adapter<SDLPopWinAdapter.SdLP
     public void onBindViewHolder(@NonNull SdLPopWinViewHolder holder, int position) {
         if(localSong==null) {
             Operate operate = operates.get(position);
-            MergeImage.showGlideImgDb(context, StaticHttp.STATIC_BASEURL+operate.getIcon(),holder.icon,1);
+            MergeImage.showGlideImgDb(context, StaticHttp.LOCAL_HOST+operate.getIcon(),holder.icon,1);
             holder.name.setText(operate.getoName());
             if("song:download".equals(operate.getoId())&&song.getIsCharge()!=0) {
                 MergeImage.showGlideImgDb(context,StaticHttp.ICON_VIP,holder.tag,1);
@@ -129,7 +130,7 @@ public class SDLPopWinAdapter extends RecyclerView.Adapter<SDLPopWinAdapter.SdLP
             songOperate(holder.pId,operate);
         } else {
             Operate operate = operates.get(position);
-            MergeImage.showGlideImgDb(context, StaticHttp.STATIC_BASEURL+operate.getIcon(),holder.icon,1);
+            MergeImage.showGlideImgDb(context, StaticHttp.LOCAL_HOST+operate.getIcon(),holder.icon,1);
             holder.name.setText(operate.getoName());
             localSong(holder.pId,operate);
         }
@@ -213,19 +214,26 @@ public class SDLPopWinAdapter extends RecyclerView.Adapter<SDLPopWinAdapter.SdLP
 
     public void downloadSong(){
         //歌曲权限，是否免费
+        if(userDetailDao==null) {
+            userDetailDao = new UserDetailDao(context);
+        }
         UserDetailVo userDetailVo  = userDetailDao.findByUserId(userId);
         switch (song.getIsCharge()) {
             case 0:{
                 download();
             };break;
             case 1:{
-                if(userDetailVo.getIsMember()==1) {
+                System.out.println(userDetailVo.toString());
+                if(userDetailVo!=null&&userDetailVo.getIsMember()==1) {
                     Member member = memberDao.findById(userId);
+                    System.out.println(member.toString());
                     long count = DateUtil.computeDay(member.getEnrollDate(),new Date());
                     if(count<=member.getValidDay()){
                         download();
                     } else {
-                        System.out.println("会员过期");
+                        Intent intent = new Intent(context, RechargeActivity.class);
+                        intent.putExtra("member", (Serializable) member);
+                        context.startActivity(intent);
                     }
                 } else {
                     Intent intent = new Intent(context, RechargeActivity.class);

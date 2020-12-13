@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.musicapp.MusicApp;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -62,13 +62,13 @@ public class MusicAppAdapter extends BaseAdapter {
 
         MusicApp musicApp = musicAppList.get(i);
         if(musicApp.getDiagonal()!=null) {
-            diagonal.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(musicApp.getDiagonal(),context),(int)(100*windowPixels.getDensity()),(int)(125*windowPixels.getDensity())));
+            diagonal.setImageBitmap(MergeImage.roundedCustom(HttpUtils.getRes(musicApp.getDiagonal(),context),(int)(100*windowPixels.getDensity()),(int)(125*windowPixels.getDensity())));
         }
         if(musicApp.getTypeIcon()!=null) {
-            icon.setImageBitmap(HttpUtil.getRes(musicApp.getIcon(),context));
+            icon.setImageBitmap(HttpUtils.getRes(musicApp.getIcon(),context));
         }
         if(musicApp.getIcon()!=null) {
-            typeIcon.setImageBitmap(HttpUtil.getRes(musicApp.getTypeIcon(),context));
+            typeIcon.setImageBitmap(HttpUtils.getRes(musicApp.getTypeIcon(),context));
         }
         if(musicApp.getTitle()!=null) {
             title.setText(musicApp.getTitle());

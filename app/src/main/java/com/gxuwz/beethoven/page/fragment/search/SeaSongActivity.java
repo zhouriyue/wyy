@@ -16,21 +16,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListPopupWindow;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.search.SeaSongAdapter;
-import com.gxuwz.beethoven.adapter.search.tip.TipAdapter;
 import com.gxuwz.beethoven.model.entity.current.Song;
-import com.gxuwz.beethoven.model.entity.my.songlist.SLMore;
 import com.gxuwz.beethoven.page.fragment.my.songlist.LoadDownView;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
 import java.lang.reflect.Type;
@@ -121,7 +118,9 @@ public class SeaSongActivity extends AppCompatActivity {
                 if(msg.what==1) {
                     Bundle bundle = msg.getData();
                     String result = bundle.getString("result");
-                    Gson gson = new Gson();
+                    GsonBuilder builder = new GsonBuilder();
+                    builder.setDateFormat("yyyy-MM-DD");
+                    Gson gson = builder.create();
                     Type listtype = new TypeToken<List<Song>>(){}.getType();
                     List<Song> songList = gson.fromJson(result,listtype);
                     if(seaSongAdapter==null) {
@@ -139,7 +138,7 @@ public class SeaSongActivity extends AppCompatActivity {
         };
         String url = StaticHttp.BASEURL+StaticHttp.SELECT_SONG;
         url += "?wordKey="+ URLEncoder.encode(keyword);
-        HttpUtil.get(url,searchHanlder);
+        HttpUtils.get(url,searchHanlder);
     }
 
     @Override

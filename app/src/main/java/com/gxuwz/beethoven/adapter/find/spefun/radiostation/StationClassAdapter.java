@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.find.spefun.radiostation.StationsClass;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -38,7 +38,7 @@ public class StationClassAdapter extends RecyclerView.Adapter<StationClassAdapte
     @Override
     public void onBindViewHolder(@NonNull StationClassViewHolder holder, int position) {
         StationsClass stationsClass = stationsClassList.get(position);
-        holder.icon.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(stationsClass.getIcon(),context),30,30,1));
+        holder.icon.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(stationsClass.getIcon(),context),30,30,1));
         holder.name.setText(stationsClass.getClassName());
     }
 

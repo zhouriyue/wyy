@@ -1,27 +1,19 @@
 package com.gxuwz.beethoven.page.index;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
 
-import com.bumptech.glide.Glide;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.page.index.cloudview.CloudViewInit;
 import com.gxuwz.beethoven.page.index.findview.FindViewInit;
 import com.gxuwz.beethoven.page.index.myview.MyViewInit;
-import com.gxuwz.beethoven.page.index.playlistview.PlayListView;
+import com.gxuwz.beethoven.page.fragment.playlistview.PlayListView;
 import com.gxuwz.beethoven.page.index.videoview.VideoViewInit;
-import com.gxuwz.beethoven.util.BlurUtil;
-import com.gxuwz.beethoven.util.HttpUtil;
-import com.gxuwz.beethoven.util.MergeImage;
-import com.gxuwz.beethoven.util.WindowPixels;
 
 public class Index extends IndexBase{
 

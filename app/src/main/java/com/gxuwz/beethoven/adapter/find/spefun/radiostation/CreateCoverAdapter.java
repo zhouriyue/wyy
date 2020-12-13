@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.SysUser;
 import com.gxuwz.beethoven.model.entity.find.spefun.radiostation.RadioStation;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -37,10 +37,10 @@ public class CreateCoverAdapter extends RecyclerView.Adapter<CreateCoverAdapter.
     @Override
     public void onBindViewHolder(@NonNull CreateCoverViewHolder holder, int position) {
         RadioStation radioStation = radioStationList.get(position);
-        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(radioStation.getImg(),context),60,60,5));
+        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(radioStation.getImg(),context),60,60,5));
         holder.hotNumber.setText(radioStation.getHotNumber()+"");
         SysUser sysUser = radioStation.getSysUser();
-        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(sysUser.getPerPic(),context)));
+        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(sysUser.getPerPic(),context)));
         holder.title.setText(radioStation.getTitle());
         holder.username.setText(sysUser.getUserName());
     }

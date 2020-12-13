@@ -11,18 +11,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
+import com.gxuwz.beethoven.dao.OperateDao;
 import com.gxuwz.beethoven.dao.SongDao;
+import com.gxuwz.beethoven.model.entity.current.Operate;
 import com.gxuwz.beethoven.model.entity.current.Song;
 import com.gxuwz.beethoven.model.entity.current.Songlist;
+import com.gxuwz.beethoven.page.fragment.my.songlist.LoadDownView;
 import com.gxuwz.beethoven.page.fragment.my.songlist.SongListActivity;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
@@ -37,12 +39,24 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongLi
     List<Songlist> songlists;
     SharedPreferences sharedPreferences;
     SongDao songDao;
+    LoadDownView loadDownView;
+    OperateDao operateDao;
 
     public SongListAdapter(Context context, List<Songlist> songlists) {
         this.context = context;
         this.songlists = songlists;
         songDao = new SongDao(context);
         sharedPreferences = context.getSharedPreferences("data",Context.MODE_PRIVATE);
+        this.operateDao = new OperateDao(context);
+    }
+
+    public SongListAdapter(Context context, List<Songlist> songlists,LoadDownView loadDownView) {
+        this.context = context;
+        this.songlists = songlists;
+        songDao = new SongDao(context);
+        sharedPreferences = context.getSharedPreferences("data",Context.MODE_PRIVATE);
+        this.loadDownView = loadDownView;
+        this.operateDao = new OperateDao(context);
     }
 
     @NonNull
@@ -83,7 +97,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongLi
                     String url = StaticHttp.BASEURL+StaticHttp.SELECT_INDEX_SONG;
                     url += "?slId="+songlist.getSlId();
                     System.out.println(songlist.getSlId());
-                    HttpUtil.get(url,handler);
+                    HttpUtils.get(url,handler);
                 } else {
                     String coverPicture = StaticHttp.STATIC_BASEURL+song.getCoverPicture();
                     MergeImage.showGlideImgDb(context,coverPicture,holder.songListUrl,10);
@@ -104,6 +118,14 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongLi
                 b.putSerializable("songlist", songlist);
                 intent.putExtras(b);
                 context.startActivity(intent);
+            }
+        });
+        holder.pId.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                List<Operate> operates = operateDao.findByType(3);
+                loadDownView.initView(operates,v,songlist);
+                return true;
             }
         });
     }

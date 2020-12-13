@@ -1,7 +1,6 @@
 package com.gxuwz.beethoven.adapter.find.spefun.radiostation;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,7 @@ import com.gxuwz.beethoven.model.entity.find.spefun.radiostation.RadioStation;
 import com.gxuwz.beethoven.model.entity.find.spefun.radiostation.RadioStationSF;
 import com.gxuwz.beethoven.model.entity.find.spefun.radiostation.RadioStationView;
 import com.gxuwz.beethoven.model.entity.find.spefun.radiostation.StationsClass;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 import com.gxuwz.beethoven.viewholder.find.spefun.radiostation.BannerViewHolder;
@@ -77,20 +76,20 @@ public class SRSCommAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case 2:{
                 RSSFViewHolder rssfViewHolder = (RSSFViewHolder) holder;
                 RadioStationSF stationSF = radioStationView.getRadioStationSFList().get(position);
-                rssfViewHolder.icon.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(stationSF.getIcon(),context)));
+                rssfViewHolder.icon.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(stationSF.getIcon(),context)));
                 rssfViewHolder.sfName.setText(stationSF.getSfName());
             };break;
             case 3:{
                 ListenerViewHolder listenerViewHolder = (ListenerViewHolder) holder;
                 RadioStation radioStation = radioStationView.getRadioStationList().get(position);
-                listenerViewHolder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(radioStation.getImg(),context),itemWidth,itemWidth,5));
+                listenerViewHolder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(radioStation.getImg(),context),itemWidth,itemWidth,5));
                 listenerViewHolder.name.setText(radioStation.getName());
                 listenerViewHolder.type.setText(radioStation.getType());
             };break;
             case 4:{
                 SRecommendViewHolder sRecommendViewHolder = (SRecommendViewHolder) holder;
                 RadioStation radioStation = radioStationView.getRadioStationList().get(position);
-                sRecommendViewHolder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(radioStation.getImg(),context),itemWidth,itemWidth,5));
+                sRecommendViewHolder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(radioStation.getImg(),context),itemWidth,itemWidth,5));
                 sRecommendViewHolder.name.setText(radioStation.getName());
                 if(radioStation.getIsPay()==1) {
                     sRecommendViewHolder.rsIsPay.setText("精品付费");
@@ -105,17 +104,17 @@ public class SRSCommAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case 5:{
                 CreateCoverViewHolder createCoverViewHolder = (CreateCoverViewHolder) holder;
                 RadioStation radioStation = radioStationView.getRadioStationList().get(position);
-                createCoverViewHolder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(radioStation.getImg(),context),60,60,5));
+                createCoverViewHolder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(radioStation.getImg(),context),60,60,5));
                 createCoverViewHolder.hotNumber.setText(radioStation.getHotNumber()+"");
                 SysUser sysUser = radioStation.getSysUser();
-                createCoverViewHolder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(sysUser.getPerPic(),context)));
+                createCoverViewHolder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(sysUser.getPerPic(),context)));
                 createCoverViewHolder.title.setText(radioStation.getTitle());
                 createCoverViewHolder.username.setText(sysUser.getUserName());
             };break;
             case 6:{
                 StationClassViewHolder stationClassViewHolder = (StationClassViewHolder) holder;
                 StationsClass stationsClass = radioStationView.getStationsClassList().get(position);
-                stationClassViewHolder.icon.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(stationsClass.getIcon(),context),30,30,1));
+                stationClassViewHolder.icon.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(stationsClass.getIcon(),context),30,30,1));
                 stationClassViewHolder.name.setText(stationsClass.getClassName());
             };break;
         }

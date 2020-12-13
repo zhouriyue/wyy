@@ -30,7 +30,7 @@ import com.gxuwz.beethoven.model.entity.current.Song;
 import com.gxuwz.beethoven.page.fragment.my.songlist.LoadDownView;
 import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
 import com.gxuwz.beethoven.service.MusicService;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
 import java.lang.reflect.Type;
@@ -82,6 +82,17 @@ public class SonglistSongAdapter extends RecyclerView.Adapter<SonglistSongAdapte
         Song song = songList.get(position);
         holder.position.setText((position+1)+"");
         holder.songName.setText(song.getSongName());
+        switch (song.getTimbreType()){
+            case 1:{
+                holder.timbreTypeTv.setText("标准");
+            };break;
+            case 2:{
+                holder.timbreTypeTv.setText("HQ");
+            };break;
+            case 3:{
+                holder.timbreTypeTv.setText("SQ");
+            };break;
+        }
         Handler handler = new Handler(){
             @Override
             public void handleMessage(@NonNull Message msg) {
@@ -136,8 +147,7 @@ public class SonglistSongAdapter extends RecyclerView.Adapter<SonglistSongAdapte
         };
         String url = StaticHttp.BASEURL + StaticHttp.SELECT_SINGER;
         url += "?songId="+song.getSongId();
-        HttpUtil.get(url,handler);
-
+        HttpUtils.get(url,handler);
         holder.more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,7 +171,7 @@ public class SonglistSongAdapter extends RecyclerView.Adapter<SonglistSongAdapte
 
         LinearLayout pId;
         ImageView ptTag,more;
-        TextView position,songName,songAndsingerName;
+        TextView position,songName,songAndsingerName,timbreTypeTv;
 
         public SonglistSongViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -171,6 +181,7 @@ public class SonglistSongAdapter extends RecyclerView.Adapter<SonglistSongAdapte
             songName = itemView.findViewById(R.id.music_name);
             songAndsingerName = itemView.findViewById(R.id.music_singer_name);
             more = itemView.findViewById(R.id.more);
+            timbreTypeTv = itemView.findViewById(R.id.timbreType_tv);
         }
     }
 }

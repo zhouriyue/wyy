@@ -19,7 +19,7 @@ import com.gxuwz.beethoven.model.entity.SongListsMusic;
 import com.gxuwz.beethoven.model.entity.my.songlist.SLMore;
 import com.gxuwz.beethoven.page.fragment.my.songlist.LoadDownView;
 import com.gxuwz.beethoven.service.MusicService;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 
 import java.util.List;
 
@@ -62,7 +62,7 @@ public class SongListMusicAdapter extends RecyclerView.Adapter<SongListMusicAdap
         if(MusicService.position==position&&MusicService.isRun) {
             if(MusicService.ptTagBack!=null) {
                 MusicService.ptTagBack.setBackgroundResource(0);
-                MusicService.ptTagBack.setImageBitmap(HttpUtil.getRes("stop1",context));
+                MusicService.ptTagBack.setImageBitmap(HttpUtils.getRes("stop1",context));
             }
         }
         holder.relativeLayout.setOnClickListener(new ItemOnClickListener(holder,songListsMusic,position));
@@ -123,14 +123,14 @@ public class SongListMusicAdapter extends RecyclerView.Adapter<SongListMusicAdap
             MusicHandler musicHandler = new MusicHandler(songListsMusic,sharedPreferences,songListUrl);
             musicHandler.setContext(context);
             if(MusicService.ptTagBack!=null) {
-                MusicService.ptTagBack.setImageBitmap(HttpUtil.getRes("play3",context));
+                MusicService.ptTagBack.setImageBitmap(HttpUtils.getRes("play3",context));
             }
             holder.ptTag.setBackgroundResource(0);
-            holder.ptTag.setImageBitmap(HttpUtil.getRes("stop1",context));
+            holder.ptTag.setImageBitmap(HttpUtils.getRes("stop1",context));
             MusicService.ptTagBack = holder.ptTag;
             MusicService.position = position;
             MusicService.isRun = true;
-            HttpUtil.get(songListsMusics.get(position).get_links().getMusic().getHref(),musicHandler);
+            HttpUtils.get(songListsMusics.get(position).get_links().getMusic().getHref(),musicHandler);
 
         }
     }

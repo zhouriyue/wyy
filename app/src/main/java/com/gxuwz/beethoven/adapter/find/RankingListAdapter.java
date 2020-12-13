@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.find.RankingList;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -46,7 +46,7 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingListAdapter.
         holder.rlItemRv.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL));
         holder.rlItemRv.setNestedScrollingEnabled(false);
         holder.rlItemRv.setAdapter(new RLItemAdapter(context,rankingList.getSongList()));
-        holder.rankinglistBg.setBackground(new BitmapDrawable(MergeImage.roundedCustomDB(HttpUtil.getRes(rankingList.getImg(),context),itemWidth,itemWidth/2,40)));
+        holder.rankinglistBg.setBackground(new BitmapDrawable(MergeImage.roundedCustomDB(HttpUtils.getRes(rankingList.getImg(),context),itemWidth,itemWidth/2,40)));
     }
 
     @Override

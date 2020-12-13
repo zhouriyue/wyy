@@ -10,9 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.gxuwz.beethoven.R;
-import com.gxuwz.beethoven.model.entity.find.Banners;
+import com.gxuwz.beethoven.model.entity.current.Banners;
 import com.gxuwz.beethoven.util.WindowPixels;
 
 import java.util.List;
@@ -37,14 +36,12 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerView
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(@NonNull BannerViewHolder holder, int position) {
-        Banners banners = bannersList.get(position);
-        Banners.initBanner((com.youth.banner.Banner) holder.banner, banners.getImages());
-        holder.type.setText(banners.getType());
+        Banners.initBanner((com.youth.banner.Banner) holder.banner, bannersList);
     }
 
     @Override
     public int getItemCount() {
-        return bannersList.size();
+        return 1;
     }
 
     class BannerViewHolder extends RecyclerView.ViewHolder{

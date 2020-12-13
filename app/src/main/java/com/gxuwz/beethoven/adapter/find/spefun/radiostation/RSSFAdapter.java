@@ -12,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.find.spefun.radiostation.RadioStationSF;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
-import com.gxuwz.beethoven.util.WindowPixels;
 
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class RSSFAdapter extends RecyclerView.Adapter<RSSFAdapter.RSSFViewHolder
     @Override
     public void onBindViewHolder(@NonNull RSSFViewHolder holder, int position) {
         RadioStationSF stationSF = radioStationSFList.get(position);
-        holder.icon.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(stationSF.getIcon(),context)));
+        holder.icon.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(stationSF.getIcon(),context)));
         holder.sfName.setText(stationSF.getSfName());
     }
 

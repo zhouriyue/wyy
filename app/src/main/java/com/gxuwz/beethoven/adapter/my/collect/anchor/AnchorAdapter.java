@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.my.local.anchor.Anchor;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class AnchorAdapter extends RecyclerView.Adapter<AnchorAdapter.AnchorView
     @Override
     public void onBindViewHolder(@NonNull AnchorViewHolder holder, int position) {
         Anchor anchor = anchorList.get(position);
-        holder.picPer.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(anchor.getPicPer(),context)));
+        holder.picPer.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(anchor.getPicPer(),context)));
         holder.title.setText(anchor.getTitle());
         holder.content.setText(anchor.getContent());
     }

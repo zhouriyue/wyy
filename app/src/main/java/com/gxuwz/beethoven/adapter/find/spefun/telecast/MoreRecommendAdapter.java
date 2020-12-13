@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.SysUser;
 import com.gxuwz.beethoven.model.entity.find.Telecast;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -37,12 +37,12 @@ public class MoreRecommendAdapter extends RecyclerView.Adapter<MoreRecommendAdap
     @Override
     public void onBindViewHolder(@NonNull MoreRecommendViewHolder holder, int position) {
         Telecast telecast = telecastList.get(position);
-        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(telecast.getImg(),context),180,100,6));
+        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(telecast.getImg(),context),180,100,6));
         holder.hotNumber.setText(telecast.getHotNumber()+"");
         holder.type.setText(telecast.getType());
         holder.title.setText(telecast.getTitle());
         SysUser sysUser = telecast.getSysUser();
-        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(sysUser.getPerPic(),context)));
+        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(sysUser.getPerPic(),context)));
         holder.username.setText(sysUser.getUserName());
     }
 

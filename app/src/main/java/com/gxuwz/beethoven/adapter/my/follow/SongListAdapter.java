@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.my.follow.Song;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongLi
     @Override
     public void onBindViewHolder(@NonNull SongListViewHolder holder, int position) {
         Song song = songList.get(position);
-        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(song.getImg(),context),38,38,5));
+        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(song.getImg(),context),38,38,5));
         holder.name.setText(song.getName());
         holder.detail.setText(song.getDetail());
         holder.singers.setText(song.getSingles());

@@ -3,11 +3,7 @@ package com.gxuwz.beethoven.page.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,18 +11,10 @@ import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.dao.SingerDao;
 import com.gxuwz.beethoven.dao.SongDao;
 import com.gxuwz.beethoven.hanlder.SysUserHandler;
-import com.gxuwz.beethoven.model.entity.current.Singer;
-import com.gxuwz.beethoven.model.entity.current.Song;
 import com.gxuwz.beethoven.page.fragment.search.SearchActivity;
 import com.gxuwz.beethoven.page.fragment.playview.ActivityPlayView;
-import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
-import com.gxuwz.beethoven.service.MusicService;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
-import com.gxuwz.beethoven.util.Player;
-import com.gxuwz.beethoven.util.staticdata.StaticHttp;
-
-import java.util.List;
 
 public class BasicSet {
 
@@ -80,7 +68,7 @@ public class BasicSet {
          * 底部部分
          * 底部播放栏头像
          */
-        playPerPicView.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes("zhouriyue", activity)));
+        playPerPicView.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes("zhouriyue", activity)));
         sysUserHandler.setUserNameView(userNameView);
         sysUserHandler.setPerPicView(perPicView);
         //sysUserHandler.setSongList(songList);

@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.find.Telecast;
 import com.gxuwz.beethoven.page.index.findview.telecastroom.TelecastRoomActivity;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -40,7 +39,7 @@ public class TelecastAdapter extends RecyclerView.Adapter<TelecastAdapter.Teleca
     @Override
     public void onBindViewHolder(@NonNull TelecastViewHolder holder, int position) {
         Telecast telecast = telecastList.get(position);
-        holder.image.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(telecast.getImg(),context),100,100));
+        MergeImage.showGlideImgDb(context,R.drawable.zhoushen,holder.image,10);
         holder.title.setText(telecast.getTitle());
         holder.type.setText(telecast.getType());
         holder.onlineNumber.setText(telecast.getOnlineNumber()+"");

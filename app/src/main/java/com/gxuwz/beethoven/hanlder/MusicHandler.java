@@ -1,32 +1,18 @@
 package com.gxuwz.beethoven.hanlder;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.gxuwz.beethoven.R;
-import com.gxuwz.beethoven.dao.PlayListDao;
 import com.gxuwz.beethoven.model.entity.PlayList;
 import com.gxuwz.beethoven.model.entity.SongListsMusic;
-import com.gxuwz.beethoven.page.index.playlistview.CurrentPlayView;
 import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
-import com.gxuwz.beethoven.util.CacheUtil;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.Player;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.io.IOException;
 
 public class MusicHandler extends Handler {
 
@@ -79,7 +65,7 @@ public class MusicHandler extends Handler {
         playList.setSingerName(songListsMusic.getSingerName());
         playList.setNetworkUri(songUrl);
         playList.setSongTime(songListsMusic.getSongTime());
-        String localUrl = HttpUtil.downFile(context,HttpUtil.BASEURL+songUrl,songUrl.substring(songUrl.lastIndexOf("/")));
+        String localUrl = HttpUtils.downFile(context,HttpUtils.BASEURL+songUrl,songUrl.substring(songUrl.lastIndexOf("/")));
         playList.setLocalUri(localUrl);
         int size = playListDao.find(playList).size();
         if(size==0) {

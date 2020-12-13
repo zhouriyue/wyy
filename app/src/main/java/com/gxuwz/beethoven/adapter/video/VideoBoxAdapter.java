@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.video.VideoBox;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -37,7 +37,7 @@ public class VideoBoxAdapter extends RecyclerView.Adapter<VideoBoxAdapter.VideoB
     @Override
     public void onBindViewHolder(@NonNull VideoBoxViewHolder holder, int position) {
         VideoBox videoBox = videoBoxList.get(position);
-        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(videoBox.getDiagonal(),context),
+        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(videoBox.getDiagonal(),context),
                 (int) (WindowPixels.WIDTH-10),
                 (int) (WindowPixels.WIDTH*0.5)));
         holder.tag.setText(videoBox.getTag());

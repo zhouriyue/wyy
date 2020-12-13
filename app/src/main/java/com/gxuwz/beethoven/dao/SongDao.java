@@ -43,6 +43,8 @@ public class SongDao {
                 song.setSqUrl(cursor.getString(cursor.getColumnIndex("sq_url")));
                 song.setWitPreUrl(cursor.getString(cursor.getColumnIndex("wit_pre_url")));
                 song.setLyrId(cursor.getLong(cursor.getColumnIndex("lyr_id")));
+                song.setTimbreType(cursor.getInt(cursor.getColumnIndex("timbre_type")));
+                song.setLyrUrl(cursor.getString(cursor.getColumnIndex("lyr_url")));
                 return song;
             }
         }
@@ -59,7 +61,7 @@ public class SongDao {
     public List<Song> findSonglistSong(long slId) {
         List<Song> songList = new ArrayList<Song>();
         SQLiteDatabase db = dfHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select s.song_id song_id, s.song_name song_name,s.cover_picture cover_picture, s.duration duration, s.issuing_date issuing_date, s.mv_url mv_url, s.is_charge is_charge, s.is_copyright is_copyright, s.is_single is_single, s.standard_url standard_url, s.hq_url hq_url, s.sq_url sq_url, s.wit_pre_url wit_pre_url, s.lyr_id lyr_id " +
+        Cursor cursor = db.rawQuery("select s.song_id song_id, s.song_name song_name,s.cover_picture cover_picture, s.duration duration, s.issuing_date issuing_date, s.mv_url mv_url, s.is_charge is_charge, s.is_copyright is_copyright, s.is_single is_single, s.standard_url standard_url, s.hq_url hq_url, s.sq_url sq_url, s.wit_pre_url wit_pre_url, s.lyr_id lyr_id,s.lyr_url lyr_url,s.timbre_type timbre_type " +
                 "from songlist_song ssli,song s " +
                 "where ssli.sl_id=? and ssli.song_id=s.song_id",new String[]{slId+""});
         if(cursor.getCount() != 0) {
@@ -79,6 +81,8 @@ public class SongDao {
                 song.setSqUrl(cursor.getString(cursor.getColumnIndex("sq_url")));
                 song.setWitPreUrl(cursor.getString(cursor.getColumnIndex("wit_pre_url")));
                 song.setLyrId(cursor.getLong(cursor.getColumnIndex("lyr_id")));
+                song.setTimbreType(cursor.getInt(cursor.getColumnIndex("timbre_type")));
+                song.setLyrUrl(cursor.getString(cursor.getColumnIndex("lyr_url")));
                 songList.add(song);
             }
         }
@@ -108,6 +112,8 @@ public class SongDao {
                 song.setSqUrl(cursor.getString(cursor.getColumnIndex("sq_url")));
                 song.setWitPreUrl(cursor.getString(cursor.getColumnIndex("wit_pre_url")));
                 song.setLyrId(cursor.getLong(cursor.getColumnIndex("lyr_id")));
+                song.setTimbreType(cursor.getInt(cursor.getColumnIndex("timbre_type")));
+                song.setLyrUrl(cursor.getString(cursor.getColumnIndex("lyr_url")));
             }
         }
         cursor.close();
@@ -160,7 +166,33 @@ public class SongDao {
         values.put("sq_url",song.getSqUrl());
         values.put("wit_pre_url",song.getWitPreUrl());
         values.put("lyr_id",song.getLyrId());
+        values.put("timbre_type",song.getTimbreType());
+        values.put("lyr_url",song.getLyrUrl());
         long id = db.insert("song",null,values);
+        db.close();
+        return id;
+    }
+
+    public long update(Song song) {
+        SQLiteDatabase db = dfHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("song_id",song.getSongId());
+        values.put("song_name",song.getSongName());
+        values.put("cover_picture",song.getCoverPicture());
+        values.put("duration",song.getDuration());
+        values.put("issuing_date", DateUtil.simpleFormat(song.getIssuingDate()));
+        values.put("mv_url",song.getMvUrl());
+        values.put("is_charge",song.getIsCharge());
+        values.put("is_copyright",song.getIsCopyright());
+        values.put("is_single",song.getIsSingle());
+        values.put("standard_url",song.getStandardUrl());
+        values.put("hq_url",song.getHqUrl());
+        values.put("sq_url",song.getSqUrl());
+        values.put("wit_pre_url",song.getWitPreUrl());
+        values.put("lyr_id",song.getLyrId());
+        values.put("timbre_type",song.getTimbreType());
+        values.put("lyr_url",song.getLyrUrl());
+        long id = db.update("song",values,"song_id=?",new String[]{song.getSongId()+""});
         db.close();
         return id;
     }
@@ -186,6 +218,8 @@ public class SongDao {
                 song.setSqUrl(cursor.getString(cursor.getColumnIndex("sq_url")));
                 song.setWitPreUrl(cursor.getString(cursor.getColumnIndex("wit_pre_url")));
                 song.setLyrId(cursor.getLong(cursor.getColumnIndex("lyr_id")));
+                song.setTimbreType(cursor.getInt(cursor.getColumnIndex("timbre_type")));
+                song.setLyrUrl(cursor.getString(cursor.getColumnIndex("lyr_url")));
                 songList.add(song);
             }
         }

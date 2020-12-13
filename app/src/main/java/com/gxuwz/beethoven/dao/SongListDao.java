@@ -4,22 +4,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.gxuwz.beethoven.helper.DfHelper;
 import com.gxuwz.beethoven.model.entity.current.Songlist;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class SongListDao {
 
@@ -139,6 +134,7 @@ public class SongListDao {
     }
 
     public long insert(Songlist songlist){
+        System.out.println(songlist.toString());
         SQLiteDatabase db = dfHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("sl_id",songlist.getSlId());

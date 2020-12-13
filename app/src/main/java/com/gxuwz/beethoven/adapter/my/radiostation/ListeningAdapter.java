@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.my.radiostation.ListeningItem;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -42,7 +42,7 @@ public class ListeningAdapter extends RecyclerView.Adapter<ListeningAdapter.List
     @Override
     public void onBindViewHolder(@NonNull ListeningViewHolder holder, int position) {
         ListeningItem listeningItem = listeningItemList.get(position);
-        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(listeningItem.getDiagonal(),context),itemWidth,height,5));
+        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(listeningItem.getDiagonal(),context),itemWidth,height,5));
         holder.type.setText(listeningItem.getType());
         holder.content.setText(listeningItem.getContent());
     }

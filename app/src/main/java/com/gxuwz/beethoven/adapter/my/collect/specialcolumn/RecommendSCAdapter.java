@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.my.collect.SpecialColumn;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class RecommendSCAdapter extends RecyclerView.Adapter<RecommendSCAdapter.
     @Override
     public void onBindViewHolder(@NonNull RecommendSCViewHolder holder, int position) {
         SpecialColumn specialColumn = specialColumnList.get(position);
-        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(specialColumn.getDiagonal(),context),150,90,5));
+        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(specialColumn.getDiagonal(),context),150,90,5));
         holder.readNumber.setText(specialColumn.getReadNumber()+"万");
         holder.content.setText(specialColumn.getContent());
     }

@@ -4,25 +4,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.dao.LocalSongDao;
 import com.gxuwz.beethoven.dao.SingerDao;
 import com.gxuwz.beethoven.dao.SongDao;
-import com.gxuwz.beethoven.dao.SongListDao;
 import com.gxuwz.beethoven.model.entity.current.LocalSong;
 import com.gxuwz.beethoven.model.entity.current.Singer;
 import com.gxuwz.beethoven.model.entity.current.Song;
-import com.gxuwz.beethoven.util.BlurUtil;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 

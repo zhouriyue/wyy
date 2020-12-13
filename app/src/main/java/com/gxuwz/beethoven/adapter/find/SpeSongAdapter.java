@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.find.SpeSong;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -37,7 +36,7 @@ public class SpeSongAdapter extends RecyclerView.Adapter<SpeSongAdapter.SpeSongV
     @Override
     public void onBindViewHolder(@NonNull SpeSongViewHolder holder, int position) {
         SpeSong speSong = speSongList.get(position);
-        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(speSong.getImage(),context),100,100,5));
+        MergeImage.showGlideImgDb(context,R.drawable.youth,holder.img,10);
         holder.name.setText(speSong.getName());
         holder.title.setText(speSong.getTitle());
     }

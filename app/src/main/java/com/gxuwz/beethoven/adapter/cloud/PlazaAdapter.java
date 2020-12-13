@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,8 +21,7 @@ import com.gxuwz.beethoven.model.entity.mlog.Mlog;
 import com.gxuwz.beethoven.model.entity.mlog.VideoMlog;
 import com.gxuwz.beethoven.page.index.cloudview.videotalk.VideoTalkActivity;
 import com.gxuwz.beethoven.page.index.findview.imgtexttalk.ITTalkActivity;
-import com.gxuwz.beethoven.page.fragment.my.songlist.SongListActivity;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -62,15 +60,16 @@ public class PlazaAdapter extends RecyclerView.Adapter<PlazaAdapter.PlazaHolder>
         SysUser sysUser;
         if(mlogList.get(position).getType().equals("ImageWordMlog")) {
             imageWordMlog = (ImageWordMlog) mlogList.get(position);
+            ViewGroup.LayoutParams lp = holder.plazaLin.getLayoutParams();
             if(position%2==0) {
-                //holder.relativeLayout.setMinimumHeight((int) (350*windowPixels.getDensity()));
-                Glide.with(context).load(MergeImage.roundedCustom(HttpUtil.getRes(imageWordMlog.getMusicDiagonal(),context),itemWidth, itmeHeight)).into(holder.diagonal);
+                lp.height = itmeHeight;
             } else {
-                //holder.relativeLayout.setMinimumHeight((int) (350*windowPixels.getDensity()*0.7));
-                Glide.with(context).load(MergeImage.roundedCustom(HttpUtil.getRes(imageWordMlog.getMusicDiagonal(),context),itemWidth, (int) (itmeHeight*0.7))).into(holder.diagonal);
-                //holder.diagonal.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(imageWordMlog.getMusicDiagonal(),context),itemWidth, (int) (itmeHeight*0.7)));
+                lp.height = (int) (itmeHeight*0.7);
             }
+            holder.plazaLin.setLayoutParams(lp);
+            MergeImage.glideWhinkTop(context,R.drawable.zhoushen,holder.diagonal,10);
             holder.content.setText(imageWordMlog.getContent());
+            MergeImage.glideWhinkBottm(context,R.drawable.whick_bg,holder.bottomIv,10);
             sysUser = imageWordMlog.getSysUser();
             holder.likeNumber.setText(imageWordMlog.getLikeNumber()+"");
             holder.plazaLin.setOnClickListener(new View.OnClickListener() {
@@ -82,9 +81,7 @@ public class PlazaAdapter extends RecyclerView.Adapter<PlazaAdapter.PlazaHolder>
             });
         } else {
             videoMlog = (VideoMlog) mlogList.get(position);
-            //holder.relativeLayout.setMinimumHeight((int) (300*windowPixels.getDensity()));
-            Glide.with(context).load(MergeImage.roundedCustom(HttpUtil.getRes(videoMlog.getDiagonal(),context),itemWidth,itmeHeight)).into(holder.diagonal);
-            //holder.diagonal.setImageBitmap(MergeImage.roundedCustom(HttpUtil.getRes(videoMlog.getDiagonal(),context),itemWidth,itmeHeight));
+            Glide.with(context).load(MergeImage.roundedCustom(HttpUtils.getRes(videoMlog.getDiagonal(),context),itemWidth,itmeHeight)).into(holder.diagonal);
             holder.content.setText(videoMlog.getContent());
             sysUser = videoMlog.getSysUser();
             holder.likeNumber.setText(videoMlog.getLikeNumber()+"");
@@ -96,7 +93,7 @@ public class PlazaAdapter extends RecyclerView.Adapter<PlazaAdapter.PlazaHolder>
                 }
             });
         }
-        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(sysUser.getPerPic(),context)));
+        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(sysUser.getPerPic(),context)));
         holder.username.setText(sysUser.getUserName());
     }
 
@@ -107,17 +104,15 @@ public class PlazaAdapter extends RecyclerView.Adapter<PlazaAdapter.PlazaHolder>
 
     class PlazaHolder extends RecyclerView.ViewHolder{
 
-        RelativeLayout relativeLayout;
         LinearLayout plazaLin;
-        ImageView diagonal,perPic;
+        ImageView diagonal,perPic,bottomIv;
         TextView content,username,likeNumber;
 
         public PlazaHolder(@NonNull View itemView) {
             super(itemView);
-            relativeLayout = itemView.findViewById(R.id.plaza_item_bg);
             plazaLin = itemView.findViewById(R.id.plaza_lin);
-            relativeLayout.setMinimumWidth(itemWidth);
             diagonal = itemView.findViewById(R.id.diagonal_mlog);
+            bottomIv = itemView.findViewById(R.id.bottom);
             content = itemView.findViewById(R.id.content_mlog);
             perPic = itemView.findViewById(R.id.per_pic);
             username = itemView.findViewById(R.id.username);

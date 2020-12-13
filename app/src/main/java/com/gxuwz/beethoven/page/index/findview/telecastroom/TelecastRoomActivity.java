@@ -20,9 +20,8 @@ import com.gxuwz.beethoven.adapter.find.telecastroom.MessageAdapter;
 import com.gxuwz.beethoven.adapter.find.telecastroom.UsersAdapter;
 import com.gxuwz.beethoven.model.entity.SysUser;
 import com.gxuwz.beethoven.model.entity.find.spefun.telecast.TrMessage;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
-import com.gxuwz.beethoven.util.WindowPixels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,9 +77,9 @@ public class TelecastRoomActivity extends AppCompatActivity {
     }
 
     public void setData(){
-        bg.setBackground(new BitmapDrawable(HttpUtil.getRes("zhoushen",context)));
-        perPic.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes("youth",context)));
-        oneUserImg.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes("youth",context)));
+        bg.setBackground(new BitmapDrawable(HttpUtils.getRes("zhoushen",context)));
+        perPic.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes("youth",context)));
+        oneUserImg.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes("youth",context)));
         username.setText("墨涵mm-墨涵mm-墨涵mm");
         hotNumber.setText("2000");
         followNumber.setText("1220");

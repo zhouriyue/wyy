@@ -1,7 +1,6 @@
 package com.gxuwz.beethoven.adapter.find.chatroom;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.SysUser;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -43,7 +42,7 @@ public class ChatRoomerAdapter extends RecyclerView.Adapter<ChatRoomerAdapter.Ch
         } else {
             holder.rcBg.setBackground(context.getResources().getDrawable(R.drawable.shape_woman));
         }
-        holder.roomerImg.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(sysUser.getPerPic(),context)));
+        holder.roomerImg.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(sysUser.getPerPic(),context)));
     }
 
     @Override

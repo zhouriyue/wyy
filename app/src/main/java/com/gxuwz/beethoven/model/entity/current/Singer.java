@@ -8,7 +8,7 @@ import java.util.Date;
  * @author ruoyi
  * @date 2020-10-09
  */
-public class Singer
+public class Singer implements java.io.Serializable
 {
     private static final long serialVersionUID = 1L;
 

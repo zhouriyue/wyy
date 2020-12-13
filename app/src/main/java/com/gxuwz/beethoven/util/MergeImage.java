@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -20,6 +21,7 @@ import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -27,8 +29,19 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
+/*Glide.with(SongListFActivity.this)
+        .asBitmap()
+        .load(StaticHttp.STATIC_BASEURL+songlist.getCoverPicture())
+        .into(new SimpleTarget<Bitmap>() {
+@Override
+public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+        Drawable drawable = new BitmapDrawable(BlurUtil.doBlur(MergeImage.zoomImgDB(resource, (int) WindowPixels.WIDTH,290),1,30));
+        diagonal.setBackground(drawable);
+        }
 
+        });*/
 public class MergeImage {
 
     public static ObjectAnimator animator;
@@ -45,6 +58,13 @@ public class MergeImage {
         animator.setRepeatMode(ValueAnimator.RESTART);//动画重复模式
         animator.start();
         return animator;
+    }
+
+    //使图片透明的方法
+    public static Bitmap transparent(Bitmap bitmap) {
+        bitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_4444);
+        bitmap.eraseColor(Color.TRANSPARENT);
+        return bitmap;
     }
 
     /**
@@ -162,6 +182,40 @@ public class MergeImage {
                 .into(imageView);
     }
 
+    public static void glideWhinkTop(Context context,int url,ImageView imageView,int redius){
+        CornerTransform transformation = new CornerTransform(context, dip2px(context, redius));
+        //只是绘制左上角和右上角圆角
+        transformation.setExceptCorner(false, false, true, true);
+
+        Glide.with(context)
+                .load(url)
+                .skipMemoryCache(true)
+                .placeholder(R.drawable.bg)
+                .error(StaticHttp.DEFALUT_SONGLIST_COVERPICTURE)
+                .transform(transformation)
+                .into(imageView);
+    }
+
+    public static void glideWhinkBottm(Context context,int url,ImageView imageView,int redius){
+        CornerTransform transformation = new CornerTransform(context, dip2px(context, redius));
+        //只是绘制左上角和右上角圆角
+        transformation.setExceptCorner(true, true, false, false);
+
+        Glide.with(context)
+                .asBitmap()
+                .load(url)
+                .skipMemoryCache(true)
+                .placeholder(R.drawable.bg)
+                .error(StaticHttp.DEFALUT_SONGLIST_COVERPICTURE)
+                .transform(transformation)
+                .into(imageView);
+    }
+
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
     /**
      * 使用Glide渲染图片
      * @param context
@@ -190,6 +244,19 @@ public class MergeImage {
      * @param imageView
      */
     public static void showGlideImg(Context context, String url, ImageView imageView){
+        //RoundedCorners roundedCorners= new RoundedCorners(10);
+        //通过RequestOptions扩展功能,override采样率,压缩图片,降低内存消耗
+        RequestOptions myOptions = new RequestOptions().transform(new MultiTransformation<>(new CenterCrop(),new RoundedCorners(10)));
+        //RequestOptions options = RequestOptions.transform(new CenterCrop(),roundedCorners));
+        Glide.with(context)
+                .load(url)
+                .transition(new DrawableTransitionOptions().crossFade())
+                .centerCrop()
+                .apply(myOptions)
+                .into(imageView);
+    }
+
+    public static void showGlideImg(Context context, int url, ImageView imageView){
         //RoundedCorners roundedCorners= new RoundedCorners(10);
         //通过RequestOptions扩展功能,override采样率,压缩图片,降低内存消耗
         RequestOptions myOptions = new RequestOptions().transform(new MultiTransformation<>(new CenterCrop(),new RoundedCorners(10)));
@@ -411,6 +478,31 @@ public class MergeImage {
         paint.reset();
         canvas.drawBitmap(discBitmap, 0, 0, null);
         return bm;
+    }
+
+    // 等比缩放图片
+    public static Bitmap zoomImgDB(Bitmap bm, int newWidth ,int newHeight){
+        // 获得图片的宽高
+        newWidth = (int) (newWidth * WindowPixels.DENSITY);
+        newHeight = (int) (newHeight * WindowPixels.DENSITY);
+        int x=0,y=0;
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        // 计算缩放比例
+        float scale = (float) (newWidth*1.0/width*1.0);
+        float widthScale = scale*height;
+        if(widthScale<newHeight) {
+            scale = (float) (newHeight*1.0/height*1.0);
+            x = (int) ((scale*width-newWidth)/2);
+        }
+        // 取得想要缩放的matrix参数
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale, scale);
+        // 得到新的图片
+        Bitmap newbm = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
+        //截取
+        newbm = Bitmap.createBitmap(newbm,x,y,newWidth,newHeight);
+        return newbm;
     }
 
     // 等比缩放图片

@@ -23,11 +23,9 @@ import com.gxuwz.beethoven.model.entity.current.LocalSong;
 import com.gxuwz.beethoven.model.entity.current.Singer;
 import com.gxuwz.beethoven.model.entity.current.Song;
 import com.gxuwz.beethoven.page.fragment.playview.LyricShowView;
-import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
 import com.gxuwz.beethoven.util.BlurUtil;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
-import com.gxuwz.beethoven.util.Player;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
 import java.util.List;
@@ -112,7 +110,7 @@ public class PlayViewReceiver extends BroadcastReceiver {
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                             bg.setImageBitmap(BlurUtil.doBlur(resource, 10, 30));
-                            disc.setImageBitmap(MergeImage.mergeThumbnailBitmap(HttpUtil.getRes("dibian", context), resource));
+                            disc.setImageBitmap(MergeImage.mergeThumbnailBitmap(HttpUtils.getRes("dibian", context), resource));
                         }
                     });
         }

@@ -13,22 +13,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
-import com.gxuwz.beethoven.model.entity.SongList;
+import com.gxuwz.beethoven.model.entity.current.Songlist;
 import com.gxuwz.beethoven.page.index.findview.songlist.SongListFActivity;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
+import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
 import java.util.List;
 
 public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongListViewHolder> {
 
     Context context;
-    List<SongList> songLists;
+    List<Songlist> songlists;
     protected boolean isScrolling = false;
 
-    public SongListAdapter(Context context, List<SongList> songLists) {
+    public SongListAdapter(Context context, List<Songlist> songlists) {
         this.context = context;
-        this.songLists = songLists;
+        this.songlists = songlists;
     }
 
     @NonNull
@@ -39,14 +39,16 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongLi
 
     @Override
     public void onBindViewHolder(@NonNull SongListViewHolder holder, int position) {
-        SongList songList = songLists.get(position);
-        holder.slImg.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(songList.getSongListUrl(),context),100,100));
-        holder.playNumber.setText(songList.getPlayNumber()+"");
-        holder.slName.setText(songList.getSongListName());
+        Songlist songlist = songlists.get(position);
+        MergeImage.showGlideImgDb(context,
+                StaticHttp.STATIC_BASEURL+songlist.getCoverPicture(),holder.slImg,10);
+        holder.playNumber.setText(songlist.getPlayNumber()+"");
+        holder.slName.setText(songlist.getSlName());
         holder.onclickSongList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context,SongListFActivity.class);
+                intent.putExtra("songlist",songlist);
                 context.startActivity(intent);
             }
         });
@@ -54,7 +56,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongLi
 
     @Override
     public int getItemCount() {
-        return songLists.size();
+        return songlists.size();
     }
 
     class SongListViewHolder extends RecyclerView.ViewHolder{

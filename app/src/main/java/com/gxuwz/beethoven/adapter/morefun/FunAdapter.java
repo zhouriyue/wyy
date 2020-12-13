@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.Fun;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.viewholder.morefun.FunViewHolder;
 
@@ -34,7 +34,7 @@ public class FunAdapter extends RecyclerView.Adapter<FunViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull FunViewHolder holder, int position) {
         Fun fun = funList.get(position);
-        holder.icon.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(fun.getIcon(),context),20,20,1));
+        holder.icon.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(fun.getIcon(),context),20,20,1));
         holder.funName.setText(fun.getName());
         holder.status.setText(fun.getStaus());
     }

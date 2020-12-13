@@ -20,13 +20,11 @@ import com.gxuwz.beethoven.dao.OperateDao;
 import com.gxuwz.beethoven.model.entity.current.Operate;
 import com.gxuwz.beethoven.model.entity.current.Singer;
 import com.gxuwz.beethoven.model.entity.current.Song;
-import com.gxuwz.beethoven.model.entity.my.songlist.SLMore;
 import com.gxuwz.beethoven.page.fragment.my.songlist.LoadDownView;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SeaSongAdapter extends RecyclerView.Adapter<SeaSongAdapter.SeaSongViewHolder> {
@@ -91,7 +89,7 @@ public class SeaSongAdapter extends RecyclerView.Adapter<SeaSongAdapter.SeaSongV
         };
         String url = StaticHttp.BASEURL + StaticHttp.SELECT_SINGER;
         url += "?songId="+song.getSongId();
-        HttpUtil.get(url,handler);
+        HttpUtils.get(url,handler);
     }
 
     public void updateData(List<Song> songs){

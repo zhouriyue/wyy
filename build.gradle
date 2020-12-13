@@ -4,9 +4,13 @@ buildscript {
     repositories {
         google()
         jcenter()
+        // Add the Maven address.
+        maven {url 'https://developer.huawei.com/repo/'}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.2'
+        //增加agcp配置。
+        classpath 'com.huawei.agconnect:agcp:1.4.1.300'
         // NOTE: Do not place your application dependencies here; they belong
         // icon_in the individual module build.gradle files
     }
@@ -16,7 +20,8 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        // Add the Maven address.
+        maven { url 'https://developer.huawei.com/repo/' }
     }
 }
 

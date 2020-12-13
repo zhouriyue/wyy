@@ -1,6 +1,5 @@
 package com.gxuwz.beethoven.page.fragment.playview;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,7 +22,7 @@ import com.gxuwz.beethoven.model.entity.current.Song;
 import com.gxuwz.beethoven.service.DownloadService;
 import com.gxuwz.beethoven.service.DownloadTask;
 import com.gxuwz.beethoven.util.DateUtil;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.Player;
 import com.gxuwz.beethoven.util.lyc.LrcMusic;
 import com.gxuwz.beethoven.util.lyc.Utils;
@@ -36,9 +35,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +53,6 @@ public class LyricShowView {
     SongDao songDao;
     LyricDao lyricDao;
     ThreadDAO mDao;
-    Lyric lyric;
 
     public LyricShowView(Context context, View lycShowView) {
         this.context = context;
@@ -74,79 +70,45 @@ public class LyricShowView {
         Long songId = sharedPreferences.getLong("songId", -1);
         if(slId!=-1) {
             Song song = songDao.findById(songId);
-            lyric = lyricDao.findById(song.getLyrId());
-            if (lyric == null) {
-                Handler handler = new Handler() {
-                    @Override
-                    public void handleMessage(@NonNull Message msg) {
-                        if (msg.what == 1) {
-                            Bundle bundle = msg.getData();
-                            String result = bundle.getString("result");
-                            try {
-                                JSONObject jsonObject = new JSONObject(result);
-                                if (lyric == null) lyric = new Lyric();
-                                lyric.setLyrId(jsonObject.getLong("lyrId"));
-                                lyric.setLyrName(jsonObject.getString("lyrName"));
-                                lyric.setLyrUrl(jsonObject.getString("lyrUrl"));
-                                lyric.setIssuingDate(DateUtil.parseString(jsonObject.getString("issuingDate")));
-                                lyricDao.insert(lyric);
-                                readInternetLyric(lyric);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                };
-                String lyrUrl = StaticHttp.BASEURL + StaticHttp.SELECT_LYRIC;
-                lyrUrl += "?lyrId=" + song.getLyrId();
-                HttpUtil.get(lyrUrl, handler);
+            if (isLocalLyric(song)) {
+                readLocalLyric(song);
             } else {
-                if (isLocalLyric(lyric)) {
-                    if(!isDownloading(lyric)) {
-                        readLocalLyric(lyric);
-                    }
-                    else {
-                        readInternetLyric(lyric);
-                    }
-                } else {
-                    readInternetLyric(lyric);
-                }
+                readInternetLyric(song);
             }
             Player.lyriscView = view;
             Player.lyriscTimes = list1;
         }
     }
 
-    public void readInternetLyric(Lyric lyric) {
+    public void readInternetLyric(Song song) {
         String url = "";
-        try {
-            if (lyric.getLyrUrl() != null)
-                url = StaticHttp.STATIC_BASEURL + URLEncoderHZ.encodeUtf8(lyric.getLyrUrl());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        FileInfo fileInfo = new FileInfo(0, url, lyric.getLyrName(), 12913518, 0);
-        Handler handler = new Handler() {
-            @Override
-            public void handleMessage(@NonNull Message msg) {
-                if (msg.what == 1) {
-                    readLocalLyric(lyric);
+        if (song.getLyrUrl() != null) {
+            url = StaticHttp.STATIC_BASEURL + song.getLyrUrl();
+            Handler handler = new Handler(){
+                @Override
+                public void handleMessage(@NonNull Message msg) {
+                    if(msg.what==1) {
+                        readLocalLyric(song);
+                    }
                 }
-            }
-        };
-        downloadTask = new DownloadTask(context, fileInfo, handler);
-        downloadTask.download();
+            };
+            HttpUtils.downFile(context,url,handler);
+        }
     }
 
-    public boolean isLocalLyric(Lyric lyric) {
-        String path = lyric.getLyrUrl().split("/static/")[1];
-        File file = new File(DownloadService.DOWNLOAD_PATH + path);
-        return file.exists();
+    public boolean isLocalLyric(Song song) {
+        if(song.getLyrUrl()!=null) {
+            String fileName = song.getLyrUrl().substring(song.getLyrUrl().lastIndexOf("/"));
+            File file = new File(DownloadService.DOWNLOAD_PATH +"lrc"+ fileName);
+            return file.exists();
+        } else {
+            return false;
+        }
     }
 
-    public void readLocalLyric(Lyric lyric) {
-        String path = lyric.getLyrUrl().split("/static/")[1];
-        File file = new File(DownloadService.DOWNLOAD_PATH + path);
+    public void readLocalLyric(Song song) {
+        String fileName = song.getLyrUrl().substring(song.getLyrUrl().lastIndexOf("/"));
+        File file = new File(DownloadService.DOWNLOAD_PATH +"lrc"+ fileName);
         FileInputStream is = null;
         try {
             is = new FileInputStream(file);
@@ -164,19 +126,4 @@ public class LyricShowView {
 
     }
 
-    public boolean isDownloading(Lyric lyric) {
-        String url = "";
-        try {
-            if (lyric.getLyrUrl() != null)
-                url = StaticHttp.STATIC_BASEURL + URLEncoderHZ.encodeUtf8(lyric.getLyrUrl());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        List<ThreadInfo> threadList = mDao.getThreads(url);
-        if (threadList.size() != 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

@@ -43,4 +43,14 @@ public class LatePlay {
     public void setPlayDate(Date playDate) {
         this.playDate = playDate;
     }
+
+    @Override
+    public String toString() {
+        return "LatePlay{" +
+                "id=" + id +
+                ", slId=" + slId +
+                ", songId=" + songId +
+                ", playDate=" + playDate +
+                '}';
+    }
 }

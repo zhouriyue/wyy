@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.gxuwz.beethoven.model.entity.mlog.SysUserDao;
 import com.gxuwz.beethoven.model.entity.SysUser;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import org.json.JSONException;
@@ -70,8 +70,8 @@ public class SysUserHandler extends Handler {
             @Override
             public void run() {
                 String fileName = sysUser.getPerPic().substring(sysUser.getPerPic().lastIndexOf("/")+1);
-                bitmap = HttpUtil.getImage(sysUser.getPerPic());
-                String url = HttpUtil.saveBitmap(context,bitmap,HttpUtil.USER,fileName);
+                bitmap = HttpUtils.getImage(sysUser.getPerPic());
+                String url = HttpUtils.saveBitmap(context,bitmap, HttpUtils.USER,fileName);
                 Message msg = new Message();
                 msg.obj = url;
                 perPicViewHandle.sendMessage(msg);
@@ -88,12 +88,12 @@ public class SysUserHandler extends Handler {
             } else {
                 sysUserDao.update(sysUser);
             }
-            Glide.with(context).load(MergeImage.circleShow(HttpUtil.getLocalImage(sysUser.getPerPic()))).into(perPicView);
+            Glide.with(context).load(MergeImage.circleShow(HttpUtils.getLocalImage(sysUser.getPerPic()))).into(perPicView);
             SongListHandler songListHandler = new SongListHandler();
             songListHandler.setSongList(songList);
             songListHandler.setContext(context);
             songListHandler.setSysUser(sysUser);
-            HttpUtil.get(songLists,songListHandler);
+            HttpUtils.get(songLists,songListHandler);
         };
     }
 

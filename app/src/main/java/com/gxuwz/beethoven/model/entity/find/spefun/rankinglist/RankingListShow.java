@@ -1,6 +1,7 @@
 package com.gxuwz.beethoven.model.entity.find.spefun.rankinglist;
 
-import com.gxuwz.beethoven.model.entity.find.RankingList;
+
+import com.gxuwz.beethoven.model.entity.current.RankingList;
 
 import java.util.List;
 

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.find.spefun.radiostation.RadioStation;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -51,7 +51,7 @@ public class SRecommendAdapter extends RecyclerView.Adapter<SRecommendAdapter.SR
     @Override
     public void onBindViewHolder(@NonNull SRecommendViewHolder holder, int position) {
         RadioStation radioStation = radioStationList.get(position);
-        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(radioStation.getImg(),context),itemWidth,itemWidth,5));
+        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(radioStation.getImg(),context),itemWidth,itemWidth,5));
         holder.name.setText(radioStation.getName());
         if(radioStation.getIsPay()==1) {
             holder.rsIsPay.setText("精品付费");

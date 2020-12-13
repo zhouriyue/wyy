@@ -39,6 +39,21 @@ public class SysUserDao {
         return sysUser;
     }
 
+    public long update(SysUser sysUser) {
+        SQLiteDatabase db = dfHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("user_name",sysUser.getUserName());
+        values.put("nick_name",sysUser.getNickName());
+        values.put("email",sysUser.getEmail());
+        values.put("phonenumber",sysUser.getPhonenumber());
+        values.put("sex",sysUser.getSex());
+        values.put("avatar",sysUser.getAvatar());
+        values.put("create_time",DateUtil.simpleFormat(sysUser.getCreateTime()));
+        long id = db.update("sys_user",values,"user_id=?",new String[]{sysUser.getUserId()+""});
+        db.close();
+        return id;
+    }
+
     public long insert(SysUser sysUser) {
         SQLiteDatabase db = dfHelper.getWritableDatabase();
         ContentValues values = new ContentValues();

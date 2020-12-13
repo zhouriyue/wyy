@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".page.index.findview.spefun.everyrecomm.EveryRecommActivity"
-    android:background="@color/black_707070">
+    android:background="@color/blue_4e7cb0">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,8 +16,7 @@
             android:layout_height="200dp">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/youth"/>
+                android:layout_height="200dp"/>
             <!--返回按钮-->
             <LinearLayout
                 android:id="@+id/to_back_lin"
@@ -29,6 +28,26 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/fh"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="返回"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:typeface="monospace"
+                    android:textSize="25dp"
+                    android:textStyle="italic"
+                    android:text="每日日推"/>
             </LinearLayout>
             <!--历史日推-->
             <LinearLayout
@@ -96,44 +115,46 @@
             android:layout_height="match_parent"
             android:background="@drawable/shape"
             android:layout_marginTop="-20dp"
+            android:paddingBottom="50dp"
             android:orientation="vertical">
             <LinearLayout
-                android:id="@+id/top"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"
-                android:orientation="horizontal">
-
+                android:orientation="horizontal"
+                android:gravity="center">
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:background="@drawable/play2" />
-
+                    android:background="@drawable/play2"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="播放全部"
+                    android:textSize="16dp"
                     android:textColor="#2c2c2c"
-                    android:textSize="16dp" />
-
+                    android:text="播放全部"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="(共18首)"
-                    android:textSize="14dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/er_rv"
-                    android:layout_width="match_parent"
+                    android:text="(共"/>
+                <TextView
+                    android:id="@+id/total_music"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="首)"/>
             </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/songlist_song_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
+
+    <!--底部-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -180,7 +201,7 @@
                 android:id="@+id/play_and_stop"
                 android:layout_margin="10dp"/>
             <ImageView
-                android:id="@+id/list"
+                android:id="@+id/play_list"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="10dp"

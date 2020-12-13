@@ -1,9 +1,11 @@
 package com.gxuwz.beethoven.page.fragment.my;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,16 +15,16 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.gxuwz.beethoven.R;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.WindowPixels;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
 import java.net.URLEncoder;
-import java.util.Arrays;
 
 /**
  * 添加歌单弹框
@@ -63,9 +65,18 @@ public class AddSongListPW {
         this.submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Handler handler = new Handler(){
+                    @Override
+                    public void handleMessage(@NonNull Message msg) {
+                        if(msg.what==1) {
+                            Intent intent = new Intent(FragmentMy.UpdateSonglistReceiver.ACTION);
+                            intent.putExtra(FragmentMy.UpdateSonglistReceiver.CONTROLLER,"songlist");
+                            context.sendBroadcast(intent);
+                        }
+                    }
+                };
                 String url = StaticHttp.BASEURL+StaticHttp.ADD_SONGLIST;
                 String data = "";
-                String userName = "client";
                 String slName = songlistName.getText().toString();
                 Integer isPublic = 1;
                 if(isPublicC.isChecked()){
@@ -74,7 +85,7 @@ public class AddSongListPW {
                 data+="createById="+ URLEncoder.encode(String.valueOf(sharedPreferences.getLong("userId",-1)));
                 data+="&slName=" + URLEncoder.encode(slName);
                 data+="&isPublic=" + URLEncoder.encode(String.valueOf(isPublic));
-                HttpUtil.post(url,data);
+                HttpUtils.post(url,data,handler);
                 addSongList.dismiss();
             }
         });
@@ -98,7 +109,7 @@ public class AddSongListPW {
         addSongList.setBackgroundDrawable(new ColorDrawable(0));
     }
 
-    private  void  getPopupWindow() {
+    public void  getPopupWindow() {
         if (null != addSongList) {
             addSongList.dismiss();
             return;

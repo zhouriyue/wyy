@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.video.mv.ChoiceMv;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -42,7 +42,7 @@ public class ChoiceMvAdapter extends RecyclerView.Adapter<ChoiceMvAdapter.Choice
     @Override
     public void onBindViewHolder(@NonNull ChoiceMvViewHolder holder, int position) {
         ChoiceMv choiceMv = choiceMvList.get(position);
-        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(choiceMv.getDiagonal(),context),itemWidth,height));
+        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(choiceMv.getDiagonal(),context),itemWidth,height));
         holder.playNumber.setText(choiceMv.getPlayNumber()+"");
         holder.content.setText(choiceMv.getContent());
         holder.username.setText(choiceMv.getUsername());

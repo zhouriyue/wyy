@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Context;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
@@ -17,7 +16,7 @@ import com.gxuwz.beethoven.adapter.find.ittalk.ITTalkAdapter;
 import com.gxuwz.beethoven.model.entity.SysUser;
 import com.gxuwz.beethoven.model.entity.find.talk.Comment;
 import com.gxuwz.beethoven.model.entity.find.talk.ITTalk;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.ArrayList;
@@ -62,7 +61,7 @@ public class ITTalkActivity extends AppCompatActivity {
 
     public void setData(){
         textUser = findViewById(R.id.text_user);
-        textUser.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes("youth",context)));
+        textUser.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes("youth",context)));
         ITTalk itTalk = new ITTalk();
         List<String> images = new ArrayList<String>();
         images.add("http://kwimg2.kuwo.cn/star/upload/66/85/1575256374021_.jpg");

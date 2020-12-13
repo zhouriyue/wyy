@@ -38,6 +38,18 @@ public class MemberDao {
         return member;
     }
 
+    public long update(Member member) {
+        SQLiteDatabase db = dfHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("valid_day",member.getValidDay());
+        values.put("m_grade", member.getmGrade());
+        values.put("user_id", member.getUserId());
+        values.put("enroll_date", DateUtil.simpleFormat(member.getEnrollDate()));
+        long id = db.update("member",values,"m_id=?",new String[]{member.getmId()+""});
+        db.close();
+        return id;
+    }
+
     public long insert(Member member) {
         SQLiteDatabase db = dfHelper.getWritableDatabase();
         ContentValues values = new ContentValues();

@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.find.Room;
 import com.gxuwz.beethoven.page.index.findview.chatroom.ChatRoomActivity;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -41,7 +40,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     @Override
     public void onBindViewHolder(@NonNull RoomViewHolder holder, int position) {
         Room room = roomList.get(position);
-        holder.roomImg.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(room.getRoomImg(),context),100,120,5));
+        MergeImage.showGlideImgDb(context,R.drawable.youth,holder.roomImg,10);
         holder.type.setText(room.getType());
         holder.title.setText(room.getTitle());
         LinearLayoutManager lm = new LinearLayoutManager(context);

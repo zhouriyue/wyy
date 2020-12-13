@@ -3,19 +3,12 @@ package com.gxuwz.beethoven.listener;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.viewpager.widget.ViewPager;
 
-import com.gxuwz.beethoven.util.HttpUtil;
-import com.gxuwz.beethoven.util.MergeImage;
-
-import java.util.ArrayList;
+import com.gxuwz.beethoven.util.HttpUtils;
 
 public class MainMenuPageChangeListener implements ViewPager.OnPageChangeListener {
     int pre;
@@ -44,9 +37,9 @@ public class MainMenuPageChangeListener implements ViewPager.OnPageChangeListene
                     textViews[i].setTextColor(Color.parseColor("#ffffff"));
                 }
 
-                myBg.setImageBitmap(HttpUtil.getRes("my_bg",context));
-                leftMenu.setImageBitmap(HttpUtil.getRes("view_my_list_whitk",context));
-                search.setImageBitmap(HttpUtil.getRes("view_index_search_white",context));
+                myBg.setImageBitmap(HttpUtils.getRes("my_bg",context));
+                leftMenu.setImageBitmap(HttpUtils.getRes("view_my_list_whitk",context));
+                search.setImageBitmap(HttpUtils.getRes("view_index_search_white",context));
 
                 currIndex = arg0;
                 textViews[currIndex].setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
@@ -58,9 +51,9 @@ public class MainMenuPageChangeListener implements ViewPager.OnPageChangeListene
                     textViews[i].setTextColor(Color.parseColor("#707070"));
                 }
 
-                myBg.setImageBitmap(HttpUtil.getRes("whick_bg",context));
-                leftMenu.setImageBitmap(HttpUtil.getRes("view_index_list_black_515151",context));
-                search.setImageBitmap(HttpUtil.getRes("view_index_search_black_515151",context));
+                myBg.setImageBitmap(HttpUtils.getRes("whick_bg",context));
+                leftMenu.setImageBitmap(HttpUtils.getRes("view_index_list_black_515151",context));
+                search.setImageBitmap(HttpUtils.getRes("view_index_search_black_515151",context));
 
                 currIndex = arg0;
                 textViews[currIndex].setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));

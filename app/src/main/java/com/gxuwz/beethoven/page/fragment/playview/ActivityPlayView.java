@@ -13,8 +13,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -35,13 +33,15 @@ import com.gxuwz.beethoven.dao.SongDao;
 import com.gxuwz.beethoven.model.entity.current.LocalSong;
 import com.gxuwz.beethoven.model.entity.current.Singer;
 import com.gxuwz.beethoven.model.entity.current.Song;
+import com.gxuwz.beethoven.page.fragment.playlistview.PlayListView;
 import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
 import com.gxuwz.beethoven.receiver.playview.PlayViewReceiver;
 import com.gxuwz.beethoven.service.MusicService;
 import com.gxuwz.beethoven.util.BlurUtil;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.Player;
+import com.gxuwz.beethoven.util.ToastUtil;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
 import java.util.ArrayList;
@@ -109,6 +109,62 @@ public class ActivityPlayView extends AppCompatActivity implements View.OnClickL
         messShow();
         lyricShowView = new LyricShowView(context,views.get(1));
         sendPlayBroadcast();
+        //播放模式初始化
+        initPlayModel();
+        //播放列表初始化
+        initPlaylist();
+    }
+
+    public void initPlaylist(){
+        ImageView playlist = findViewById(R.id.play_list);
+        MergeImage.showGlideImg(context,R.drawable.icon_list,playlist);
+        PlayListView playListView = new PlayListView(ActivityPlayView.this,playlist);
+    }
+
+    public void initPlayModel(){
+        ImageView playModel = findViewById(R.id.play_model);
+        int playModelValue = sharedPreferences.getInt(StaticHttp.PLAY_MODEL,0);
+        switch (playModelValue){
+            //循环播放
+            case 0:{
+                MergeImage.showGlideImg(context,R.drawable.circulate,playModel);
+            };break;
+            //随机播放
+            case 1:{
+                MergeImage.showGlideImg(context,R.drawable.random,playModel);
+            };break;
+            //单曲播放
+            case 2:{
+                MergeImage.showGlideImg(context,R.drawable.single_cycle,playModel);
+            };break;
+        }
+        playModel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int playModelValue = sharedPreferences.getInt(StaticHttp.PLAY_MODEL,0);
+                playModelValue = (playModelValue+1)%3;
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt(StaticHttp.PLAY_MODEL,playModelValue);
+                editor.commit();
+                switch (playModelValue){
+                    //循环播放
+                    case 0:{
+                        MergeImage.showGlideImg(context,R.drawable.circulate,playModel);
+                        ToastUtil.showToast(context,"循环播放");
+                    };break;
+                    //随机播放
+                    case 1:{
+                        MergeImage.showGlideImg(context,R.drawable.random,playModel);
+                        ToastUtil.showToast(context,"随机播放");
+                    };break;
+                    //单曲播放
+                    case 2:{
+                        MergeImage.showGlideImg(context,R.drawable.single_cycle,playModel);
+                        ToastUtil.showToast(context,"单曲播放");
+                    };break;
+                }
+            }
+        });
     }
 
     /**
@@ -124,7 +180,6 @@ public class ActivityPlayView extends AppCompatActivity implements View.OnClickL
         Long slId = sharedPreferences.getLong("slId",-1);
         Long songId = sharedPreferences.getLong("songId",-1);
         if(slId!=-1) {
-            System.out.println("slId:"+slId);
             Song song = songDao.findById(songId);
             if(song!=null) {
                 String url = StaticHttp.STATIC_BASEURL+song.getCoverPicture();
@@ -137,7 +192,7 @@ public class ActivityPlayView extends AppCompatActivity implements View.OnClickL
                             @Override
                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                 bg.setImageBitmap(BlurUtil.doBlur(resource, 10, 30));
-                                disc.setImageBitmap(MergeImage.mergeThumbnailBitmap(HttpUtil.getRes("dibian", context), resource));
+                                disc.setImageBitmap(MergeImage.mergeThumbnailBitmap(HttpUtils.getRes("dibian", context), resource));
                             }
                         });
                 songNameTV.setText(song.getSongName());
@@ -155,20 +210,22 @@ public class ActivityPlayView extends AppCompatActivity implements View.OnClickL
             }
         } else {
             LocalSong localSong = localSongDao.findBySongId(songId);
-            Glide.with(context)
-                    .asBitmap()
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)//缓存
-                    .load(StaticHttp.DEFALUT_SONGLIST_COVERPICTURE)
-                    .centerCrop()
-                    .into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            bg.setImageBitmap(BlurUtil.doBlur(resource, 10, 30));
-                            disc.setImageBitmap(MergeImage.mergeThumbnailBitmap(HttpUtil.getRes("dibian", context), resource));
-                        }
-                    });
-            songNameTV.setText(localSong.getSongName());
-            singerNameTV.setText(localSong.getSingerName());
+            if(localSong!=null) {
+                Glide.with(context)
+                        .asBitmap()
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)//缓存
+                        .load(StaticHttp.DEFALUT_SONGLIST_COVERPICTURE)
+                        .centerCrop()
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                bg.setImageBitmap(BlurUtil.doBlur(resource, 10, 30));
+                                disc.setImageBitmap(MergeImage.mergeThumbnailBitmap(HttpUtils.getRes("dibian", context), resource));
+                            }
+                        });
+                songNameTV.setText(localSong.getSongName());
+                singerNameTV.setText(localSong.getSingerName());
+            }
         }
     }
 
@@ -204,9 +261,9 @@ public class ActivityPlayView extends AppCompatActivity implements View.OnClickL
         playingLast.setOnClickListener(this);
         playingPlay = findViewById(R.id.playing_play);
         if (Player.isPlayer) {
-            playingPlay.setImageBitmap(HttpUtil.getRes("icon_stop_playview", context));
+            playingPlay.setImageBitmap(HttpUtils.getRes("icon_stop_playview", context));
         } else {
-            playingPlay.setImageBitmap(HttpUtil.getRes("play_whick", context));
+            playingPlay.setImageBitmap(HttpUtils.getRes("play_whick", context));
         }
         playingPlay.setOnClickListener(this);
         playingNext = findViewById(R.id.playing_next);
@@ -250,11 +307,11 @@ public class ActivityPlayView extends AppCompatActivity implements View.OnClickL
                 Intent indexBottomBar = new Intent();
                 indexBottomBar.setAction(IndexBottomBarReceiver.ACTION);
                 if (Player.isPlayer) {
-                    playingPlay.setImageBitmap(HttpUtil.getRes("play_whick", context));
+                    playingPlay.setImageBitmap(HttpUtils.getRes("play_whick", context));
                     intent.putExtra(MusicService.CONTROLLER, MusicService.STOP);
                     indexBottomBar.putExtra(IndexBottomBarReceiver.CONTROLLER, IndexBottomBarReceiver.FLAT_STOP);
                 } else {
-                    playingPlay.setImageBitmap(HttpUtil.getRes("icon_stop_playview", context));
+                    playingPlay.setImageBitmap(HttpUtils.getRes("icon_stop_playview", context));
                     intent.putExtra(MusicService.CONTROLLER, MusicService.PLAY);
                     indexBottomBar.putExtra(IndexBottomBarReceiver.CONTROLLER, IndexBottomBarReceiver.FLAT_PLAY);
                 }

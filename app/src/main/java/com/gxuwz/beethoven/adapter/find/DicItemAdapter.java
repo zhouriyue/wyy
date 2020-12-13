@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.find.Dic;
-import com.gxuwz.beethoven.util.HttpUtil;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -36,7 +35,7 @@ public class DicItemAdapter extends RecyclerView.Adapter<DicItemAdapter.DicItemV
     @Override
     public void onBindViewHolder(@NonNull DicItemViewHolder holder, int position) {
         Dic dic = dicList.get(position);
-        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(dic.getDiagonal(),context),48,48,5));
+        MergeImage.showGlideImgDb(context,R.drawable.zhoushen,holder.diagonal,10);
         holder.detail.setText(dic.getDetail());
         holder.singerName.setText(dic.getSinger().getSingerName());
         holder.songName.setText(dic.getName());

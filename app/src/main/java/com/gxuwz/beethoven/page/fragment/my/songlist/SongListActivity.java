@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.my.SonglistSongAdapter;
@@ -26,19 +27,16 @@ import com.gxuwz.beethoven.dao.SingerDao;
 import com.gxuwz.beethoven.dao.SongDao;
 import com.gxuwz.beethoven.dao.SongListDao;
 import com.gxuwz.beethoven.dao.SysUserDao;
-import com.gxuwz.beethoven.hanlder.SongListsMusicHandler;
 import com.gxuwz.beethoven.model.entity.current.LocalSong;
 import com.gxuwz.beethoven.model.entity.current.Singer;
 import com.gxuwz.beethoven.model.entity.current.Song;
 import com.gxuwz.beethoven.model.entity.current.Songlist;
 import com.gxuwz.beethoven.model.entity.current.SysUser;
-import com.gxuwz.beethoven.page.fragment.PrincipalSheetActivity;
-import com.gxuwz.beethoven.page.fragment.my.AddSongListPW;
 import com.gxuwz.beethoven.page.fragment.playview.ActivityPlayView;
-import com.gxuwz.beethoven.page.index.playlistview.PlayListView;
+import com.gxuwz.beethoven.page.fragment.playlistview.PlayListView;
 import com.gxuwz.beethoven.receiver.IndexBottomBarReceiver;
 import com.gxuwz.beethoven.service.MusicService;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.Player;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
@@ -171,7 +169,7 @@ public class SongListActivity extends AppCompatActivity {
         };
         String url = StaticHttp.SYSTEM_BASEURL+StaticHttp.GET_SYSTEM;
         url += "?userId="+userId;
-        HttpUtil.get(url,handler);
+        HttpUtils.get(url,handler);
 
     }
 
@@ -208,7 +206,7 @@ public class SongListActivity extends AppCompatActivity {
                     };
                     String url = StaticHttp.BASEURL+StaticHttp.SELECT_INDEX_SONG;
                     url += "?slId="+songlist.getSlId();
-                    HttpUtil.get(url,handler);
+                    HttpUtils.get(url,handler);
                 } else {
                     String coverPicture = StaticHttp.STATIC_BASEURL+song.getCoverPicture();
                     MergeImage.showGlideImgDb(this,coverPicture,songlistUrl,10);
@@ -226,7 +224,7 @@ public class SongListActivity extends AppCompatActivity {
     }
 
     /**
-     * 歌单列表
+     * 歌曲列表
      */
     public void initSlList(){
         songList = songDao.findSonglistSong(songlist.getSlId());
@@ -241,7 +239,9 @@ public class SongListActivity extends AppCompatActivity {
                 if(msg.what==1){
                     Bundle bundle = msg.getData();
                     String result = bundle.getString("result");
-                    Gson gson = new Gson();
+                    GsonBuilder builder = new GsonBuilder();
+                    builder.setDateFormat("yyyy-MM-DD");
+                    Gson gson = builder.create();
                     Type listtype = new TypeToken<List<Song>>(){}.getType();
                     songList = gson.fromJson(result,listtype);
                     if(songlistSongAdapter!=null){
@@ -251,6 +251,8 @@ public class SongListActivity extends AppCompatActivity {
                     for(int i = 0;i < songList.size();i++) {
                         if(songDao.findById(songList.get(i).getSongId())==null) {
                             songDao.insert(songList.get(i));
+                        } else {
+                            songDao.update(songList.get(i));
                         }
                         if(!songDao.isSlToSong(songlist.getSlId(),songList.get(i).getSongId())) {
                             songDao.insertSlToSong(songlist.getSlId(),songList.get(i).getSongId());
@@ -262,7 +264,7 @@ public class SongListActivity extends AppCompatActivity {
         };
         String url = StaticHttp.BASEURL+StaticHttp.SELECT_SONG_ALL;
         url += "?slId="+ URLEncoder.encode(String.valueOf(songlist.getSlId()));
-        HttpUtil.get(url,handler);
+        HttpUtils.get(url,handler);
     }
 
     public void initBottomMess(){

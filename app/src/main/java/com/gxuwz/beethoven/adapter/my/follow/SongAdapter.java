@@ -15,7 +15,7 @@ import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.my.follow.Follow;
 import com.gxuwz.beethoven.model.entity.my.follow.Singer;
 import com.gxuwz.beethoven.model.entity.my.follow.Song;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViwHolder>
         Follow follow = followList.get(position);
         Singer singer = follow.getSinger();
         List<Song> songList = follow.getSong();
-        holder.singerPerPic.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes(singer.getPerPic(),context)));
+        holder.singerPerPic.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes(singer.getPerPic(),context)));
         holder.singerName.setText(singer.getSingerName());
         holder.content.setText(follow.getDetail());
 

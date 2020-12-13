@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.search.Search;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.viewholder.search.SearchViewHolder;
 
@@ -31,7 +31,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
         Search search = searchList.get(position);
         holder.title.setText(search.getTitle());
-        holder.tagIcon.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(search.getTagIcon(),context),10,10));
+        holder.tagIcon.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(search.getTagIcon(),context),10,10));
         holder.tag.setText(search.getTag());
         holder.searchItemRv.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL));
         holder.searchItemRv.setAdapter(new SearchCommAdapter(context,search));

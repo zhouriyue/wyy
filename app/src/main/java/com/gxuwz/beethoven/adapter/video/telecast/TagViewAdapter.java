@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.video.TagVideo;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -47,7 +47,7 @@ public class TagViewAdapter extends RecyclerView.Adapter<TagViewAdapter.TagViewV
     @Override
     public void onBindViewHolder(@NonNull TagViewViewHolder holder, int position) {
         TagVideo tagVideo = tagVideoList.get(position);
-        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(tagVideo.getDiagonal(),context),itemWidth, height));
+        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(tagVideo.getDiagonal(),context),itemWidth, height));
         holder.playNumber.setText(tagVideo.getPlayNumber()+"");
         holder.type.setText(tagVideo.getType());
         holder.time.setText(tagVideo.getTime());

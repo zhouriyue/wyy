@@ -56,6 +56,23 @@ public class DateUtil {
      * @param end
      * @return
      */
+    public static long computeMin(Date start,Date end) {
+        Calendar cal=Calendar.getInstance();
+        cal.setTime(start);
+        long time1=cal.getTimeInMillis();
+        cal.setTime(end);
+        long time2=cal.getTimeInMillis();
+        long between_days=(time2-time1)/(1000*60);
+        long count = Long.parseLong(String.valueOf(between_days));
+        return count;
+    }
+
+    /**
+     * 获取连个date之间的天数
+     * @param start
+     * @param end
+     * @return
+     */
     public static long computeDay(Date start,Date end) {
         Calendar cal=Calendar.getInstance();
         cal.setTime(start);
@@ -82,8 +99,22 @@ public class DateUtil {
         return count;
     }
 
+    public static Date parse(String dateStr) {
+        if(dateStr==null||"null".equals(dateStr)) {
+            return null;
+        } else {
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                return df.parse(dateStr);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
     public static Date parseString(String dateStr) {
-        if(dateStr==null) {
+        if(dateStr==null||"null".equals(dateStr)) {
             return null;
         } else {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -99,6 +130,14 @@ public class DateUtil {
     public static String simpleFormat(Date date) {
         if(date!=null) {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            return df.format(date);
+        }
+        return null;
+    }
+
+    public static String format(Date date) {
+        if(date!=null) {
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             return df.format(date);
         }
         return null;

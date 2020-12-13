@@ -150,4 +150,22 @@ public class UserDetailVo {
         return createTime;
     }
 
+    @Override
+    public String toString() {
+        return "UserDetailVo{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", email='" + email + '\'' +
+                ", phonenumber='" + phonenumber + '\'' +
+                ", sex='" + sex + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", detail='" + detail + '\'' +
+                ", birthday=" + birthday +
+                ", address='" + address + '\'' +
+                ", perBg='" + perBg + '\'' +
+                ", isMember=" + isMember +
+                ", createTime=" + createTime +
+                '}';
+    }
 }

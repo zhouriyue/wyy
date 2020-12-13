@@ -34,6 +34,16 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.FLView
 
     public void setmMessenger(Messenger mMessenger) {
         this.mMessenger = mMessenger;
+        for(int i = 0;i < mFileList.size();i++) {
+            Message msg = new Message();
+            msg.what = DownloadService.MSG_START;
+            msg.obj = mFileList.get(i);
+            try {
+                mMessenger.send(msg);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @NonNull
@@ -48,6 +58,9 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.FLView
         //设置控件
         holder.tvFile.setText(fileInfo.getFileName());
         holder.pbFile.setMax(100);
+        Message msg = new Message();
+        msg.what = DownloadService.MSG_START;
+        msg.obj = fileInfo;
         holder.btStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.find.Banners;
 import com.gxuwz.beethoven.model.entity.find.talk.ITTalk;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.youth.banner.Banner;
 
@@ -46,7 +46,7 @@ public class ITTalkAdapter extends RecyclerView.Adapter<ITTalkAdapter.ITTalkView
         holder.username.setText(itTalk.getSysUser().getUserName());
         holder.title.setText(itTalk.getTitle());
         holder.content.setText(itTalk.getContent());
-        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtil.getRes("youth",context)));
+        holder.perPic.setImageBitmap(MergeImage.circleShow(HttpUtils.getRes("youth",context)));
         holder.comment.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL));
         holder.comment.setAdapter(new CommentAdapter(context,itTalk.getCommentList()));
     }

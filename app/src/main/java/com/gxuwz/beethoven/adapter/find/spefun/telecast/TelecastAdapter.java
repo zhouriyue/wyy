@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.find.Telecast;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 import com.gxuwz.beethoven.util.WindowPixels;
 
@@ -41,7 +41,7 @@ public class TelecastAdapter extends RecyclerView.Adapter<TelecastAdapter.Teleca
         holder.onlineNumber.setText(telecast.getOnlineNumber()+"");
         holder.title.setText(telecast.getTitle());
         holder.tagType.setText(telecast.getType());
-        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(telecast.getImg(),context),itemWidth,itemWidth,5));
+        holder.img.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(telecast.getImg(),context),itemWidth,itemWidth,5));
     }
 
     @Override

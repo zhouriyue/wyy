@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.model.entity.my.collect.YunVillage;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class LikeYunVillageAdapter extends RecyclerView.Adapter<LikeYunVillageAd
     @Override
     public void onBindViewHolder(@NonNull LyvViewHolder holder, int position) {
         YunVillage yunVillage = yunVillageList.get(position);
-        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtil.getRes(yunVillage.getDiagonal(),context),60,60,10));
+        holder.diagonal.setImageBitmap(MergeImage.roundedCustomDB(HttpUtils.getRes(yunVillage.getDiagonal(),context),60,60,10));
         holder.title.setText(yunVillage.getTitle());
         holder.content.setText(yunVillage.getContent());
     }

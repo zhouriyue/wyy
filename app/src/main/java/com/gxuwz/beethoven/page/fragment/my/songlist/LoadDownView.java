@@ -14,19 +14,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.gxuwz.beethoven.R;
 import com.gxuwz.beethoven.adapter.my.songlist.SDLPopWinAdapter;
+import com.gxuwz.beethoven.adapter.popwind.SonglistOperAdapter;
 import com.gxuwz.beethoven.model.entity.current.Operate;
 import com.gxuwz.beethoven.model.entity.current.Singer;
 import com.gxuwz.beethoven.model.entity.current.Song;
-import com.gxuwz.beethoven.model.entity.my.songlist.SLMore;
+import com.gxuwz.beethoven.model.entity.current.Songlist;
 import com.gxuwz.beethoven.page.fragment.search.SaveToSonglistPw;
-import com.gxuwz.beethoven.util.HttpUtil;
+import com.gxuwz.beethoven.util.HttpUtils;
 import com.gxuwz.beethoven.util.MergeImage;
-import com.gxuwz.beethoven.util.WindowPixels;
 import com.gxuwz.beethoven.util.staticdata.StaticHttp;
 
 import java.lang.reflect.Type;
@@ -66,7 +65,6 @@ public class LoadDownView {
         songName.setText(song.getSongName());
         initSinger(singerName);
         if(song!=null) {
-            loadDownPopuWindow.initPopupWindow();
             SDLPopWinAdapter sdlPopWinAdapter = new SDLPopWinAdapter(context,operates,saveToSonglistPw,view,slId,song);
             sdlPopWinAdapter.setLdPopupWindow(loadDownPopuWindow.popupWindow);
             slMoreRv.setAdapter(sdlPopWinAdapter);
@@ -91,6 +89,19 @@ public class LoadDownView {
             slMoreRv.setAdapter(sdlPopWinAdapter);
         }
 
+        this.view = view;
+        loadDownPopuWindow.showAtLocation(this.view);
+    }
+
+    public void initView(List<Operate> operates, View view, Songlist songlist){
+        if(songlist.getCoverPicture()!=null) {
+            MergeImage.showGlideImg(context,StaticHttp.STATIC_BASEURL+songlist.getCoverPicture(),img);
+        } else {
+            MergeImage.showGlideImg(context,StaticHttp.DEFALUT_SONGLIST_COVERPICTURE,img);
+        }
+        songName.setText(songlist.getSlName());
+        SonglistOperAdapter songlistOperAdapter = new SonglistOperAdapter(context,operates,songlist);
+        slMoreRv.setAdapter(songlistOperAdapter);
         this.view = view;
         loadDownPopuWindow.showAtLocation(this.view);
     }
@@ -122,8 +133,7 @@ public class LoadDownView {
         };
         String url = StaticHttp.BASEURL + StaticHttp.SELECT_SINGER;
         url += "?songId="+song.getSongId();
-        System.out.println(url);
-        HttpUtil.get(url,handler);
+        HttpUtils.get(url,handler);
     }
 
     public void initOnClick(){
@@ -141,5 +151,13 @@ public class LoadDownView {
         this.img = this.slLoadDownView.findViewById(R.id.img);
         this.songName = this.slLoadDownView.findViewById(R.id.song_name);
         this.singerName = this.slLoadDownView.findViewById(R.id.singer_name);
+    }
+
+    public LoadDownPopuWindow getLoadDownPopuWindow() {
+        return loadDownPopuWindow;
+    }
+
+    public void setLoadDownPopuWindow(LoadDownPopuWindow loadDownPopuWindow) {
+        this.loadDownPopuWindow = loadDownPopuWindow;
     }
 }

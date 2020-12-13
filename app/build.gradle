@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.search_menu.runner.AndroidJUnitRunner"
+        resConfigs "en", "zh-rCN"
     }
     buildTypes {
         release {
@@ -86,4 +87,10 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
     implementation files('libs\\fastjson-1.2.74.jar')
+
+    // Add dependencies.
+    implementation 'com.huawei.hms:hwid:5.0.3.301'
+    implementation 'com.huawei.hms:iap:5.0.4.301'
 }
+// Add the information to the bottom of the file.
+apply plugin: 'com.huawei.agconnect'

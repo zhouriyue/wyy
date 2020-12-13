@@ -176,32 +176,24 @@ public class DownloadTask {
                 int start = mThreadInfo.getStart() + mThreadInfo.getFinished();
                 conn.setRequestProperty("Range", "bytes=" + start + "-" + mThreadInfo.getEnds());
                 //设置文件写入位置
-                String path = mFileInfo.getUrl();
-                path = path.split("/static/")[1];
-                String[] packages = path.split("/");
-                String pathName = DownloadService.DOWNLOAD_PATH;
-                if(packages!=null&&packages.length!=0) {
-                    File file = new File(pathName += packages[0]);
-                    if(!file.exists()) {
-                        file.mkdir();
-                    }
-                }
-                for(int i = 1;i < packages.length-1;i++) {
-                    File file = new File(pathName+="/"+packages[i]);
-                    if(!file.exists()) {
-                        file.mkdir();
-                    }
-                }
-                File file = null;
-                if(mThreadInfo.getDownType()!=0) {
-                    String fileType = path.substring(path.lastIndexOf("."));
-                    file = new File(pathName+"/"+mThreadInfo.getFileName()+fileType);
+                String fileName = mFileInfo.getUrl().substring(mFileInfo.getUrl().lastIndexOf("/"));
+                String fileType = fileName.substring(fileName.lastIndexOf(".")+1);
+                String path = "";
+                if("lrc".equals(fileType)){
+                    path = "lrc";
                 } else {
-                    file = new File(DownloadService.DOWNLOAD_PATH+path);
+                    path = "music";
                 }
+                File file = new File(DownloadService.DOWNLOAD_PATH+path);
+                if(!file.exists()) {
+                    file.mkdir();
+                }
+                file = new File(DownloadService.DOWNLOAD_PATH+path+fileName);
                 raf = new RandomAccessFile(file, "rwd");
                 raf.seek(start);
                 int code = conn.getResponseCode();
+                System.out.println(mThreadInfo.getUrl());
+                System.out.println(code);
                 //开始下载
                 if (code == HttpURLConnection.HTTP_PARTIAL) {
                     //读取数据
@@ -214,6 +206,7 @@ public class DownloadTask {
                         //把下载进度发送广播给Activity
                         //整个文件的下载进度
                         mFinished += len;
+                        System.out.println(len);
                         //每个线程的下载进度
                         mThreadInfo.setFinished(mThreadInfo.getFinished() + len);
                         //在暂停时保存下载进度

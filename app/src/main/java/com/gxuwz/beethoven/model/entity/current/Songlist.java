@@ -52,6 +52,8 @@ public class Songlist implements Serializable {
     /** 删除标识符 */
     private Integer delFlag;
 
+    private SysUser SysUser;
+
     public Songlist() {
     }
 
@@ -181,5 +183,36 @@ public class Songlist implements Serializable {
 
     public void setDelFlag(Integer delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public SysUser getSysUser() {
+        return SysUser;
+    }
+
+    public void setSysUser(SysUser sysUser) {
+        SysUser = sysUser;
+    }
+
+    @Override
+    public String toString() {
+        return "Songlist{" +
+                "slId=" + slId +
+                ", slName='" + slName + '\'' +
+                ", coverPicture='" + coverPicture + '\'' +
+                ", slTitle='" + slTitle + '\'' +
+                ", playNumber=" + playNumber +
+                ", songNumber=" + songNumber +
+                ", colNumber=" + colNumber +
+                ", commentsNumber=" + commentsNumber +
+                ", shareNumber=" + shareNumber +
+                ", createById=" + createById +
+                ", detail='" + detail + '\'' +
+                ", isAlbum=" + isAlbum +
+                ", sinId=" + sinId +
+                ", isPublic=" + isPublic +
+                ", delTime=" + delTime +
+                ", delFlag=" + delFlag +
+                ", SysUser=" + SysUser +
+                '}';
     }
 }
